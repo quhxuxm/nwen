@@ -11,6 +11,10 @@ div {
     align-items: baseline;
     justify-items: start;
     span.p2 {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      justify-items: start;
       font-size: 30px;
       span.p3 {
         display: flex;
