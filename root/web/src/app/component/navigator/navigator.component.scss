@@ -1,0 +1,21 @@
+.navigator-container {
+  height: 100%;
+}
+.side-navigator {
+  width: 200px;
+  background-color: green;
+}
+.top-navigator {
+  position: sticky;
+  top: 0;
+  height: 72px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

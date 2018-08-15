@@ -1,0 +1,24 @@
+<svg width="281" height="166" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <defs>
+  <filter height="200%" width="200%" y="-50%" x="-50%" id="svg_1_blur">
+   <feGaussianBlur stdDeviation="0" in="SourceGraphic"/>
+  </filter>
+  <filter id="svg_2_blur">
+   <feGaussianBlur stdDeviation="0" in="SourceGraphic"/>
+  </filter>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="168" width="283" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="2" x="2" height="608" width="1276"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <text filter="url(#svg_1_blur)" font-style="normal" font-weight="bold" canvas="#0fffff" canvas-opacity="1" xml:space="preserve" text-anchor="start" font-family="'Times New Roman', Times, serif" font-size="250" id="svg_1" y="166" stroke-width="0" stroke="#000" fill="#000000">N</text>
+  <text opacity="0.28" filter="url(#svg_2_blur)" font-style="italic" xml:space="preserve" text-anchor="start" font-family="'Times New Roman', Times, serif" font-size="74" id="svg_2" y="33.8" x="187.15625" stroke-width="0" stroke="#000" fill="#000000">ue</text>
+  <text font-weight="bold" xml:space="preserve" text-anchor="start" font-family="'Times New Roman', Times, serif" font-size="131" id="svg_3" y="147.8" x="153.5" stroke-width="0" stroke="#000" fill="#000000">文</text>
+ </g>
+</svg>
