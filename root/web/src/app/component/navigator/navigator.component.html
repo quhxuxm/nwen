@@ -5,19 +5,34 @@
     fixedInViewport="true"
     [mode]="'over'"
     [opened]="false">
-    <mat-toolbar color="primary">Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
-    </mat-nav-list>
+    <mat-toolbar class="logo-container">
+      <nwen-logo class="logo" routerLink="/home"></nwen-logo>
+    </mat-toolbar>
+    <ul>
+      <li>
+        <a href="#">登陆/注册</a>
+      </li>
+      <li>
+        <a href="#">焦点N文</a>
+      </li>
+      <li>
+        <a href="#">N文连载</a>
+      </li>
+      <li>
+        <a href="#">关于我们</a>
+      </li>
+    </ul>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar class="top-navigator">
-      <button (click)="sideNavigator.toggle()">
-        导读
+      <button mat-icon-button
+              (click)="sideNavigator.toggle()" class="side-navigator-open-btn">
+        <fa-icon [icon]="['fas', 'bars']"></fa-icon>
       </button>
-      <nwen-logo size="1_5x" class="logo"></nwen-logo>
+      <nwen-logo routerLink="/home" class="logo"></nwen-logo>
+      <button mat-button class="create-article-btn">
+        写N文
+      </button>
     </mat-toolbar>
     <ng-content></ng-content>
   </mat-sidenav-content>

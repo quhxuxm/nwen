@@ -1,0 +1,8 @@
+<div class="container">
+  <section class="column" [style.width.%]="100/columnNumber"
+           *ngFor="let column of summaryColumns; let i = index">
+    <nwen-article-summary-card *ngFor="let summary of column" [articleSummary]="summary"
+                               [isLastColumn]="i === columnNumber-1">
+    </nwen-article-summary-card>
+  </section>
+</div>

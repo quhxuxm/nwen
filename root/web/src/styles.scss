@@ -3,7 +3,8 @@
 html, body {
   height: 100%;
   width: 100%;
-  font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+  font-family:$GLOBAL_FONT_FAMILY_BASE;
+  color: $GLOBAL_COLOR_TEXT_LV5;
   main {
     width: 100%;
     height: 100%;

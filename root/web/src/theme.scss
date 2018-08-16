@@ -1,0 +1,83 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$nwen-app-primary: mat-palette($mat-gray, 300, 200, 400);
+$nwen-app-accent: mat-palette($mat-gray, 300, 200, 400);
+
+// The warn palette is optional (defaults to red).
+$nwen-app-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$nwen-app-light-theme: mat-light-theme($nwen-app-primary, $nwen-app-accent, $nwen-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+//@include angular-material-theme($nwen-app-light-theme);
+
+// Input box theme
+
+$nwen-app-input-primary: mat-palette($mat-gray, 800, 500, 900);
+$nwen-app-input-accent: mat-palette($mat-gray, 800, 300, 900);
+
+// The warn palette is optional (defaults to red).
+$nwen-app-input-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$nwen-app-input-light-theme: mat-light-theme($nwen-app-input-primary, $nwen-app-input-accent, $nwen-app-input-warn);
+
+// Make one component in a special theme
+@include mat-core-theme($nwen-app-light-theme);
+@include mat-button-theme($nwen-app-light-theme);
+@include mat-button-toggle-theme($nwen-app-light-theme)
+@include mat-checkbox-theme($nwen-app-input-light-theme);
+@include mat-ripple-theme($nwen-app-light-theme)
+@include mat-option-theme($nwen-app-light-theme)
+@include mat-optgroup-theme($nwen-app-light-theme)
+@include mat-pseudo-checkbox-theme($nwen-app-light-theme)
+@include mat-autocomplete-theme($nwen-app-light-theme)
+@include mat-badge-theme($nwen-app-light-theme)
+@include mat-bottom-sheet-theme($nwen-app-light-theme)
+@include mat-card-theme($nwen-app-light-theme)
+@include mat-chips-theme($nwen-app-light-theme)
+@include mat-table-theme($nwen-app-light-theme)
+@include mat-datepicker-theme($nwen-app-light-theme)
+@include mat-dialog-theme($nwen-app-light-theme)
+@include mat-expansion-panel-theme($nwen-app-light-theme)
+@include mat-grid-list-theme($nwen-app-light-theme)
+@include mat-icon-theme($nwen-app-light-theme)
+@include mat-input-theme($nwen-app-input-light-theme)
+@include mat-list-theme($nwen-app-light-theme)
+@include mat-menu-theme($nwen-app-light-theme)
+@include mat-paginator-theme($nwen-app-light-theme)
+@include mat-progress-bar-theme($nwen-app-light-theme)
+@include mat-progress-spinner-theme($nwen-app-light-theme)
+@include mat-radio-theme($nwen-app-input-light-theme);
+@include mat-select-theme($nwen-app-light-theme);
+@include mat-sidenav-theme($nwen-app-light-theme)
+@include mat-slide-toggle-theme($nwen-app-light-theme)
+@include mat-slider-theme($nwen-app-light-theme)
+@include mat-stepper-theme($nwen-app-light-theme)
+@include mat-sort-theme($nwen-app-light-theme)
+@include mat-tabs-theme($nwen-app-light-theme)
+@include mat-toolbar-theme($nwen-app-light-theme)
+@include mat-tooltip-theme($nwen-app-light-theme)
+@include mat-snack-bar-theme($nwen-app-light-theme)
+@include mat-form-field-fill-theme($nwen-app-input-light-theme)
+@include mat-form-field-legacy-theme($nwen-app-input-light-theme)
+@include mat-form-field-outline-theme($nwen-app-input-light-theme)
+@include mat-form-field-standard-theme($nwen-app-input-light-theme)
+@include mat-form-field-theme($nwen-app-input-light-theme)
+@include mat-tree-theme($nwen-app-light-theme)
+@include mat-divider-theme($nwen-app-light-theme)
+
+
+
