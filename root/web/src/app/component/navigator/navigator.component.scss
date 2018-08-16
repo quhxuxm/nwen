@@ -1,4 +1,4 @@
-@import "../../../common";
+@import "~src/common";
 .navigator-container {
   height: 100%;
 }
@@ -30,7 +30,7 @@
       justify-items: center;
       align-items: center;
       a {
-        font-size: 18px;
+        font-size: 26px;
         text-decoration: none;
         display: flex;
         flex-direction: column;
@@ -74,7 +74,12 @@
   .create-article-btn {
     margin-left: auto;
     height: 100%;
-    font-size: 18px;
+    font-size: 26px;
+    font-family: nwen;
+    font-weight: 400;
     color: $GLOBAL_COLOR_TEXT_EMPHASIZE_LV5;
+  }
+  .create-article-btn:hover{
+    color: $GLOBAL_COLOR_TEXT_EMPHASIZE_LV3;
   }
 }

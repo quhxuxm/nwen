@@ -1,0 +1,19 @@
+@import "~src/common";
+.article-jumbotron-card-container {
+  width: 100%;
+  height: 524px;
+  overflow: hidden;
+  nwen-article-summary-card {
+    margin-left: auto;
+    margin-right: auto;
+    .article-summary-card {
+      header {
+        max-width: 50% !important;
+      }
+      section {
+        max-width: 50% !important;
+      }
+    }
+
+  }
+}

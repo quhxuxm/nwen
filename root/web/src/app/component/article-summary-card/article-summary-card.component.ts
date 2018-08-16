@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ArticleSummary} from '../../vo/article-summary';
+import {ArticleSummaryCard} from '../../vo/ui/article-summary-card';
 
 @Component({
   selector: 'nwen-article-summary-card',
@@ -8,9 +8,9 @@ import {ArticleSummary} from '../../vo/article-summary';
 })
 export class ArticleSummaryCardComponent implements OnInit {
   @Input()
-  articleSummary: ArticleSummary;
+  card: ArticleSummaryCard;
   @Input()
-  isLastColumn: boolean;
+  isInLastColumn: boolean;
 
   constructor() {
   }

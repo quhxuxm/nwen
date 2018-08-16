@@ -1,17 +1,17 @@
-<article class="article-summary-card last" [class.last]="isLastColumn">
+<article class="article-summary-card last" [class.last]="isInLastColumn">
   <header>
-    <a class="title" routerLink="/article/{{articleSummary.id}}">
-      {{articleSummary.title}}
+    <a class="title" routerLink="/article/{{card.summary.id}}">
+      {{card.summary.title}}
     </a>
-    <a class="author" routerLink="/author/{{articleSummary.authorId}}">
-      {{articleSummary.authorNickName}}
+    <a class="author" routerLink="/author/{{card.summary.authorId}}">
+      {{card.summary.authorNickName}}
     </a>
   </header>
   <section>
-    {{articleSummary.content}}
+    {{card.summary.content}}
   </section>
-  <footer *ngIf="articleSummary.coverImgId" routerLink="/article/{{articleSummary.id}}"
+  <div class="coverImg" [class.filter]="card.useFilter" *ngIf="card.summary.coverImgId" routerLink="/article/{{card.summary.id}}"
           style="background-image: url('https://material.angular.io/assets/img/examples/shiba2.jpg')">
-  </footer>
+  </div>
 </article>
 

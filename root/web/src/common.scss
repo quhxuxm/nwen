@@ -1,29 +1,19 @@
 @import "theme";
 //Global font family
 @font-face {
-  font-family: nwen-title-en1;
-  src: url(/assets/font/times.TTF);
-  src: url(/assets/font/timesbd.TTF);
-  src: url(/assets/font/timesbi.TTF);
-  src: url(/assets/font/timesi.TTF);
-}
-@font-face {
-  font-family: nwen-title-zh1;
+  font-family: nwen;
   src: url(/assets/font/FZYTK.TTF);
 }
-@font-face {
-  font-family: nwen-title-zh2;
-  src: url(/assets/font/STSONG.TTF);
-}
-$GLOBAL_FONT_FAMILY_BASE: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+$GLOBAL_FONT_FAMILY_BASE: -apple-system, SF UI Text, Arial, nwen, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
 //Global colors
 $GLOBAL_COLOR_TEXT_LV5: #000000;
 $GLOBAL_COLOR_TEXT_LV3: mat-color($mat-gray, 600);
+$GLOBAL_COLOR_TEXT_EMPHASIZE_LV3: mat-color($mat-red, 600);
+$GLOBAL_COLOR_TEXT_EMPHASIZE_LV4: mat-color($mat-brown, 500);
 $GLOBAL_COLOR_TEXT_EMPHASIZE_LV5: mat-color($mat-red, 900);
 $GLOBAL_COLOR_BORDER_LV0: #FFFFFF;
 $GLOBAL_COLOR_BORDER_LV3: mat-color($mat-gray, 300);
 $GLOBAL_COLOR_BORDER_LV5: #000000;
-
 
 //Global breakpoint of width
 $GLOBAL_WIDTH_LV1: 330px;

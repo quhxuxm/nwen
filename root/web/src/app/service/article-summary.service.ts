@@ -1,6 +1,10 @@
 import {Injectable} from '@angular/core';
 import {ArticleSummary} from '../vo/article-summary';
 
+export class ArticleSummaryQueryCondition {
+  resultNumber: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -8,9 +12,9 @@ export class ArticleSummaryService {
   constructor() {
   }
 
-  private generateMockSummaries(): ArticleSummary[] {
+  private generateMockSummaries(articleNumber: number): ArticleSummary[] {
     const summaries: ArticleSummary[] = [];
-    for (let i = 1; i <= 12; i++) {
+    for (let i = 0; i < articleNumber; i++) {
       const s =
         new ArticleSummary();
       s.id = i;
@@ -26,38 +30,7 @@ export class ArticleSummaryService {
     return summaries;
   }
 
-  getSummariesOrderByBookmarkNumber(): ArticleSummary[] {
-    console.log('getSummariesOrderByBookmarkNumber');
-    return this.generateMockSummaries();
-  }
-
-  getSummariesOrderByCreatedDate(): ArticleSummary[] {
-    console.log('getSummariesOrderByCreatedDate');
-    return this.generateMockSummaries();
-  }
-
-  getSummariesOrderByViewNumber(): ArticleSummary[] {
-    console.log('getSummariesOrderByViewNumber');
-    return this.generateMockSummaries();
-  }
-
-  getSummariesOrderByPraiseNumber(): ArticleSummary[] {
-    console.log('getSummariesOrderByPraiseNumber');
-    return this.generateMockSummaries();
-  }
-
-  getSummariesOrderByCommentNumber(): ArticleSummary[] {
-    console.log('getSummariesOrderByCommentNumber');
-    return this.generateMockSummaries();
-  }
-
-  getSummariesOfLabels(labels: string[]): ArticleSummary[] {
-    console.log('getSummariesOfLabels with labels = ' + labels.join(','));
-    return this.generateMockSummaries();
-  }
-
-  getSummariesOfAnthology(anthologyId: number): ArticleSummary[] {
-    console.log('getSummariesOfAnthology with anthology id = ' + anthologyId);
-    return this.generateMockSummaries();
+  query(condition: ArticleSummaryQueryCondition): ArticleSummary[] {
+    return this.generateMockSummaries(condition.resultNumber);
   }
 }

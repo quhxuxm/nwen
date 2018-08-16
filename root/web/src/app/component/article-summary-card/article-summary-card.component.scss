@@ -1,4 +1,4 @@
-@import "../../../common";
+@import "~src/common";
 .article-summary-card {
   overflow: hidden;
   padding: 16px;
@@ -8,7 +8,9 @@
   align-items: start;
   justify-items: start;
   height: 760px;
-  border-right: 1px solid $GLOBAL_COLOR_BORDER_LV5;
+  margin-left: auto;
+  margin-right: auto;
+  border-right: 1.5px solid $GLOBAL_COLOR_BORDER_LV5;
 
   header {
     width: 100%;
@@ -18,13 +20,13 @@
     justify-items: start;
     a.title {
       font-size: 70px;
-      font-family: nwen-title-en1, nwen-title-zh1;
+      font-family: nwen;
       font-weight: lighter;
       color: $GLOBAL_COLOR_TEXT_LV5;
       line-height: 70px;
       text-decoration: none;
       margin-bottom: 8px;
-      font-feature-settings: 'clig' 0,'calt' 0,'case' 1;
+      font-feature-settings: 'clig' 0, 'calt' 0, 'case' 1;
       font-kerning: normal;
       font-variant-ligatures: common-ligatures;
       text-transform: uppercase;
@@ -32,14 +34,12 @@
       overflow: hidden;
       word-wrap: break-word;
     }
-    a:hover{
-      color: $GLOBAL_COLOR_TEXT_EMPHASIZE_LV5;
-    }
+
     a.author {
       font-size: 30px;
       color: $GLOBAL_COLOR_TEXT_LV5;
       text-decoration: none;
-      font-family: nwen-title-en1, nwen-title-zh1;
+      font-family: nwen;
       margin: 8px;
       font-weight: 400;
       overflow: hidden;
@@ -47,16 +47,22 @@
       word-wrap: break-word;
       max-height: 205px;
     }
+    a.author:hover {
+      color: $GLOBAL_COLOR_TEXT_EMPHASIZE_LV4;
+    }
   }
   section {
     font-size: 20px;
     width: 100%;
     max-height: 300px;
-    font-family: nwen-title-en1, nwen-title-zh1;
+    font-family: nwen;
     margin: 8px;
     font-weight: 400;
   }
-  footer {
+  section:hover {
+    color: $GLOBAL_COLOR_TEXT_EMPHASIZE_LV4;
+  }
+  div.coverImg {
     width: 100%;
     flex-grow: 1;
     flex-shrink: 1;
@@ -64,14 +70,24 @@
     background-size: cover !important;
     background-origin: border-box !important;
     background-color: transparent;
+  }
+
+  div.coverImg.filter {
     filter: grayscale(100%);
   }
 }
 .article-summary-card.last {
   border-right: none;
 }
-.article-summary-card:hover{
-  footer{
+.article-summary-card:hover {
+  header {
+    a.title {
+      color: $GLOBAL_COLOR_TEXT_EMPHASIZE_LV5;
+    }
+  }
+  div.coverImg.filter {
     filter: grayscale(0%);
   }
 }
+
+
