@@ -44,7 +44,7 @@ export class ArticleSummaryCardColumnContainerComponent implements OnInit {
     }
     this.columnNumber = this.maxColumnNumber;
     if (this.summaryCards.length < this.columnNumber) {
-      console.debug('The summaries number is smaller than the column number, use the summary number as column number.');
+      console.info('The summaries number is smaller than the column number, use the summary number as column number.');
       this.columnNumber = this.summaryCards.length;
     }
     this.BREAKPOINT_COLUMN_NUMBER.forEach((v, k, m) => {

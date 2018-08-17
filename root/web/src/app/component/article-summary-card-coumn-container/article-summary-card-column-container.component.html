@@ -4,7 +4,7 @@
     <nwen-article-summary-card *ngFor="let card of column" [card]="card"
                                [isInLastColumn]="i === columnNumber-1" containerType="column"
                                [showArticle]="showArticle"
-                               [showCoverImage]="showCoverImage">
+                               [showCoverImage]="showCoverImage" class="column-container">
     </nwen-article-summary-card>
   </section>
 </div>

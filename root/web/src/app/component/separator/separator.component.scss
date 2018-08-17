@@ -1,0 +1,31 @@
+@import "~src/common";
+.separator {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: start;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  span.label {
+    font-size: 24px;
+    display: inline-block;
+    font-weight: 400;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin: 16px;
+  }
+  span.inner-bar-right {
+    flex-grow: 1;
+    flex-shrink: 1;
+    border-bottom: 2px solid $GLOBAL_COLOR_BORDER_LV5;
+    height: 0.5px;
+  }
+  span.inner-bar-left {
+    flex-grow: 1;
+    flex-shrink: 1;
+    border-bottom: 2px solid $GLOBAL_COLOR_BORDER_LV5;
+    height: 0.5px;
+  }
+}
+
