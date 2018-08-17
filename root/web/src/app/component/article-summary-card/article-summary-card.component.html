@@ -1,17 +1,21 @@
-<article class="article-summary-card last" [class.last]="isLastColumn">
-  <header>
-    <a class="title" routerLink="/article/{{articleSummary.id}}">
-      {{articleSummary.title}}
-    </a>
-    <a class="author" routerLink="/author/{{articleSummary.authorId}}">
-      {{articleSummary.authorNickName}}
-    </a>
-  </header>
-  <section>
-    {{articleSummary.content}}
-  </section>
-  <footer *ngIf="articleSummary.coverImgId" routerLink="/article/{{articleSummary.id}}"
-          style="background-image: url('https://material.angular.io/assets/img/examples/shiba2.jpg')">
-  </footer>
-</article>
+<div class="article-summary-card last" [class.last]="isInLastColumn"
+     [class.jumbotron-container]="'jumbotron'===containerType" [class.column-container]="'column'===containerType">
+  <article *ngIf="showArticle">
+    <header>
+      <a class="title" routerLink="/article/{{card.summary.id}}">
+        {{card.summary.title}}
+      </a>
+      <a class="author" routerLink="/author/{{card.summary.authorId}}">
+        {{card.summary.authorNickName}}
+      </a>
+    </header>
+    <section>
+      {{card.summary.content}}
+    </section>
+  </article>
+  <div class="coverImg" [class.filter]="card.useCoverImageFilter" *ngIf="showCoverImage && card.summary.coverImgId"
+       routerLink="/article/{{card.summary.id}}"
+       style="background-image: url('/assets/image/1.jpg')">
+  </div>
+</div>
 

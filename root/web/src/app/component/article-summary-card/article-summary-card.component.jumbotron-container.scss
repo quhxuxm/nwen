@@ -1,0 +1,114 @@
+@import "~src/common";
+.article-summary-card.jumbotron-container {
+  overflow: hidden;
+  padding: 16px;
+  background-color: inherit;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: start;
+  height: 524px;
+  margin-left: auto;
+  margin-right: auto;
+  border-right: 1.5px solid $GLOBAL_COLOR_BORDER_LV5;
+
+  article {
+    width: 50%;
+    margin-right: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-items: start;
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: hidden;
+    max-height: 80%;
+    header {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-items: start;
+      flex-grow: 0;
+      flex-shrink: 0;
+      a.title {
+        font-size: 70px;
+        font-family: nwen;
+        font-weight: lighter;
+        color: $GLOBAL_COLOR_TEXT_LV5;
+        line-height: 70px;
+        text-decoration: none;
+        margin-bottom: 8px;
+        font-feature-settings: 'clig' 0, 'calt' 0, 'case' 1;
+        font-kerning: normal;
+        font-variant-ligatures: common-ligatures;
+        text-transform: uppercase;
+        max-height: 350px;
+        overflow: hidden;
+        word-wrap: break-word;
+      }
+
+      a.author {
+        font-size: 30px;
+        color: $GLOBAL_COLOR_TEXT_LV5;
+        text-decoration: none;
+        font-family: nwen;
+        margin: 8px;
+        font-weight: 400;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        max-height: 205px;
+      }
+      a.author:hover {
+        color: $GLOBAL_COLOR_TEXT_EMPHASIZE_LV4;
+      }
+    }
+    section {
+      font-size: 20px;
+      width: 100%;
+      max-height: 175px;
+      font-family: nwen;
+      margin: 8px;
+      font-weight: 400;
+      flex-grow: 1;
+      flex-shrink: 1;
+    }
+    section:hover {
+      color: $GLOBAL_COLOR_TEXT_EMPHASIZE_LV4;
+    }
+  }
+
+  div.coverImg {
+    width: 50%;
+    height: 80%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    background-position: 50% 50% !important;
+    background-size: cover !important;
+    background-origin: border-box !important;
+    background-color: transparent;
+  }
+
+  div.coverImg.filter {
+    filter: grayscale(100%);
+  }
+}
+.article-summary-card.jumbotron-container.last {
+  border-right: none;
+}
+.article-summary-card.jumbotron-container:hover {
+  article {
+    header {
+      a.title {
+        color: $GLOBAL_COLOR_TEXT_EMPHASIZE_LV5;
+      }
+    }
+  }
+
+  div.coverImg.filter {
+    filter: grayscale(0%);
+  }
+}
+
+
