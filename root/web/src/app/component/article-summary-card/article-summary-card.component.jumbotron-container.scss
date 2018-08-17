@@ -54,7 +54,7 @@
         word-wrap: break-word;
       }
       a.author {
-        font-size: 30px;
+        font-size: 22px;
         color: $GLOBAL_COLOR_TEXT_LV5;
         text-decoration: none;
         font-family: nwen;
@@ -70,7 +70,7 @@
       }
     }
     section {
-      font-size: 20px;
+      font-size: 18px;
       width: 100%;
       max-height: 175px;
       font-family: nwen;
@@ -115,22 +115,27 @@
     filter: grayscale(0%);
   }
 }
-
-@include responsive($GLOBAL_WIDTH_LV5){
-  .container.jumbotron-container{
+@include responsive($GLOBAL_WIDTH_LV5) {
+  .container.jumbotron-container {
     flex-direction: row;
     align-items: center;
     justify-items: start;
     article {
       width: 50%;
       margin-right: 32px;
-      header{
+      header {
         a.title {
           font-size: 70px;
           line-height: 70px;
           max-height: 350px;
         }
+        a.author {
+          font-size: 30px;
+        }
       }
+    }
+    section {
+      font-size: 20px;
     }
     div.coverImg {
       width: 50%;
