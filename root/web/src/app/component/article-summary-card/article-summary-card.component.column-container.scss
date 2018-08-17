@@ -1,5 +1,5 @@
 @import "~src/common";
-.article-summary-card.column-container {
+.container.column-container {
   overflow: hidden;
   padding: 16px;
   background-color: inherit;
@@ -88,10 +88,10 @@
     filter: grayscale(100%);
   }
 }
-.article-summary-card.column-container.last {
+.container.column-container.last {
   border-right: none;
 }
-.article-summary-card.column-container:hover {
+.container.column-container:hover {
   article {
     header {
       a.title {

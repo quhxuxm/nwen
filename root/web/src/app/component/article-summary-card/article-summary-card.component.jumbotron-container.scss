@@ -1,5 +1,5 @@
 @import "~src/common";
-.article-summary-card.jumbotron-container {
+.container.jumbotron-container {
   overflow: hidden;
   padding: 16px;
   background-color: inherit;
@@ -94,10 +94,10 @@
     filter: grayscale(100%);
   }
 }
-.article-summary-card.jumbotron-container.last {
+.container.jumbotron-container.last {
   border-right: none;
 }
-.article-summary-card.jumbotron-container:hover {
+.container.jumbotron-container:hover {
   article {
     header {
       a.title {
@@ -110,5 +110,3 @@
     filter: grayscale(0%);
   }
 }
-
-
