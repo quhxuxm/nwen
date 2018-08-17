@@ -9,9 +9,9 @@ import {ArticleSummaryCard} from '../../vo/ui/article-summary-card';
 })
 export class ArticleSummaryCardColumnContainerComponent implements OnInit {
   private BREAKPOINT_COLUMN_NUMBER: Map<string[], number> = new Map([
-    [[Breakpoints.XSmall, Breakpoints.Small], 1],
-    [[Breakpoints.Medium], 2],
-    [[Breakpoints.Large], 3],
+    [[Breakpoints.XSmall], 1],
+    [[Breakpoints.Small], 2],
+    [[Breakpoints.Medium, Breakpoints.Large], 3],
     [[Breakpoints.XLarge], 4]
   ]);
   @Input()
@@ -44,7 +44,6 @@ export class ArticleSummaryCardColumnContainerComponent implements OnInit {
     }
     this.columnNumber = this.maxColumnNumber;
     if (this.summaryCards.length < this.columnNumber) {
-      console.info('The summaries number is smaller than the column number, use the summary number as column number.');
       this.columnNumber = this.summaryCards.length;
     }
     this.BREAKPOINT_COLUMN_NUMBER.forEach((v, k, m) => {
@@ -58,6 +57,9 @@ export class ArticleSummaryCardColumnContainerComponent implements OnInit {
               }
               if (this.columnNumber > this.summaryCards.length) {
                 this.columnNumber = this.summaryCards.length;
+              }
+              while (this.summaryCards.length % this.columnNumber !== 0) {
+                this.columnNumber--;
               }
               this.refreshSummaryColumns();
             }
