@@ -1,28 +1,55 @@
+<!-- Top Hot Article -->
 <nwen-article-summary-card-jumbotron-container
-  [summaryCard]="mostPopularArticleSummaryCard">
+  [summaryCard]="topHotArticle">
 </nwen-article-summary-card-jumbotron-container>
+<!--Recent update articles-->
 <div class="container-lv1">
   <nwen-separator [showContent]="true">
-    <fa-icon [icon]="['fas','user']"></fa-icon>
-    <span>焦点N文</span>
-  </nwen-separator>
-</div>
-<nwen-article-summary-card-column-container [maxColumnNumber]="3" [summaryCards]="mostRecentArticleSummaryCards">
-</nwen-article-summary-card-column-container>
-<nwen-separator></nwen-separator>
-<div class="container-lv1">
-  <nwen-jumbotron backgroundImageUrl="'/assets/image/1.jpg'">
-  </nwen-jumbotron>
-</div>
-<div class="container-lv1">
-  <nwen-separator [showLeftBorder]="true" [showRightBorder]="true" [showContent]="true">
-    <span class="anthology-separator">
-      <fa-icon [icon]="['fas','user']"></fa-icon>
-      <span>N文连载</span>
+    <span class="separator-content">
+    <fa-icon [icon]="['fas','book']"></fa-icon>
+    <span class="text">最新N文</span>
     </span>
   </nwen-separator>
 </div>
 <nwen-article-summary-card-column-container [maxColumnNumber]="3" [summaryCards]="mostRecentArticleSummaryCards">
 </nwen-article-summary-card-column-container>
-
-
+<!--Most  hot articles -->
+<div class="container-lv1">
+  <nwen-separator [showContent]="true">
+    <span class="separator-content">
+    <fa-icon [icon]="['fas','fire']"></fa-icon>
+    <span class="text">焦点N文</span>
+    </span>
+  </nwen-separator>
+</div>
+<nwen-article-summary-card-column-container [maxColumnNumber]="3" [summaryCards]="mostRecentArticleSummaryCards">
+</nwen-article-summary-card-column-container>
+<!-- Banner-->
+<div class="container-lv1">
+  <nwen-separator></nwen-separator>
+</div>
+<div class="container-lv1">
+  <nwen-jumbotron backgroundImageUrl="'/assets/image/1.jpg'">
+  </nwen-jumbotron>
+</div>
+<nwen-separator></nwen-separator>
+<!-- Hot anthologies -->
+<div class="container-lv2">
+  <nwen-separator [showLeftBorder]="false" [showRightBorder]="false" [showContent]="true">
+    <span class="separator-content bigger">
+      <fa-icon [icon]="['fas','book-open']"></fa-icon>
+      <span class="text">N文连载</span>
+    </span>
+  </nwen-separator>
+</div>
+<nwen-article-summary-card-column-container [maxColumnNumber]="3" [summaryCards]="mostRecentArticleSummaryCards">
+</nwen-article-summary-card-column-container>
+<nwen-separator></nwen-separator>
+<!-- Banner-->
+<div class="container-lv1">
+  <nwen-jumbotron backgroundImageUrl="'/assets/image/1.jpg'">
+  </nwen-jumbotron>
+</div>
+<!-- Hot author -->
+<nwen-article-summary-card-column-container [maxColumnNumber]="3" [summaryCards]="mostRecentArticleSummaryCards">
+</nwen-article-summary-card-column-container>

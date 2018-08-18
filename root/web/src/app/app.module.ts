@@ -12,6 +12,7 @@ import {LogoComponent} from './component/logo/logo.component';
 import {NavigatorComponent} from './component/navigator/navigator.component';
 import {SeparatorComponent} from './component/separator/separator.component';
 import { JumbotronComponent } from './component/jumbotron/jumbotron.component';
+import { ArticleDetailComponent } from './component/article-detail/article-detail.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { JumbotronComponent } from './component/jumbotron/jumbotron.component';
     HomeComponent,
     ArticleSummaryCardJumbotronContainerComponent,
     SeparatorComponent,
-    JumbotronComponent
+    JumbotronComponent,
+    ArticleDetailComponent
   ],
   imports: [
     BrowserModule,
