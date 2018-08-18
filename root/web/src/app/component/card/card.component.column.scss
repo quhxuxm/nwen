@@ -1,12 +1,12 @@
 @import "~src/common";
-:host(.column-container) {
+:host(.column) {
   width: 100%;
   height: 100%;
   max-width: 100%;
   margin-top: 16px;
   margin-bottom: 16px;
 }
-.container.column-container {
+.container.column {
   overflow: hidden;
   padding: 16px;
   background-color: inherit;
@@ -52,7 +52,7 @@
         word-wrap: break-word;
       }
 
-      a.author {
+      a.sub-title {
         font-size: 22px;
         color: $GLOBAL_COLOR_TEXT_LV5;
         text-decoration: none;
@@ -64,7 +64,7 @@
         word-wrap: break-word;
         max-height: 205px;
       }
-      a.author:hover {
+      a.sub-title:hover {
         color: $GLOBAL_COLOR_TEXT_EMPHASIZE_LV4;
       }
     }
@@ -75,6 +75,8 @@
       margin: 8px;
       font-weight: 400;
       overflow: hidden;
+      cursor: pointer;
+      outline: none;
     }
     section:hover {
       color: $GLOBAL_COLOR_TEXT_EMPHASIZE_LV4;
@@ -89,16 +91,18 @@
     background-size: cover !important;
     background-origin: border-box !important;
     background-color: transparent;
+    cursor: pointer;
+    outline: none;
   }
 
   div.coverImg.filter {
     filter: grayscale(100%);
   }
 }
-.container.column-container.last {
+.container.column.last {
   border-right: none;
 }
-.container.column-container:hover {
+.container.column:hover {
   article {
     header {
       a.title {
@@ -112,7 +116,7 @@
   }
 }
 @include responsive($GLOBAL_WIDTH_LV5) {
-  .container.column-container {
+  .container.column {
 
     article {
       header {
@@ -121,7 +125,7 @@
           line-height: 70px;
           max-height: 350px;
         }
-        a.author {
+        a.sub-title {
           font-size: 30px;
         }
       }

@@ -1,29 +1,23 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ArticleSummaryCard} from '../../vo/ui/article-summary-card';
+import {Card} from '../../vo/ui/card';
 
 @Component({
   selector: 'nwen-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.column-container.scss',
-    './card.component.jumbotron-container.scss']
+  styleUrls: ['./card.component.column.scss',
+    './card.component.jumbotron.scss']
 })
 export class CardComponent implements OnInit {
   @Input()
-  card: ArticleSummaryCard;
+  card: Card;
   @Input()
-  isInLastColumn: boolean;
+  displayType: string;
   @Input()
-  containerType: string;
-  @Input()
-  showArticle: boolean;
-  @Input()
-  showCoverImage: boolean;
+  showRightBorder: boolean;
 
   constructor() {
-    this.showArticle = true;
-    this.showCoverImage = true;
-    this.containerType = 'column';
-    this.isInLastColumn = true;
+    this.displayType = 'column';
+    this.showRightBorder = true;
   }
 
   ngOnInit() {

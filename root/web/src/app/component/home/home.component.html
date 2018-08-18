@@ -1,55 +1,94 @@
 <!-- Top Hot Article -->
 <nwen-card-jumbotron-container
-  [summaryCard]="topHotArticle">
+  [card]="topHotArticle">
 </nwen-card-jumbotron-container>
-<!--Recent update articles-->
+<!--Recent create articles-->
 <div class="container-lv1">
   <nwen-separator [showContent]="true">
-    <span class="separator-content">
-    <fa-icon [icon]="['fas','book']"></fa-icon>
-    <span class="text">最新N文</span>
-    </span>
+    <a class="separator-content" href="#">
+      <fa-icon [icon]="['fas','book']"></fa-icon>
+      <span class="text">最新N文</span>
+      <fa-icon [icon]="['fas','angle-double-right']"></fa-icon>
+    </a>
   </nwen-separator>
 </div>
-<nwen-card-column-container [maxColumnNumber]="3" [summaryCards]="mostRecentArticleSummaryCards">
+<nwen-card-column-container [maxColumnNumber]="3" [cards]="recentCreateArticleCards">
 </nwen-card-column-container>
 <!--Most  hot articles -->
 <div class="container-lv1">
   <nwen-separator [showContent]="true">
-    <span class="separator-content">
-    <fa-icon [icon]="['fas','fire']"></fa-icon>
-    <span class="text">焦点N文</span>
-    </span>
+    <a class="separator-content" href="#">
+      <fa-icon [icon]="['fas','fire']"></fa-icon>
+      <span class="text">焦点N文</span>
+      <fa-icon [icon]="['fas','angle-double-right']"></fa-icon>
+    </a>
   </nwen-separator>
 </div>
-<nwen-card-column-container [maxColumnNumber]="3" [summaryCards]="mostRecentArticleSummaryCards">
+<nwen-card-column-container [maxColumnNumber]="3" [cards]="hotArticles">
 </nwen-card-column-container>
 <!-- Banner-->
 <div class="container-lv1">
   <nwen-separator></nwen-separator>
 </div>
 <div class="container-lv1">
-  <nwen-jumbotron backgroundImageUrl="'/assets/image/1.jpg'">
+  <nwen-jumbotron backgroundImageUrl="'/assets/image/1'">
   </nwen-jumbotron>
 </div>
 <nwen-separator></nwen-separator>
-<!-- Hot anthologies -->
+<!-- Top Hot Anthology -->
+<nwen-card-jumbotron-container
+  [card]="topHotAnthology">
+</nwen-card-jumbotron-container>
+<!-- Recent create anthologies -->
 <div class="container-lv2">
   <nwen-separator [showLeftBorder]="false" [showRightBorder]="false" [showContent]="true">
-    <span class="separator-content bigger">
+    <a class="separator-content bigger" href="#">
       <fa-icon [icon]="['fas','book-open']"></fa-icon>
-      <span class="text">N文连载</span>
-    </span>
+      <span class="text">最新连载</span>
+      <fa-icon [icon]="['fas','angle-double-right']"></fa-icon>
+    </a>
   </nwen-separator>
 </div>
-<nwen-card-column-container [maxColumnNumber]="3" [summaryCards]="mostRecentArticleSummaryCards">
+<nwen-card-column-container [maxColumnNumber]="3" [cards]="recentCreateAnthologies">
+</nwen-card-column-container>
+<div class="container-lv2">
+  <nwen-separator [showLeftBorder]="false" [showRightBorder]="false" [showContent]="true">
+    <a class="separator-content bigger" href="#">
+      <fa-icon [icon]="['fas','boxes']"></fa-icon>
+      <span class="text">最近更新连载</span>
+      <fa-icon [icon]="['fas','angle-double-right']"></fa-icon>
+    </a>
+  </nwen-separator>
+</div>
+<nwen-card-column-container [maxColumnNumber]="3" [cards]="recentUpdateAnthologies">
+</nwen-card-column-container>
+<div class="container-lv2">
+  <nwen-separator [showLeftBorder]="false" [showRightBorder]="false" [showContent]="true">
+    <a class="separator-content bigger" href="#">
+      <fa-icon [icon]="['fab','gripfire']"></fa-icon>
+      <span class="text">热门连载</span>
+      <fa-icon [icon]="['fas','angle-double-right']"></fa-icon>
+    </a>
+  </nwen-separator>
+</div>
+<nwen-card-column-container [maxColumnNumber]="3" [cards]="hotAnthologies">
 </nwen-card-column-container>
 <nwen-separator></nwen-separator>
 <!-- Banner-->
 <div class="container-lv1">
-  <nwen-jumbotron backgroundImageUrl="'/assets/image/1.jpg'">
+  <nwen-jumbotron backgroundImageUrl="'/assets/image/1'">
   </nwen-jumbotron>
 </div>
+<nwen-separator></nwen-separator>
 <!-- Hot author -->
-<nwen-card-column-container [maxColumnNumber]="3" [summaryCards]="mostRecentArticleSummaryCards">
+<div class="container-lv2">
+  <nwen-separator [showLeftBorder]="false" [showRightBorder]="false" [showContent]="true">
+    <a class="separator-content bigger" href="#">
+      <fa-icon [icon]="['fas','user']"></fa-icon>
+      <span class="text">N文作者</span>
+      <fa-icon [icon]="['fas','angle-double-right']"></fa-icon>
+    </a>
+  </nwen-separator>
+</div>
+<nwen-card-column-container [maxColumnNumber]="4" [cards]="recentCreateArticleCards">
 </nwen-card-column-container>

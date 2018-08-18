@@ -1,10 +1,10 @@
-<div class="container" *ngIf="showArticle || showCoverImage">
-  <section class="column" [style.width.%]="100/columnNumber"
-           *ngFor="let column of summaryCardColumns; let i = index">
+<div class="container">
+  <section class="column" [style.width.%]="100/__columnNumber"
+           *ngFor="let column of __cardColumns; let i = index">
     <nwen-card *ngFor="let card of column" [card]="card"
-               [isInLastColumn]="i === columnNumber-1" containerType="column"
-               [showArticle]="showArticle"
-               [showCoverImage]="showCoverImage" class="column-container">
+               [showRightBorder]="!(i === __columnNumber-1)"
+               [displayType]="cardDisplayType"
+               class="column">
     </nwen-card>
   </section>
 </div>

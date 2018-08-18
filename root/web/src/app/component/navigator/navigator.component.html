@@ -13,10 +13,16 @@
         <a href="#">登陆/注册</a>
       </li>
       <li>
+        <a href="#">最新N文</a>
+      </li>
+      <li>
         <a href="#">焦点N文</a>
       </li>
       <li>
         <a href="#">N文连载</a>
+      </li>
+      <li>
+        <a href="#">N文作者</a>
       </li>
       <li>
         <a href="#">关于我们</a>
@@ -30,8 +36,8 @@
         <fa-icon [icon]="['fas', 'bars']"></fa-icon>
       </button>
       <nwen-logo routerLink="/home" class="logo"></nwen-logo>
-      <button mat-button class="create-article-btn">
-        写文章
+      <button mat-button matTooltip="写文章" class="create-article-btn">
+        <fa-icon [icon]="['fas', 'edit']"></fa-icon>
       </button>
     </mat-toolbar>
     <ng-content></ng-content>

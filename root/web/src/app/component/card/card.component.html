@@ -1,21 +1,23 @@
-<div class="container last" [class.last]="isInLastColumn"
-     [class.jumbotron-container]="'jumbotron'===containerType" [class.column-container]="'column'===containerType">
-  <article *ngIf="showArticle">
+<div class="container last" [class.last]="!showRightBorder"
+     [class.jumbotron]="'jumbotron'===displayType"
+     [class.column]="'column'===displayType"
+     [class.circle]="'circle'===displayType">
+  <article *ngIf="card.showTitle || card.showSubTitle">
     <header>
-      <a class="title" routerLink="/article/{{card.summary.id}}">
-        {{card.summary.title}}
+      <a class="title" [routerLink]="card.titleRouterLink" *ngIf="card.showTitle">
+        {{card.title}}
       </a>
-      <a class="author" routerLink="/author/{{card.summary.authorId}}">
-        {{card.summary.authorNickName}}
+      <a class="sub-title" [routerLink]="card.subTitleRouterLink" *ngIf="card.showSubTitle">
+        {{card.subTitle}}
       </a>
     </header>
-    <section>
-      {{card.summary.content}}
+    <section [routerLink]="card.contentRouterLink" *ngIf="card.showContent">
+      {{card.content}}
     </section>
   </article>
-  <div class="coverImg" [class.filter]="card.useCoverImageFilter" *ngIf="showCoverImage && card.summary.coverImgId"
-       routerLink="/article/{{card.summary.id}}"
-       style="background-image: url('/assets/image/1.jpg')">
+  <div class="coverImg" [class.filter]="card.useCoverImageFilter" *ngIf="card.showCoverImage && card.coverImageUrl"
+       [routerLink]="card.coverImageRouterLink"
+       [style.background-image]="'url('+card.coverImageUrl+')'">
     <ng-content></ng-content>
   </div>
 </div>

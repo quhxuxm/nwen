@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ArticleSummaryCard} from '../../vo/ui/article-summary-card';
+import {Card} from '../../vo/ui/card';
 
 @Component({
   selector: 'nwen-card-jumbotron-container',
@@ -8,16 +8,13 @@ import {ArticleSummaryCard} from '../../vo/ui/article-summary-card';
 })
 export class CardJumbotronContainerComponent implements OnInit {
   @Input()
-  summaryCard: ArticleSummaryCard;
+  card: Card;
   @Input()
-  showArticle: boolean;
-  @Input()
-  showCoverImage: boolean;
+  cardDisplayType: string;
 
   constructor() {
-    this.summaryCard = null;
-    this.showArticle = true;
-    this.showCoverImage = true;
+    this.card = null;
+    this.cardDisplayType = 'jumbotron';
   }
 
   ngOnInit() {

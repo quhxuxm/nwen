@@ -1,6 +1,6 @@
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Component, Input, OnInit} from '@angular/core';
-import {ArticleSummaryCard} from '../../vo/ui/article-summary-card';
+import {Card} from '../../vo/ui/card';
 
 @Component({
   selector: 'nwen-card-column-container',
@@ -17,65 +17,57 @@ export class CardColumnContainerComponent implements OnInit {
   @Input()
   maxColumnNumber: number;
   @Input()
-  summaryCards: ArticleSummaryCard[];
+  cards: Card[];
   @Input()
-  showArticle: boolean;
-  @Input()
-  showCoverImage: boolean;
-  columnNumber: number;
-  summaryCardColumns: ArticleSummaryCard[][];
+  cardDisplayType: string;
+  __columnNumber: number;
+  __cardColumns: Card[][];
 
   constructor(private breakpointObserver: BreakpointObserver) {
-    this.summaryCards = null;
-    this.summaryCardColumns = null;
+    this.cards = [];
+    this.__cardColumns = [];
     this.maxColumnNumber = null;
-    this.showArticle = true;
-    this.showCoverImage = true;
+    this.cardDisplayType = 'column';
   }
 
   ngOnInit() {
-    if (!this.summaryCards) {
-      console.error('No summaries assigned.');
-      return;
-    }
     if (!this.maxColumnNumber || this.maxColumnNumber > 4 || this.maxColumnNumber <= 0) {
-      console.warn('No max column number assigned, use 3 columns as default.');
       this.maxColumnNumber = 3;
     }
-    this.columnNumber = this.maxColumnNumber;
-    if (this.summaryCards.length < this.columnNumber) {
-      this.columnNumber = this.summaryCards.length;
+    this.__columnNumber = this.maxColumnNumber;
+    if (this.cards.length < this.__columnNumber) {
+      this.__columnNumber = this.cards.length;
     }
     this.BREAKPOINT_COLUMN_NUMBER.forEach((v, k, m) => {
       this.breakpointObserver.observe(k)
         .subscribe(
           () => {
             if (this.breakpointObserver.isMatched(k)) {
-              this.columnNumber = v;
-              if (this.columnNumber > this.maxColumnNumber) {
-                this.columnNumber = this.maxColumnNumber;
+              this.__columnNumber = v;
+              if (this.__columnNumber > this.maxColumnNumber) {
+                this.__columnNumber = this.maxColumnNumber;
               }
-              if (this.columnNumber > this.summaryCards.length) {
-                this.columnNumber = this.summaryCards.length;
+              if (this.__columnNumber > this.cards.length) {
+                this.__columnNumber = this.cards.length;
               }
-              while (this.summaryCards.length % this.columnNumber !== 0) {
-                this.columnNumber--;
+              while (this.cards.length % this.__columnNumber !== 0) {
+                this.__columnNumber--;
               }
-              this.refreshSummaryColumns();
+              this.refreshCardColumns();
             }
           }
         );
     });
   }
 
-  private refreshSummaryColumns(): void {
-    this.summaryCardColumns = [];
-    for (let i = 0; i < this.columnNumber; i++) {
-      this.summaryCardColumns.push([]);
+  private refreshCardColumns(): void {
+    this.__cardColumns = [];
+    for (let i = 0; i < this.__columnNumber; i++) {
+      this.__cardColumns.push([]);
     }
-    for (let i = 0; i < this.summaryCards.length; i++) {
-      const columnIndex = i % this.columnNumber;
-      this.summaryCardColumns[columnIndex].push(this.summaryCards[i]);
+    for (let i = 0; i < this.cards.length; i++) {
+      const columnIndex = i % this.__columnNumber;
+      this.__cardColumns[columnIndex].push(this.cards[i]);
     }
   }
 }

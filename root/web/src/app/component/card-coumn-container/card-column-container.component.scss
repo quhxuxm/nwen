@@ -25,12 +25,8 @@
     margin-right: 0;
   }
 }
-@include responsive($GLOBAL_WIDTH_LV1) {
-  .container {
-    padding: 16px 16px;
-  }
-}
-@include responsive($GLOBAL_WIDTH_LV2) {
+
+@include responsive($GLOBAL_WIDTH_LV3) {
   .container {
     padding: 16px 64px;
   }

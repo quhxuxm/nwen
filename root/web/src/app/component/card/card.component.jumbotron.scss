@@ -1,12 +1,12 @@
 @import "~src/common";
-:host(.jumbotron-container) {
+:host(.jumbotron) {
   width: 100%;
   height: 100%;
   max-width: 100%;
   margin-top: 16px;
   margin-bottom: 16px;
 }
-.container.jumbotron-container {
+.container.jumbotron {
   overflow: hidden;
   padding: 16px;
   background-color: inherit;
@@ -53,7 +53,7 @@
         overflow: hidden;
         word-wrap: break-word;
       }
-      a.author {
+      a.sub-title {
         font-size: 22px;
         color: $GLOBAL_COLOR_TEXT_LV5;
         text-decoration: none;
@@ -65,7 +65,7 @@
         word-wrap: break-word;
         max-height: 205px;
       }
-      a.author:hover {
+      a.sub-title:hover {
         color: $GLOBAL_COLOR_TEXT_EMPHASIZE_LV4;
       }
     }
@@ -78,6 +78,8 @@
       font-weight: 400;
       flex-grow: 1;
       flex-shrink: 1;
+      cursor: pointer;
+      outline: none;
     }
     section:hover {
       color: $GLOBAL_COLOR_TEXT_EMPHASIZE_LV4;
@@ -93,16 +95,18 @@
     background-size: cover !important;
     background-origin: border-box !important;
     background-color: transparent;
+    cursor: pointer;
+    outline: none;
   }
 
   div.coverImg.filter {
     filter: grayscale(100%);
   }
 }
-.container.jumbotron-container.last {
+.container.jumbotron.last {
   border-right: none;
 }
-.container.jumbotron-container:hover {
+.container.jumbotron:hover {
   article {
     header {
       a.title {
@@ -116,7 +120,7 @@
   }
 }
 @include responsive($GLOBAL_WIDTH_LV5) {
-  .container.jumbotron-container {
+  .container.jumbotron {
     flex-direction: row;
     align-items: center;
     justify-items: start;
@@ -129,7 +133,7 @@
           line-height: 70px;
           max-height: 213px;
         }
-        a.author {
+        a.sub-title {
           font-size: 30px;
         }
       }
