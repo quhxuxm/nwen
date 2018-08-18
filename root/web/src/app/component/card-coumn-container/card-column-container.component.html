@@ -3,7 +3,7 @@
            *ngFor="let column of __cardColumns; let i = index">
     <nwen-card *ngFor="let card of column" [card]="card"
                [showRightBorder]="!(i === __columnNumber-1)"
-               [displayType]="cardDisplayType"
+               [layoutType]="cardLayoutType" [displayType]="cardDisplayType"
                class="column">
     </nwen-card>
   </section>

@@ -1,7 +1,8 @@
 <div class="container last" [class.last]="!showRightBorder"
-     [class.jumbotron]="'jumbotron'===displayType"
-     [class.column]="'column'===displayType"
-     [class.circle]="'circle'===displayType">
+     [class.jumbotron]="'jumbotron'===layoutType"
+     [class.column]="'column'===layoutType"
+     [class.circle]="'circle'===displayType"
+     [class.normal]="'normal'===displayType">
   <article *ngIf="card.showTitle || card.showSubTitle">
     <header>
       <a class="title" [routerLink]="card.titleRouterLink" *ngIf="card.showTitle">

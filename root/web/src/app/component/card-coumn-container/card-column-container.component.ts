@@ -19,6 +19,8 @@ export class CardColumnContainerComponent implements OnInit {
   @Input()
   cards: Card[];
   @Input()
+  cardLayoutType: string;
+  @Input()
   cardDisplayType: string;
   __columnNumber: number;
   __cardColumns: Card[][];
@@ -27,7 +29,7 @@ export class CardColumnContainerComponent implements OnInit {
     this.cards = [];
     this.__cardColumns = [];
     this.maxColumnNumber = null;
-    this.cardDisplayType = 'column';
+    this.cardLayoutType = 'column';
   }
 
   ngOnInit() {

@@ -10,11 +10,13 @@ export class CardJumbotronContainerComponent implements OnInit {
   @Input()
   card: Card;
   @Input()
+  cardLayoutType: string;
+  @Input()
   cardDisplayType: string;
 
   constructor() {
     this.card = null;
-    this.cardDisplayType = 'jumbotron';
+    this.cardLayoutType = 'jumbotron';
   }
 
   ngOnInit() {

@@ -115,6 +115,22 @@
     filter: grayscale(0%);
   }
 }
+.container.column.circle {
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-items: end;
+  height: 465px;
+  article {
+    margin-bottom: auto;
+  }
+  div.coverImg {
+    border-radius: 50%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 200px;
+    height: 200px;
+  }
+}
 @include responsive($GLOBAL_WIDTH_LV5) {
   .container.column {
 
@@ -133,6 +149,9 @@
         font-size: 20px;
       }
     }
+  }
+  .container.column.circle {
+    height: 505px;
   }
 }
 

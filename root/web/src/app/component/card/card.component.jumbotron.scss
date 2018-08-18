@@ -119,6 +119,22 @@
     filter: grayscale(0%);
   }
 }
+.container.jumbotron.circle {
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-items: end;
+  height: 465px;
+  article {
+    margin-bottom: auto;
+  }
+  div.coverImg {
+    border-radius: 50%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 200px;
+    height: 200px;
+  }
+}
 @include responsive($GLOBAL_WIDTH_LV5) {
   .container.jumbotron {
     flex-direction: row;
@@ -144,6 +160,24 @@
     div.coverImg {
       width: 50%;
       height: 80%;
+    }
+  }
+
+  .container.jumbotron.circle {
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-items: end;
+    height: 300px;
+
+    article{
+      margin-bottom: unset;
+    }
+    div.coverImg {
+      border-radius: 50%;
+      flex-grow: 0;
+      flex-shrink: 0;
+      width: 200px;
+      height: 200px;
     }
   }
 }

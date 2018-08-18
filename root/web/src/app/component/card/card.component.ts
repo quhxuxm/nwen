@@ -11,12 +11,15 @@ export class CardComponent implements OnInit {
   @Input()
   card: Card;
   @Input()
-  displayType: string;
+  layoutType: string;
   @Input()
   showRightBorder: boolean;
+  @Input()
+  displayType: string;
 
   constructor() {
-    this.displayType = 'column';
+    this.layoutType = 'column';
+    this.displayType = 'normal';
     this.showRightBorder = true;
   }
 
