@@ -2,12 +2,12 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ArticleSummaryCard} from '../../vo/ui/article-summary-card';
 
 @Component({
-  selector: 'nwen-article-summary-card',
-  templateUrl: './article-summary-card.component.html',
-  styleUrls: ['./article-summary-card.component.column-container.scss',
-    './article-summary-card.component.jumbotron-container.scss']
+  selector: 'nwen-card',
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.column-container.scss',
+    './card.component.jumbotron-container.scss']
 })
-export class ArticleSummaryCardComponent implements OnInit {
+export class CardComponent implements OnInit {
   @Input()
   card: ArticleSummaryCard;
   @Input()

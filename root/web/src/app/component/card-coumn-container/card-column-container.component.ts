@@ -3,11 +3,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ArticleSummaryCard} from '../../vo/ui/article-summary-card';
 
 @Component({
-  selector: 'nwen-article-summary-card-column-container',
-  templateUrl: './article-summary-card-column-container.component.html',
-  styleUrls: ['./article-summary-card-column-container.component.scss']
+  selector: 'nwen-card-column-container',
+  templateUrl: './card-column-container.component.html',
+  styleUrls: ['./card-column-container.component.scss']
 })
-export class ArticleSummaryCardColumnContainerComponent implements OnInit {
+export class CardColumnContainerComponent implements OnInit {
   private BREAKPOINT_COLUMN_NUMBER: Map<string[], number> = new Map([
     [[Breakpoints.XSmall], 1],
     [[Breakpoints.Small], 2],

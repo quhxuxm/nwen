@@ -4,9 +4,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppRoutingModule} from './app-routing.module';
 import {AppUiModule} from './app-ui.module';
 import {AppComponent} from './app.component';
-import {ArticleSummaryCardColumnContainerComponent} from './component/article-summary-card-coumn-container/article-summary-card-column-container.component';
-import {ArticleSummaryCardJumbotronContainerComponent} from './component/article-summary-card-jumbotron-container/article-summary-card-jumbotron-container.component';
-import {ArticleSummaryCardComponent} from './component/article-summary-card/article-summary-card.component';
+import {CardColumnContainerComponent} from './component/card-coumn-container/card-column-container.component';
+import {CardJumbotronContainerComponent} from './component/card-jumbotron-container/card-jumbotron-container.component';
+import {CardComponent} from './component/card/card.component';
 import {HomeComponent} from './component/home/home.component';
 import {LogoComponent} from './component/logo/logo.component';
 import {NavigatorComponent} from './component/navigator/navigator.component';
@@ -19,10 +19,10 @@ import { ArticleDetailComponent } from './component/article-detail/article-detai
     AppComponent,
     NavigatorComponent,
     LogoComponent,
-    ArticleSummaryCardComponent,
-    ArticleSummaryCardColumnContainerComponent,
+    CardComponent,
+    CardColumnContainerComponent,
     HomeComponent,
-    ArticleSummaryCardJumbotronContainerComponent,
+    CardJumbotronContainerComponent,
     SeparatorComponent,
     JumbotronComponent,
     ArticleDetailComponent
