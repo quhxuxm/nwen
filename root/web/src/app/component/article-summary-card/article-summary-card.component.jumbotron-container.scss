@@ -26,7 +26,7 @@
     align-items: start;
     justify-items: start;
     flex-grow: 1;
-    flex-shrink: 1;
+    flex-shrink: 0;
     overflow: hidden;
     max-height: 80%;
     header {
@@ -40,7 +40,7 @@
       a.title {
         font-size: 50px;
         line-height: 50px;
-        max-height: 250px;
+        max-height: 201px;
         font-family: nwen;
         font-weight: lighter;
         color: $GLOBAL_COLOR_TEXT_LV5;
@@ -127,7 +127,7 @@
         a.title {
           font-size: 70px;
           line-height: 70px;
-          max-height: 350px;
+          max-height: 213px;
         }
         a.author {
           font-size: 30px;

@@ -1,6 +1,7 @@
 <div class="container">
-  <nwen-article-summary-card [card]="card" [isInLastColumn]="true"
-                             *ngFor="let card of summaryCards" containerType="jumbotron" [showArticle]="showArticle"
-                             [showCoverImage]="showCoverImage" class="jumbotron-container"></nwen-article-summary-card>
+  <nwen-article-summary-card [card]="summaryCard" [isInLastColumn]="true"
+                             *ngIf="summaryCard" containerType="jumbotron" [showArticle]="showArticle"
+                             [showCoverImage]="showCoverImage" class="jumbotron-container">
+  </nwen-article-summary-card>
 </div>
 

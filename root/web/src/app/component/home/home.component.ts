@@ -10,7 +10,7 @@ import {ArticleSummaryCard} from '../../vo/ui/article-summary-card';
 })
 export class HomeComponent implements OnInit {
   mostRecentArticleSummaryCards: ArticleSummaryCard[];
-  mostPopularArticleSummaryCards: ArticleSummaryCard[];
+  mostPopularArticleSummaryCard: ArticleSummaryCard;
 
   private static wrapArticleSummaryToCard(summary: ArticleSummary): ArticleSummaryCard {
     const result = new ArticleSummaryCard();
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private articleSummaryService: ArticleSummaryService) {
     this.mostRecentArticleSummaryCards = null;
-    this.mostPopularArticleSummaryCards = null;
+    this.mostPopularArticleSummaryCard = null;
   }
 
   ngOnInit() {
@@ -31,12 +31,12 @@ export class HomeComponent implements OnInit {
       HomeComponent.wrapArticleSummaryToCard(summary)
     );
     const mostPopularArticleSummariesQueryCondition = new ArticleSummaryQueryCondition();
-    mostPopularArticleSummariesQueryCondition.resultNumber = 3;
+    mostPopularArticleSummariesQueryCondition.resultNumber = 1;
     const mostPopularArticleSummaries = this.articleSummaryService.query(mostPopularArticleSummariesQueryCondition);
-    this.mostPopularArticleSummaryCards = mostPopularArticleSummaries.map(summary => {
+    this.mostPopularArticleSummaryCard = mostPopularArticleSummaries.map(summary => {
       const result = HomeComponent.wrapArticleSummaryToCard(summary);
       result.useCoverImageFilter = false;
       return result;
-    });
+    })[0];
   }
 }

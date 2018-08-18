@@ -8,14 +8,14 @@ import {ArticleSummaryCard} from '../../vo/ui/article-summary-card';
 })
 export class ArticleSummaryCardJumbotronContainerComponent implements OnInit {
   @Input()
-  summaryCards: ArticleSummaryCard[];
+  summaryCard: ArticleSummaryCard;
   @Input()
   showArticle: boolean;
   @Input()
   showCoverImage: boolean;
 
   constructor() {
-    this.summaryCards = null;
+    this.summaryCard = null;
     this.showArticle = true;
     this.showCoverImage = true;
   }

@@ -1,0 +1,15 @@
+@import "~src/common";
+.jumbotron {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  margin: 16px auto;
+  height: 400px;
+  background-position: 50% 50% !important;
+  background-size: cover !important;
+  background-origin: border-box !important;
+  background-color: transparent;
+}
+

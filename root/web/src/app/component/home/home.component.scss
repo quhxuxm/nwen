@@ -1,6 +1,10 @@
 @import "~src/common";
-.no-label-separator-wrapper {
+.container-lv1 {
   max-width: $GLOBAL_WIDTH_LV7;
   margin-left: auto;
   margin-right: auto;
+}
+.anthology-separator{
+  font-size: 28px;
+  font-weight: 400;
 }

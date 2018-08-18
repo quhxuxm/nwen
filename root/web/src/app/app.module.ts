@@ -11,6 +11,7 @@ import {HomeComponent} from './component/home/home.component';
 import {LogoComponent} from './component/logo/logo.component';
 import {NavigatorComponent} from './component/navigator/navigator.component';
 import {SeparatorComponent} from './component/separator/separator.component';
+import { JumbotronComponent } from './component/jumbotron/jumbotron.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {SeparatorComponent} from './component/separator/separator.component';
     ArticleSummaryCardColumnContainerComponent,
     HomeComponent,
     ArticleSummaryCardJumbotronContainerComponent,
-    SeparatorComponent
+    SeparatorComponent,
+    JumbotronComponent
   ],
   imports: [
     BrowserModule,

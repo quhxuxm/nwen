@@ -1,12 +1,28 @@
 <nwen-article-summary-card-jumbotron-container
-  [summaryCards]="mostPopularArticleSummaryCards"></nwen-article-summary-card-jumbotron-container>
-<div class="no-label-separator-wrapper">
-  <nwen-separator label="焦点N文"></nwen-separator>
+  [summaryCard]="mostPopularArticleSummaryCard">
+</nwen-article-summary-card-jumbotron-container>
+<div class="container-lv1">
+  <nwen-separator [showContent]="true">
+    <fa-icon [icon]="['fas','user']"></fa-icon>
+    <span>焦点N文</span>
+  </nwen-separator>
 </div>
 <nwen-article-summary-card-column-container [maxColumnNumber]="3" [summaryCards]="mostRecentArticleSummaryCards">
 </nwen-article-summary-card-column-container>
-<div class="no-label-separator-wrapper">
-  <nwen-separator label="N文连载"></nwen-separator>
+<nwen-separator></nwen-separator>
+<div class="container-lv1">
+  <nwen-jumbotron backgroundImageUrl="'/assets/image/1.jpg'">
+  </nwen-jumbotron>
 </div>
+<div class="container-lv1">
+  <nwen-separator [showLeftBorder]="true" [showRightBorder]="true" [showContent]="true">
+    <span class="anthology-separator">
+      <fa-icon [icon]="['fas','user']"></fa-icon>
+      <span>N文连载</span>
+    </span>
+  </nwen-separator>
+</div>
+<nwen-article-summary-card-column-container [maxColumnNumber]="3" [summaryCards]="mostRecentArticleSummaryCards">
+</nwen-article-summary-card-column-container>
 
 
