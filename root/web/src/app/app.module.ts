@@ -16,6 +16,9 @@ import { ArticleDetailComponent } from './component/article-detail/article-detai
 import { FooterComponent } from './component/footer/footer.component';
 import { ArticleCoverComponent } from './component/article-detail/article-cover/article-cover.component';
 import { ArticleContentComponent } from './component/article-detail/article-content/article-content.component';
+import { CommentListContainerComponent } from './component/comment-list-container/comment-list-container.component';
+import { CommentViewerComponent } from './component/comment-list-container/comment-viewer/comment-viewer.component';
+import { CommentEditorComponent } from './component/comment-list-container/comment-editor/comment-editor.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { ArticleContentComponent } from './component/article-detail/article-cont
     ArticleDetailComponent,
     FooterComponent,
     ArticleCoverComponent,
-    ArticleContentComponent
+    ArticleContentComponent,
+    CommentListContainerComponent,
+    CommentViewerComponent,
+    CommentEditorComponent
   ],
   imports: [
     BrowserModule,

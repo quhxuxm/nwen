@@ -1,6 +1,18 @@
 <section>
   <nwen-article-cover [article]="article"></nwen-article-cover>
   <div class="content-container">
-    <nwen-article-content [content]="article.content"></nwen-article-content>
+    <nwen-article-content [content]="article.content" class="content-inner"></nwen-article-content>
+    <nwen-separator [showLeftBorder]="true" [showRightBorder]="true" [showContent]="true">
+      <a [routerLink]="authorUrl" class="author-icon" [style.background-image]="'url('+authorIconUrl+')'"></a>
+    </nwen-separator>
   </div>
+  <nwen-card-column-container [maxColumnNumber]="3" [cards]="relatedArticleCards"></nwen-card-column-container>
+  <nwen-separator [showLeftBorder]="true" [showRightBorder]="true" [showContent]="true">
+    <a class="separator-content smaller" href="#">
+      <fa-icon [icon]="['fas','comment-alt']"></fa-icon>
+      <span class="text">10000条评论</span>
+      <fa-icon [icon]="['fas','angle-double-right']"></fa-icon>
+    </a>
+  </nwen-separator>
+  <nwen-comment-list-container></nwen-comment-list-container>
 </section>

@@ -1,0 +1,12 @@
+<div class="comment">
+  <span class="commenter-icon"></span>
+  <div class="content">
+    <div class="commenter-info">
+      <span class="commenter-nickname">{{comment.commenterNickname}}</span>
+      <span class="comment-date">{{comment.commentDate|date: 'shortDate':'zh-Hans'}}</span>
+    </div>
+    <div class="content-text">
+      {{comment.content}}
+    </div>
+  </div>
+</div>

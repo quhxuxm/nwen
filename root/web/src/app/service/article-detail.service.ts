@@ -19,7 +19,7 @@ export class ArticleDetailService {
     result.anthologyId = 1;
     result.authorId = 1;
     result.content = '';
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 20; i++) {
       result.content +=
         `<p>测试文章内容，测试文章内容。</p><p>测试文章内容：“测试文章内容：测试文章内容：测试文章内容,测试文章内容.”测试文章内容.</p>
           <script>alert("OK")</script><hr/><b>测试粗体内容</b><input type="text" name="username" />`;

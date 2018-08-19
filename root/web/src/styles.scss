@@ -13,3 +13,25 @@ html, body {
     height: 100%;
   }
 }
+
+.separator-content {
+  font-size: 28px;
+  font-weight: 400;
+  color: $GLOBAL_COLOR_TEXT_LV3;
+  text-decoration: none;
+  span.text {
+    margin-left: 8px;
+  }
+}
+.separator-content:hover {
+  color: $GLOBAL_COLOR_TEXT_LV5;
+}
+.separator-content.bigger {
+  font-size: 32px;
+}
+
+.separator-content.smaller {
+  font-size: 22px;
+}
+
+
