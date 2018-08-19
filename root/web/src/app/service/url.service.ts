@@ -18,4 +18,8 @@ export class UrlService {
   generateArticleDetailRouterUrl(id: string): string {
     return `/article/${id}`;
   }
+
+  generateAnthologyDetailRouterUrl(id: string): string {
+    return `/anthology/${id}`;
+  }
 }

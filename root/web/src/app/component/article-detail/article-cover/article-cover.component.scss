@@ -1,0 +1,59 @@
+@import "../../../../common";
+.article-cover {
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+  max-width: $GLOBAL_WIDTH_LV7;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  background-position: 50% 50% !important;
+  background-size: cover !important;
+  background-origin: border-box !important;
+  background-color: transparent;
+  outline: none;
+
+  .anthology-title {
+    margin-top: auto;
+    font-size: 28px;
+    font-weight: 400;
+    color: $GLOBAL_COLOR_TEXT_LV3;
+    text-decoration: none;
+  }
+  .anthology-title:hover {
+    color: $GLOBAL_COLOR_TEXT_LV5;
+  }
+  .article-title {
+    font-size: 116px;
+    line-height: 120px;
+    font-weight: 400;
+    margin: 32px;
+
+  }
+
+  .author-nickname {
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 16px;
+    display: inline-block;
+    .author-nickname-link{
+      color: $GLOBAL_COLOR_TEXT_LV3;
+      text-decoration: none;
+    }
+    .author-nickname-link:hover {
+      color: $GLOBAL_COLOR_TEXT_LV5;
+    }
+  }
+  .update-date {
+    margin-bottom: auto;
+    font-weight: 400;
+  }
+  .author-icon {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+  }
+}

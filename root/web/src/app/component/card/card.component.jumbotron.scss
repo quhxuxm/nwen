@@ -126,6 +126,9 @@
   height: 465px;
   article {
     margin-bottom: auto;
+    header {
+      align-items: center;
+    }
   }
   div.coverImg {
     border-radius: 50%;
@@ -144,6 +147,7 @@
       width: 50%;
       margin-right: 32px;
       header {
+
         a.title {
           font-size: 70px;
           line-height: 70px;
@@ -169,8 +173,11 @@
     justify-items: end;
     height: 300px;
 
-    article{
+    article {
       margin-bottom: unset;
+      header {
+        align-items: start;
+      }
     }
     div.coverImg {
       border-radius: 50%;

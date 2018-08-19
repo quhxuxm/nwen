@@ -119,16 +119,27 @@
   flex-direction: column-reverse;
   align-items: center;
   justify-items: end;
-  height: 465px;
+  height: 400px;
   article {
     margin-bottom: auto;
+
+    header{
+      align-items: center;
+      a.title{
+        font-size: 30px;
+      }
+
+      a.sub-title{
+        font-size: 25px;
+      }
+    }
   }
   div.coverImg {
     border-radius: 50%;
     flex-grow: 0;
     flex-shrink: 0;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
   }
 }
 @include responsive($GLOBAL_WIDTH_LV5) {
@@ -136,6 +147,7 @@
 
     article {
       header {
+
         a.title {
           font-size: 70px;
           line-height: 70px;
@@ -150,8 +162,6 @@
       }
     }
   }
-  .container.column.circle {
-    height: 505px;
-  }
+
 }
 

@@ -1,0 +1,25 @@
+:host {
+  width: 100%;
+}
+.article-content {
+  width: 100%;
+  text-align: start;
+  vertical-align: baseline;
+  font-size: 18px;
+  font-stretch: 100%;
+  font-variant-caps: normal;
+  font-variant-east-asian: normal;
+  font-variant-ligatures: normal;
+  font-variant-numeric: normal;
+  line-height: 24px;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+
+  p:first-of-type::first-letter {
+    float: left;
+    font-size: 4em;
+    line-height: 1em;
+    margin: 0;
+  }
+}
+

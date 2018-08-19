@@ -1,0 +1,15 @@
+@import "~src/common";
+section {
+  width: 100%;
+  overflow: hidden;
+  max-width: $GLOBAL_WIDTH_LV7;
+  margin-left: auto;
+  margin-right: auto;
+  .content-container{
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 64px;
+    width: 50%;
+  }
+}

@@ -1,4 +1,7 @@
 @import "~src/common";
+:host{
+  width: 100%;
+}
 .separator {
   width: 100%;
   display: flex;

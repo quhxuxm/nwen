@@ -13,6 +13,9 @@ import {NavigatorComponent} from './component/navigator/navigator.component';
 import {SeparatorComponent} from './component/separator/separator.component';
 import { JumbotronComponent } from './component/jumbotron/jumbotron.component';
 import { ArticleDetailComponent } from './component/article-detail/article-detail.component';
+import { FooterComponent } from './component/footer/footer.component';
+import { ArticleCoverComponent } from './component/article-detail/article-cover/article-cover.component';
+import { ArticleContentComponent } from './component/article-detail/article-content/article-content.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { ArticleDetailComponent } from './component/article-detail/article-detai
     CardJumbotronContainerComponent,
     SeparatorComponent,
     JumbotronComponent,
-    ArticleDetailComponent
+    ArticleDetailComponent,
+    FooterComponent,
+    ArticleCoverComponent,
+    ArticleContentComponent
   ],
   imports: [
     BrowserModule,
