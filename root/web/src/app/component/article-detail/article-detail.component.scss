@@ -18,9 +18,27 @@ section {
     }
   }
 
+  .additional-actions{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 96px;
+    justify-content: space-around;
+    a{
+      margin-bottom: 32px;
+    }
+  }
+
   @include responsive($GLOBAL_WIDTH_LV5){
     .content-container {
       width: 50%;
+    }
+
+    .additional-actions{
+      flex-direction: row;
+      justify-items: center;
+      align-items: center;
     }
   }
 }

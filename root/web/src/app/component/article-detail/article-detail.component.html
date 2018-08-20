@@ -6,7 +6,16 @@
       <a [routerLink]="authorUrl" class="author-icon" [style.background-image]="'url('+authorIconUrl+')'"></a>
     </nwen-separator>
   </div>
-
+  <div class="content-container additional-actions">
+    <a class="separator-content smaller" href="#">
+      <fa-icon [icon]="['fas','thumbs-up']"></fa-icon>
+      <span class="text">10000个赞赏</span>
+    </a>
+    <a class="separator-content smaller" href="#">
+      <fa-icon [icon]="['fas','bookmark']"></fa-icon>
+      <span class="text">10000次收藏</span>
+    </a>
+  </div>
   <nwen-separator [showLeftBorder]="true" [showRightBorder]="true" [showContent]="true">
     <a class="separator-content smaller" href="#">
       <fa-icon [icon]="['fas','comment-alt']"></fa-icon>
