@@ -19,6 +19,8 @@ import { ArticleContentComponent } from './component/article-detail/article-cont
 import { CommentListContainerComponent } from './component/comment-list-container/comment-list-container.component';
 import { CommentViewerComponent } from './component/comment-list-container/comment-viewer/comment-viewer.component';
 import { CommentEditorComponent } from './component/comment-list-container/comment-editor/comment-editor.component';
+import { AnthologyDetailComponent } from './component/anthology-detail/anthology-detail.component';
+import { AnthologyCoverComponent } from './component/anthology-detail/anthology-cover/anthology-cover.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { CommentEditorComponent } from './component/comment-list-container/comme
     ArticleContentComponent,
     CommentListContainerComponent,
     CommentViewerComponent,
-    CommentEditorComponent
+    CommentEditorComponent,
+    AnthologyDetailComponent,
+    AnthologyCoverComponent
   ],
   imports: [
     BrowserModule,
