@@ -52,9 +52,9 @@ export class CardColumnContainerComponent implements OnInit {
               if (this.__columnNumber > this.cards.length) {
                 this.__columnNumber = this.cards.length;
               }
-              while (this.cards.length % this.__columnNumber !== 0) {
-                this.__columnNumber--;
-              }
+              // while (this.cards.length % this.__columnNumber !== 0) {
+              //   this.__columnNumber--;
+              // }
               this.refreshCardColumns();
             }
           }

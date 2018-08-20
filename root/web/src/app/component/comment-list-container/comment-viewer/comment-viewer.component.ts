@@ -16,6 +16,6 @@ export class CommentViewerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.commentIconImgUrl = this.urlService.generateImageUrl(this.comment.commenterIconImgId);
+    this.commentIconImgUrl = this.urlService.generateImageUrl(this.comment.commenterIconImgId.toString());
   }
 }

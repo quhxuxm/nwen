@@ -1,13 +1,14 @@
-<div class="article-cover">
-  <a [routerLink]="anthologyUrl" class="anthology-title">《{{article.anthologyTitle}}》</a>
-  <span class="article-title">{{article.title}}</span>
+<div class="anthology-cover">
+  <span class="anthology-title">{{anthology.title}}</span>
   <span class="author-nickname">
     <span class="author-nickname-label">作者：</span>
-    <a [routerLink]="authorUrl" class="author-nickname-link">{{article.authorNickName}}</a>
+    <a [routerLink]="'/'" class="author-nickname-link">{{anthology.authorNickname}}</a>
   </span>
-  <span class="update-date">{{article.updateDate | date: 'shortDate':'zh-Hans' }}</span>
+  <span class="update-date">{{anthology.updateDate | date: 'shortDate':'zh-Hans' }}</span>
   <nwen-separator [showContent]="true" [showRightBorder]="true" [showLeftBorder]="true">
-    <a [routerLink]="authorUrl" class="author-icon" [style.background-image]="'url('+authorIconUrl+')'"></a>
+    <a [routerLink]="authorIconImageUrl" class="author-icon" [style.background-image]="'url('+authorIconImageUrl+')'"></a>
   </nwen-separator>
 </div>
+
+
 

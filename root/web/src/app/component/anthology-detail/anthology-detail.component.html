@@ -1,5 +1,34 @@
 <section>
   <nwen-anthology-cover></nwen-anthology-cover>
-  <nwen-card-column-container [maxColumnNumber]="3" [cards]="articleCards">
+  <nwen-card-column-container  [maxColumnNumber]="3" [cards]="articleCards">
   </nwen-card-column-container>
+
+
+
+  <div class="content-container additional-actions">
+    <a class="separator-content smaller" href="#">
+      <fa-icon [icon]="['fas','thumbs-up']"></fa-icon>
+      <span class="text">10000个赞赏</span>
+    </a>
+    <a class="separator-content smaller" href="#">
+      <fa-icon [icon]="['fas','bookmark']"></fa-icon>
+      <span class="text">10000次收藏</span>
+    </a>
+  </div>
+  <nwen-separator [showLeftBorder]="true" [showRightBorder]="true" [showContent]="true">
+    <a class="separator-content smaller" href="#">
+      <fa-icon [icon]="['fas','comment-alt']"></fa-icon>
+      <span class="text">10000条评论</span>
+      <fa-icon [icon]="['fas','angle-double-right']"></fa-icon>
+    </a>
+  </nwen-separator>
+  <nwen-comment-list-container [comments]="comments" [currentCommenterId]="1"></nwen-comment-list-container>
+  <nwen-separator [showLeftBorder]="false" [showRightBorder]="false" [showContent]="false"></nwen-separator>
+  <nwen-separator [showLeftBorder]="true" [showRightBorder]="true" [showContent]="true">
+    <a class="separator-content smaller" href="#">
+      <fa-icon [icon]="['fas','book']"></fa-icon>
+      <span class="text">为您推荐</span>
+      <fa-icon [icon]="['fas','angle-double-right']"></fa-icon>
+    </a>
+  </nwen-separator>
 </section>
