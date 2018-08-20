@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {UrlService} from '../../../service/url.service';
 import {Comment} from '../../../vo/comment';
 
 @Component({
@@ -9,10 +10,12 @@ import {Comment} from '../../../vo/comment';
 export class CommentViewerComponent implements OnInit {
   @Input()
   comment: Comment;
+  commentIconImgUrl: string;
 
-  constructor() {
+  constructor(private urlService: UrlService) {
   }
 
   ngOnInit() {
+    this.commentIconImgUrl = this.urlService.generateImageUrl(this.comment.commenterIconImgId);
   }
 }

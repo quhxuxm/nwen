@@ -27,11 +27,17 @@
     color: $GLOBAL_COLOR_TEXT_LV5;
   }
   .article-title {
-    font-size: 116px;
-    line-height: 120px;
+    font-size: 64px;
+    line-height: 64px;
     font-weight: 400;
     margin: 32px;
-
+  }
+  @include responsive($GLOBAL_WIDTH_LV5){
+    .article-title {
+      font-size: 116px;
+      line-height: 120px;
+      font-weight: 400;
+    }
   }
 
   .author-nickname {
@@ -52,8 +58,14 @@
     font-weight: 400;
   }
   .author-icon {
-    width: 200px;
-    height: 200px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
+  }
+  @include responsive($GLOBAL_WIDTH_LV5){
+    .author-icon {
+      width: 200px;
+      height: 200px;
+    }
   }
 }

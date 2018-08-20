@@ -1,3 +1,7 @@
-<p>
-  comment-editor works!
-</p>
+<div class="comment-editor">
+  <a class="commenter-icon" [style.background-image]="'url('+commenterIconUrl+')'"></a>
+  <div class="comment-operation">
+    <textarea placeholder="评论内容 ..."></textarea>
+    <button mat-button>发布</button>
+  </div>
+</div>

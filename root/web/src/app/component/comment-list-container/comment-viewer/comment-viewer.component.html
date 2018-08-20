@@ -1,8 +1,8 @@
-<div class="comment">
-  <span class="commenter-icon"></span>
-  <div class="content">
+<div class="comment-viewer">
+  <a href="#" class="commenter-icon" [style.background-image]="'url('+commentIconImgUrl+')'"></a>
+  <div class="comment-content">
     <div class="commenter-info">
-      <span class="commenter-nickname">{{comment.commenterNickname}}</span>
+      <a href="#" class="commenter-nickname">{{comment.commenterNickname}}</a>
       <span class="comment-date">{{comment.commentDate|date: 'shortDate':'zh-Hans'}}</span>
     </div>
     <div class="content-text">

@@ -9,6 +9,8 @@ import {Comment} from '../../vo/comment';
 export class CommentListContainerComponent implements OnInit {
   @Input()
   comments: Comment[];
+  @Input()
+  currentCommenterId: number;
 
   constructor() {
   }

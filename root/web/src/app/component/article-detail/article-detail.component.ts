@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ArticleDetailService} from '../../service/article-detail.service';
 import {ArticleSummaryQueryCondition, ArticleSummaryService} from '../../service/article-summary.service';
+import {CommentService} from '../../service/comment.service';
 import {UrlService} from '../../service/url.service';
 import {ArticleDetail} from '../../vo/article-detail';
+import {Comment} from '../../vo/comment';
 import {Card} from '../../vo/ui/card';
 
 @Component({
@@ -15,10 +17,12 @@ export class ArticleDetailComponent implements OnInit {
   authorIconUrl: string;
   article: ArticleDetail;
   relatedArticleCards: Card[];
+  comments: Comment[];
 
   constructor(private articleDetailService: ArticleDetailService, private articleSummaryService: ArticleSummaryService,
-              private urlService: UrlService) {
+              private commentService: CommentService, private urlService: UrlService) {
     this.relatedArticleCards = [];
+    this.comments = [];
   }
 
   ngOnInit() {
@@ -36,5 +40,6 @@ export class ArticleDetailComponent implements OnInit {
       result.coverImageUrl = this.urlService.generateImageUrl(summary.coverImgId.toString());
       return result;
     });
+    this.comments = this.commentService.queryArticleComments(1);
   }
 }

@@ -1,4 +1,4 @@
 <div class="comment-list-container">
-  <nwen-comment-editor></nwen-comment-editor>
+  <nwen-comment-editor [commenterId]="currentCommenterId"></nwen-comment-editor>
   <nwen-comment-viewer [comment]="comment" *ngFor="let comment of comments"></nwen-comment-viewer>
 </div>
