@@ -4,7 +4,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppRoutingModule} from './app-routing.module';
 import {AppUiModule} from './app-ui.module';
 import {AppComponent} from './app.component';
-import {CardColumnContainerComponent} from './component/card-coumn-container/card-column-container.component';
+import {CardColumnContainerComponent} from './component/card-column-container/card-column-container.component';
 import {CardJumbotronContainerComponent} from './component/card-jumbotron-container/card-jumbotron-container.component';
 import {CardComponent} from './component/card/card.component';
 import {HomeComponent} from './component/home/home.component';

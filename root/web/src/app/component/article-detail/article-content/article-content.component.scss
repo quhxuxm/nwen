@@ -1,3 +1,4 @@
+@import "../../../../common";
 :host {
   width: 100%;
 }
@@ -17,9 +18,16 @@
   margin-bottom: 64px;
   p:first-of-type::first-letter {
     float: left;
-    font-size: 4em;
-    line-height: 1em;
+    font-size: 2em;
+    line-height: 1.1em;
     margin: 0;
+  }
+
+  @include responsive($GLOBAL_WIDTH_LV5){
+    p:first-of-type::first-letter {
+      font-size: 4em;
+      line-height: 1em;
+    }
   }
 }
 
