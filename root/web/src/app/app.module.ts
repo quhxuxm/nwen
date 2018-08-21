@@ -23,6 +23,8 @@ import { AnthologyDetailComponent } from './component/anthology-detail/anthology
 import { AnthologyCoverComponent } from './component/anthology-detail/anthology-cover/anthology-cover.component';
 import { AuthorDetailComponent } from './component/author-detail/author-detail.component';
 import { AuthorCoverComponent } from './component/author-detail/author-cover/author-cover.component';
+import { RichTextEditorComponent } from './component/rich-text-editor/rich-text-editor.component';
+import { ArticleCreateComponent } from './component/article-create/article-create.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { AuthorCoverComponent } from './component/author-detail/author-cover/aut
     AnthologyDetailComponent,
     AnthologyCoverComponent,
     AuthorDetailComponent,
-    AuthorCoverComponent
+    AuthorCoverComponent,
+    RichTextEditorComponent,
+    ArticleCreateComponent
   ],
   imports: [
     BrowserModule,
