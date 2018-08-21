@@ -1,22 +1,21 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AnthologyDetailService} from '../../../service/anthology-detail.service';
 import {UrlService} from '../../../service/url.service';
-import {AnthologyDetail} from '../../../vo/anthology-detail';
+import {AuthorDetail} from '../../../vo/author-detail';
 
 @Component({
-  selector: 'nwen-anthology-cover',
-  templateUrl: './anthology-cover.component.html',
-  styleUrls: ['./anthology-cover.component.scss']
+  selector: 'nwen-author-cover',
+  templateUrl: './author-cover.component.html',
+  styleUrls: ['./author-cover.component.scss']
 })
-export class AnthologyCoverComponent implements OnInit {
+export class AuthorCoverComponent implements OnInit {
   @Input()
-  anthology: AnthologyDetail;
+  author: AuthorDetail;
   authorIconImageUrl: string;
 
-  constructor(private anthologyDetailService: AnthologyDetailService, private urlService: UrlService) {
+  constructor(private urlService: UrlService) {
   }
 
   ngOnInit() {
-    this.authorIconImageUrl = this.urlService.generateImageUrl(this.anthology.authorIconImgId.toString());
+    this.authorIconImageUrl = this.urlService.generateImageUrl(this.author.iconImageId.toString());
   }
 }

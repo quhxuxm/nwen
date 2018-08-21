@@ -1,56 +1,55 @@
 import {Component, OnInit} from '@angular/core';
-import {AnthologyDetailService} from '../../service/anthology-detail.service';
 import {AnthologySummaryQueryCondition, AnthologySummaryService} from '../../service/anthology-summary.service';
-import {ArticleSummaryQueryCondition, ArticleSummaryService} from '../../service/article-summary.service';
+import {AuthorDetailQueryCondition, AuthorDetailService} from '../../service/author-detail.service';
 import {CommentService} from '../../service/comment.service';
 import {UrlService} from '../../service/url.service';
-import {AnthologyDetail} from '../../vo/anthology-detail';
+import {AuthorDetail} from '../../vo/author-detail';
 import {Comment} from '../../vo/comment';
 import {Card} from '../../vo/ui/card';
 
 @Component({
-  selector: 'nwen-anthology-detail',
-  templateUrl: './anthology-detail.component.html',
-  styleUrls: ['./anthology-detail.component.scss']
+  selector: 'nwen-author-detail',
+  templateUrl: './author-detail.component.html',
+  styleUrls: ['./author-detail.component.scss']
 })
-export class AnthologyDetailComponent implements OnInit {
-  anthology: AnthologyDetail;
-  articleCards: Card[];
+export class AuthorDetailComponent implements OnInit {
+  author: AuthorDetail;
   comments: Comment[];
   authorIconImageUrl: string;
   authorUrl: string;
-  relatedAnthologyCards: Card[];
+  anthologyCards: Card[];
+  relatedAuthorCards: Card[];
 
-  constructor(private anthologyDetailService: AnthologyDetailService,
+  constructor(private authorDetailService: AuthorDetailService,
               private anthologySummaryService: AnthologySummaryService,
-              private articleSummaryService: ArticleSummaryService, private commentService: CommentService,
+              private commentService: CommentService,
               private urlService: UrlService) {
   }
 
   ngOnInit() {
-    this.anthology = this.anthologyDetailService.query(1);
-    const anthologyArticleSummariesQueryCondition = new ArticleSummaryQueryCondition();
-    anthologyArticleSummariesQueryCondition.resultNumber = 10;
-    const articleSummaries = this.articleSummaryService.query(anthologyArticleSummariesQueryCondition);
-    this.articleCards = articleSummaries.map(summary => {
-      const card = new Card();
-      card.title = summary.title;
-      card.subTitle = summary.authorNickName;
-      card.content = summary.content;
-      card.coverImageUrl = this.urlService.generateImageUrl(summary.coverImgId.toString());
-      return card;
-    });
-    this.comments = this.commentService.queryArticleComments(1);
-    this.authorIconImageUrl = this.urlService.generateImageUrl(this.anthology.authorIconImgId.toString());
-    this.authorUrl = this.urlService.generateAuthorDetailRouterUrl(this.anthology.authorId.toString());
+    const authorDetailQueryCondition = new AuthorDetailQueryCondition();
+    authorDetailQueryCondition.resultNumber = 1;
+    this.author = this.authorDetailService.query(authorDetailQueryCondition)[0];
+    this.comments = this.commentService.queryAuthorComments(1);
+    this.authorIconImageUrl = this.urlService.generateImageUrl(this.author.iconImageId.toString());
+    this.authorUrl = this.urlService.generateAuthorDetailRouterUrl(this.author.id.toString());
     const relatedAnthologyQueryCondition = new AnthologySummaryQueryCondition();
     relatedAnthologyQueryCondition.resultNumber = 6;
-    this.relatedAnthologyCards = this.anthologySummaryService.query(relatedAnthologyQueryCondition).map(summary => {
+    this.anthologyCards = this.anthologySummaryService.query(relatedAnthologyQueryCondition).map(summary => {
       const result = new Card();
       result.title = summary.title;
       result.subTitle = summary.authorNickName;
       result.content = summary.content;
       result.coverImageUrl = this.urlService.generateImageUrl(summary.coverImgId.toString());
+      return result;
+    });
+    const relatedAuthorDetailQueryCondition = new AuthorDetailQueryCondition();
+    relatedAuthorDetailQueryCondition.resultNumber = 6;
+    this.relatedAuthorCards = this.authorDetailService.query(relatedAuthorDetailQueryCondition).map(detail => {
+      const result = new Card();
+      result.title = detail.nickName;
+      result.content = detail.description;
+      result.coverImageUrl = this.urlService.generateImageUrl(detail.iconImageId.toString());
       return result;
     });
   }

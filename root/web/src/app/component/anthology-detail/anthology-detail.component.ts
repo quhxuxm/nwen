@@ -40,7 +40,7 @@ export class AnthologyDetailComponent implements OnInit {
       card.coverImageUrl = this.urlService.generateImageUrl(summary.coverImgId.toString());
       return card;
     });
-    this.comments = this.commentService.queryArticleComments(1);
+    this.comments = this.commentService.queryAnthologyComments(1);
     this.authorIconImageUrl = this.urlService.generateImageUrl(this.anthology.authorIconImgId.toString());
     this.authorUrl = this.urlService.generateAuthorDetailRouterUrl(this.anthology.authorId.toString());
     const relatedAnthologyQueryCondition = new AnthologySummaryQueryCondition();

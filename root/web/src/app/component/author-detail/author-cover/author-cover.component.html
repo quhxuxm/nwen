@@ -1,10 +1,6 @@
-<div class="anthology-cover">
-  <span class="anthology-title">{{anthology.title}}</span>
-  <span class="author-nickname">
-    <span class="author-nickname-label">作者：</span>
-    <a [routerLink]="'/'" class="author-nickname-link">{{anthology.authorNickname}}</a>
-  </span>
-  <span class="update-date">{{anthology.updateDate | date: 'shortDate':'zh-Hans' }}</span>
+<div class="author-cover">
+  <span class="author-nickname">{{author.nickName}}</span>
+  <span class="author-description">{{author.description}}</span>
   <nwen-separator [showContent]="true" [showRightBorder]="true" [showLeftBorder]="true">
     <a [routerLink]="authorIconImageUrl" class="author-icon" [style.background-image]="'url('+authorIconImageUrl+')'"></a>
   </nwen-separator>
