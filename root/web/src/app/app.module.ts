@@ -21,6 +21,8 @@ import { CommentViewerComponent } from './component/comment-list-container/comme
 import { CommentEditorComponent } from './component/comment-list-container/comment-editor/comment-editor.component';
 import { AnthologyDetailComponent } from './component/anthology-detail/anthology-detail.component';
 import { AnthologyCoverComponent } from './component/anthology-detail/anthology-cover/anthology-cover.component';
+import { AuthorDetailComponent } from './component/author-detail/author-detail.component';
+import { AuthorCoverComponent } from './component/author-detail/author-cover/author-cover.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { AnthologyCoverComponent } from './component/anthology-detail/anthology-
     CommentViewerComponent,
     CommentEditorComponent,
     AnthologyDetailComponent,
-    AnthologyCoverComponent
+    AnthologyCoverComponent,
+    AuthorDetailComponent,
+    AuthorCoverComponent
   ],
   imports: [
     BrowserModule,
