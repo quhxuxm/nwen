@@ -17,7 +17,7 @@
   height: 524px;
   margin-left: auto;
   margin-right: auto;
-  border-right: 1.5px solid $GLOBAL_COLOR_BORDER_LV5;
+
 
   article {
     width: 100%;
@@ -103,8 +103,8 @@
     filter: grayscale(100%);
   }
 }
-.container.jumbotron.last {
-  border-right: none;
+.container.jumbotron.right-border {
+  border-right: 1.5px solid $GLOBAL_COLOR_BORDER_LV5;
 }
 .container.jumbotron:hover {
   article {

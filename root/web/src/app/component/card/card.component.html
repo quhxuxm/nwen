@@ -1,4 +1,4 @@
-<div class="container last" [class.last]="!showRightBorder"
+<div class="container last" [class.right-border]="showRightBorder && !card.isLast"
      [class.jumbotron]="'jumbotron'===layoutType"
      [class.column]="'column'===layoutType"
      [class.circle]="'circle'===displayType"

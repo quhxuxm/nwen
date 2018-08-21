@@ -4,4 +4,5 @@ export class AnthologyDetail {
   authorNickname: string;
   authorIconImgId: number;
   updateDate: Date;
+  authorId: number;
 }

@@ -1,11 +1,13 @@
 <section>
-  <nwen-anthology-cover></nwen-anthology-cover>
+  <nwen-anthology-cover [anthology]="anthology"></nwen-anthology-cover>
   <nwen-card-column-container  [maxColumnNumber]="3" [cards]="articleCards">
   </nwen-card-column-container>
 
+  <nwen-separator [showLeftBorder]="true" [showRightBorder]="true" [showContent]="true">
+    <a [routerLink]="authorUrl" class="author-icon" [style.background-image]="'url('+authorIconImageUrl+')'"></a>
+  </nwen-separator>
 
-
-  <div class="content-container additional-actions">
+  <div class="additional-actions">
     <a class="separator-content smaller" href="#">
       <fa-icon [icon]="['fas','thumbs-up']"></fa-icon>
       <span class="text">10000个赞赏</span>

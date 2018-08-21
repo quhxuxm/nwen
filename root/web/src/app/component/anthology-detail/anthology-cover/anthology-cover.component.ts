@@ -17,7 +17,6 @@ export class AnthologyCoverComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.anthology = this.anthologyDetailService.query(1);
     this.authorIconImageUrl = this.urlService.generateImageUrl(this.anthology.authorIconImgId.toString());
   }
 }

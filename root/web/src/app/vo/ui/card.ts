@@ -12,6 +12,7 @@ export class Card {
   showContent: boolean;
   showCoverImage: boolean;
   useCoverImageFilter: boolean;
+  isLast: boolean;
 
   constructor() {
     this.title = null;
@@ -28,5 +29,6 @@ export class Card {
     this.showContent = true;
     this.showCoverImage = true;
     this.useCoverImageFilter = true;
+    this.isLast = false;
   }
 }

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AnthologyDetailService} from '../../service/anthology-detail.service';
 import {ArticleSummaryQueryCondition, ArticleSummaryService} from '../../service/article-summary.service';
 import {CommentService} from '../../service/comment.service';
 import {UrlService} from '../../service/url.service';
@@ -15,12 +16,16 @@ export class AnthologyDetailComponent implements OnInit {
   anthology: AnthologyDetail;
   articleCards: Card[];
   comments: Comment[];
+  authorIconImageUrl: string;
+  authorUrl: string;
 
-  constructor(private articleSummaryService: ArticleSummaryService, private commentService: CommentService,
+  constructor(private anthologyDetailService: AnthologyDetailService,
+              private articleSummaryService: ArticleSummaryService, private commentService: CommentService,
               private urlService: UrlService) {
   }
 
   ngOnInit() {
+    this.anthology = this.anthologyDetailService.query(1);
     const anthologyArticleSummariesQueryCondition = new ArticleSummaryQueryCondition();
     anthologyArticleSummariesQueryCondition.resultNumber = 10;
     const articleSummaries = this.articleSummaryService.query(anthologyArticleSummariesQueryCondition);
@@ -33,5 +38,7 @@ export class AnthologyDetailComponent implements OnInit {
       return card;
     });
     this.comments = this.commentService.queryArticleComments(1);
+    this.authorIconImageUrl = this.urlService.generateImageUrl(this.anthology.authorIconImgId.toString());
+    this.authorUrl = this.urlService.generateAuthorDetailRouterUrl(this.anthology.authorId.toString());
   }
 }

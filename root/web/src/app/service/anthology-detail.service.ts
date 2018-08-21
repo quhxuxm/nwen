@@ -15,6 +15,7 @@ export class AnthologyDetailService {
     result.authorNickname = '测试作者昵称';
     result.authorIconImgId = 1;
     result.updateDate = new Date();
+    result.authorId = 1;
     return result;
   }
 }

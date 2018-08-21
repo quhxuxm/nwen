@@ -71,5 +71,6 @@ export class CardColumnContainerComponent implements OnInit {
       const columnIndex = i % this.__columnNumber;
       this.__cardColumns[columnIndex].push(this.cards[i]);
     }
+    this.cards[this.cards.length - 1].isLast = true;
   }
 }
