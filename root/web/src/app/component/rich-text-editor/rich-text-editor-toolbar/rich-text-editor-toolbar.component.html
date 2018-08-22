@@ -1,9 +1,25 @@
-<div>
-  <span>
-    <fa-icon [icon]="['fas','heading']" matMenuTriggerFor="formatAsHMenu"></fa-icon>
-    <mat-menu #formatAsHMenu></mat-menu>
+<div class="rich-text-editor-toolbar">
+  <span class="toolbar-button" [matMenuTriggerFor]="formatAsHMenu">
+    <fa-icon [icon]="['fas','heading']"></fa-icon>
+    <mat-menu #formatAsHMenu="matMenu">
+      <button mat-menu-item>
+        H1
+      </button>
+      <button mat-menu-item>
+        H2
+      </button>
+      <button mat-menu-item>
+        H3
+      </button>
+      <button mat-menu-item>
+        H4
+      </button>
+    </mat-menu>
   </span>
-  <span>
+  <span class="toolbar-button" (click)="onBold()" unselectable="on">
     <fa-icon [icon]="['fas','bold']"></fa-icon>
+  </span>
+  <span class="toolbar-button">
+    <fa-icon [icon]="['fas','italic']" (click)="onItalic()"></fa-icon>
   </span>
 </div>
