@@ -12,14 +12,14 @@ export class UrlService {
   }
 
   generateAuthorDetailRouterUrl(id: string): string {
-    return `/author/${id}`;
+    return `/author/detail/${id}`;
   }
 
   generateArticleDetailRouterUrl(id: string): string {
-    return `/article/${id}`;
+    return `/article/detail/${id}`;
   }
 
   generateAnthologyDetailRouterUrl(id: string): string {
-    return `/anthology/${id}`;
+    return `/anthology/detail/${id}`;
   }
 }

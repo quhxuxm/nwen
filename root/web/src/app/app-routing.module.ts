@@ -12,7 +12,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'article/:id',
+    path: 'article/detail/:id',
     component: ArticleDetailComponent
   },
   {
@@ -20,11 +20,11 @@ const routes: Routes = [
     component: ArticleCreateComponent
   },
   {
-    path: 'anthology/:id',
+    path: 'anthology/detail/:id',
     component: AnthologyDetailComponent
   },
   {
-    path: 'author/:id',
+    path: 'author/detail/:id',
     component: AuthorDetailComponent
   },
   {

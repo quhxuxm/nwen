@@ -25,6 +25,8 @@ import { AuthorDetailComponent } from './component/author-detail/author-detail.c
 import { AuthorCoverComponent } from './component/author-detail/author-cover/author-cover.component';
 import { RichTextEditorComponent } from './component/rich-text-editor/rich-text-editor.component';
 import { ArticleCreateComponent } from './component/article-create/article-create.component';
+import { RichTextEditorToolbarComponent } from './component/rich-text-editor/rich-text-editor-toolbar/rich-text-editor-toolbar.component';
+import { RichTextEditorContentComponent } from './component/rich-text-editor/rich-text-editor-content/rich-text-editor-content.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { ArticleCreateComponent } from './component/article-create/article-creat
     AuthorDetailComponent,
     AuthorCoverComponent,
     RichTextEditorComponent,
-    ArticleCreateComponent
+    ArticleCreateComponent,
+    RichTextEditorToolbarComponent,
+    RichTextEditorContentComponent
   ],
   imports: [
     BrowserModule,
