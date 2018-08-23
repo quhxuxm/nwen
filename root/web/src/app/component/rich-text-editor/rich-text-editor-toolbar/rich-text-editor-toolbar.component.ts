@@ -71,6 +71,6 @@ export class RichTextEditorToolbarComponent implements OnInit {
   }
 
   onImage() {
-    this.commandBus.sendCommand(RichTextEditorToolbarComponent.generateCommand('formatblock', '<div class="image-uploader">', false));
+    this.commandBus.sendCommand(RichTextEditorToolbarComponent.generateCommand('insertHTML', '<div class="image-uploader">Image uploading ... </div>', false));
   }
 }
