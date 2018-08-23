@@ -52,7 +52,9 @@ export class RichTextEditorContentComponent implements AfterContentInit, OnInit 
         if (command.callback) {
           command.callback(affectedRange.startContainer, affectedRange.endContainer);
         }
-        this.currentRange = null;
+        if (command.clearContext) {
+          this.currentRange = null;
+        }
       }
     });
   }

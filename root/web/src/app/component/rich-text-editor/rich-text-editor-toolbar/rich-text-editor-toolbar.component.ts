@@ -11,7 +11,7 @@ export class RichTextEditorToolbarComponent implements OnInit {
   constructor(private commandBus: CommandBusService) {
   }
 
-  private static generateCommand(name: string, value: string, showUi: boolean,
+  private static generateCommand(name: string, value: string, showUi: boolean, clearContext?: boolean,
                                  callback?: (affectedStartNode: Node, affectedEndNode: Node) => void): Command {
     const cmd = new Command();
     cmd.name = name;
@@ -33,7 +33,7 @@ export class RichTextEditorToolbarComponent implements OnInit {
   }
 
   onFontSize(value: string) {
-    this.commandBus.sendCommand(RichTextEditorToolbarComponent.generateCommand('fontSize', value, false,
+    this.commandBus.sendCommand(RichTextEditorToolbarComponent.generateCommand('fontSize', value, false, true,
       (affectedStartNode, affectedEndNode) => {
         console.log('==============affectedStartNode=============');
         console.log(affectedStartNode);
