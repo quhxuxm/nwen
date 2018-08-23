@@ -1,25 +1,66 @@
 <div class="rich-text-editor-toolbar">
-  <span class="toolbar-button" [matMenuTriggerFor]="formatAsHMenu">
-    <fa-icon [icon]="['fas','heading']"></fa-icon>
-    <mat-menu #formatAsHMenu="matMenu">
-      <button mat-menu-item>
-        H1
+  <span class="toolbar-button" [matMenuTriggerFor]="headingMenu">
+  <fa-icon [icon]="['fas','heading']"></fa-icon>
+    <mat-menu #headingMenu="matMenu">
+      <button mat-menu-item (click)="onHeading('H1')">
+      H1
       </button>
-      <button mat-menu-item>
-        H2
+      <button mat-menu-item (click)="onHeading('H2')">
+      H2
       </button>
-      <button mat-menu-item>
-        H3
+      <button mat-menu-item (click)="onHeading('H3')">
+      H3
       </button>
-      <button mat-menu-item>
-        H4
+      <button mat-menu-item (click)="onHeading('H4')">
+      H4
       </button>
     </mat-menu>
   </span>
-  <span class="toolbar-button" (click)="onBold()" unselectable="on">
+  <span class="toolbar-button" (click)="onBold()">
     <fa-icon [icon]="['fas','bold']"></fa-icon>
   </span>
   <span class="toolbar-button">
     <fa-icon [icon]="['fas','italic']" (click)="onItalic()"></fa-icon>
   </span>
+  <span class="toolbar-button" [matMenuTriggerFor]="fontSizeMenu">
+    <fa-icon [icon]="['fas','font']"></fa-icon>
+     <mat-menu #fontSizeMenu="matMenu">
+      <button mat-menu-item (click)="onFontSize('8px')">
+      8px
+      </button>
+      <button mat-menu-item (click)="onFontSize('10px')">
+      10px
+      </button>
+      <button mat-menu-item (click)="onFontSize('12px')">
+      12px
+      </button>
+      <button mat-menu-item (click)="onFontSize('14px')">
+      14px
+      </button>
+        <button mat-menu-item (click)="onFontSize('18px')">
+      18px
+      </button>
+        <button mat-menu-item (click)="onFontSize('24px')">
+      24px
+      </button>
+        <button mat-menu-item (click)="onFontSize('36px')">
+      36px
+      </button>
+    </mat-menu>
+  </span>
+
+
+  <span class="toolbar-button">
+    <fa-icon [icon]="['fas','quote-left']" (click)="onQuote()"></fa-icon>
+  </span>
+  <span class="toolbar-button">
+    <fa-icon [icon]="['fas','paragraph']" (click)="onParagraph()"></fa-icon>
+  </span>
+  <span class="toolbar-button">
+    <fa-icon [icon]="['fas','eraser']" (click)="onClear()"></fa-icon>
+  </span>
+  <span class="toolbar-button">
+    <fa-icon [icon]="['fas','backspace']" (click)="onDelete()"></fa-icon>
+  </span>
+
 </div>

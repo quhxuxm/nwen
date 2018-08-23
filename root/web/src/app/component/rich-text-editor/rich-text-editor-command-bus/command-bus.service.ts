@@ -11,13 +11,13 @@ export class CommandBusService {
   constructor() {
   }
 
-  public send(command: Command) {
-    this.commandSubject.next(command)
+  public sendCommand(command: Command) {
+    this.commandSubject.next(command);
   }
 
-  public receive(callback: (command: Command) => void) {
+  public receiveCommand(callback: (command: Command) => void) {
     this.commandSubject.subscribe(command => {
       callback(command);
-    })
+    });
   }
 }
