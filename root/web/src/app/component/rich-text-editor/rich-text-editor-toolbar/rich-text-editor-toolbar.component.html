@@ -2,68 +2,39 @@
   <span class="toolbar-button" [matMenuTriggerFor]="headingMenu">
   <fa-icon [icon]="['fas','heading']"></fa-icon>
     <mat-menu #headingMenu="matMenu">
-      <button mat-menu-item (click)="onHeading('H1')">
+      <button mat-menu-item (click)="onHeading('H1', $event)">
       H1
       </button>
-      <button mat-menu-item (click)="onHeading('H2')">
+      <button mat-menu-item (click)="onHeading('H2', $event)">
       H2
       </button>
-      <button mat-menu-item (click)="onHeading('H3')">
+      <button mat-menu-item (click)="onHeading('H3',$event)">
       H3
       </button>
-      <button mat-menu-item (click)="onHeading('H4')">
+      <button mat-menu-item (click)="onHeading('H4',$event)">
       H4
       </button>
     </mat-menu>
   </span>
-  <span class="toolbar-button" (click)="onBold()">
+  <span class="toolbar-button" (click)="onBold($event)">
     <fa-icon [icon]="['fas','bold']"></fa-icon>
   </span>
   <span class="toolbar-button">
-    <fa-icon [icon]="['fas','italic']" (click)="onItalic()"></fa-icon>
-  </span>
-  <span class="toolbar-button" [matMenuTriggerFor]="fontSizeMenu">
-    <fa-icon [icon]="['fas','font']"></fa-icon>
-     <mat-menu #fontSizeMenu="matMenu">
-      <button mat-menu-item (click)="onFontSize('8px')">
-      8px
-      </button>
-      <button mat-menu-item (click)="onFontSize('10px')">
-      10px
-      </button>
-      <button mat-menu-item (click)="onFontSize('12px')">
-      12px
-      </button>
-      <button mat-menu-item (click)="onFontSize('14px')">
-      14px
-      </button>
-        <button mat-menu-item (click)="onFontSize('18px')">
-      18px
-      </button>
-        <button mat-menu-item (click)="onFontSize('24px')">
-      24px
-      </button>
-        <button mat-menu-item (click)="onFontSize('36px')">
-      36px
-      </button>
-    </mat-menu>
-  </span>
-
-
-  <span class="toolbar-button">
-    <fa-icon [icon]="['fas','quote-left']" (click)="onQuote()"></fa-icon>
+    <fa-icon [icon]="['fas','italic']" (click)="onItalic($event)"></fa-icon>
   </span>
   <span class="toolbar-button">
-    <fa-icon [icon]="['fas','paragraph']" (click)="onParagraph()"></fa-icon>
+    <fa-icon [icon]="['fas','quote-left']" (click)="onQuote($event)"></fa-icon>
   </span>
   <span class="toolbar-button">
-    <fa-icon [icon]="['fas','image']" (click)="onImage()"></fa-icon>
+    <fa-icon [icon]="['fas','paragraph']" (click)="onParagraph($event)"></fa-icon>
   </span>
   <span class="toolbar-button">
-    <fa-icon [icon]="['fas','eraser']" (click)="onClear()"></fa-icon>
+    <fa-icon [icon]="['fas','image']" (click)="onImage($event)"></fa-icon>
   </span>
   <span class="toolbar-button">
-    <fa-icon [icon]="['fas','backspace']" (click)="onDelete()"></fa-icon>
+    <fa-icon [icon]="['fas','eraser']" (click)="onClear($event)"></fa-icon>
   </span>
-
+  <span class="toolbar-button">
+    <fa-icon [icon]="['fas','backspace']" (click)="onDelete($event)"></fa-icon>
+  </span>
 </div>

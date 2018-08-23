@@ -18,6 +18,7 @@ export class CommandBusService {
   public receiveCommand(callback: (command: Command) => void) {
     this.commandSubject.subscribe(command => {
       callback(command);
+    }, error => {
     });
   }
 }

@@ -5,6 +5,7 @@ export class Command {
   name: string;
   value: string;
   showUi: boolean;
+  rangeCommand: boolean;
   clearContext: boolean;
   context: CommandContext;
   callback: (affectedStartNode: Node, affectedEndNode: Node) => void;
@@ -16,5 +17,6 @@ export class Command {
     this.context = new CommandContext();
     this.callback = null;
     this.clearContext = true;
+    this.rangeCommand = true;
   }
 }

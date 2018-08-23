@@ -27,34 +27,38 @@ export class RichTextEditorContentComponent implements AfterContentInit, OnInit 
       const targetContentDomElement = this.contentContainer.nativeElement;
       this.content = targetContentDomElement.innerHTML;
       targetContentDomElement.focus();
-      if (typeof document.body['createTextRange'] !== 'undefined') {
-        // For windows only
-        const textRange = document.body['createTextRange']();
-        textRange.moveToElementText(targetContentDomElement);
-        textRange.collapse(false);
-        textRange.select();
+      if (command.rangeCommand) {
+        if (typeof document.body['createTextRange'] !== 'undefined') {
+          // For windows only
+          const textRange = document.body['createTextRange']();
+          textRange.moveToElementText(targetContentDomElement);
+          textRange.collapse(false);
+          textRange.select();
+        } else {
+          // For others
+          console.log('============== this.currentRange ==============');
+          console.log(this.currentRange);
+          console.log('this.currentRange.startOffset = ' + this.currentRange.startOffset);
+          console.log('============== this.currentRange.startContainer ==============');
+          console.log(this.currentRange.startContainer);
+          const newSelectRange = document.createRange();
+          newSelectRange.setStart(this.currentRange.startContainer, this.currentRange.startOffset);
+          newSelectRange.setEnd(this.currentRange.endContainer, this.currentRange.endOffset);
+          console.log('============== newSelectRange ==============');
+          console.log(newSelectRange);
+          document.getSelection().removeAllRanges();
+          document.getSelection().addRange(newSelectRange);
+          document.execCommand(command.name, command.showUi, command.value);
+          const affectedRange = document.getSelection().getRangeAt(0);
+          if (command.callback) {
+            command.callback(affectedRange.startContainer, affectedRange.endContainer);
+          }
+          if (command.clearContext) {
+            this.currentRange = null;
+          }
+        }
       } else {
-        // For others
-        console.log('============== this.currentRange ==============');
-        console.log(this.currentRange);
-        console.log('this.currentRange.startOffset = ' + this.currentRange.startOffset);
-        console.log('============== this.currentRange.startContainer ==============');
-        console.log(this.currentRange.startContainer);
-        const newSelectRange = document.createRange();
-        newSelectRange.setStart(this.currentRange.startContainer, this.currentRange.startOffset);
-        newSelectRange.setEnd(this.currentRange.endContainer, this.currentRange.endOffset);
-        console.log('============== newSelectRange ==============');
-        console.log(newSelectRange);
-        document.getSelection().removeAllRanges();
-        document.getSelection().addRange(newSelectRange);
         document.execCommand(command.name, command.showUi, command.value);
-        const affectedRange = document.getSelection().getRangeAt(0);
-        if (command.callback) {
-          command.callback(affectedRange.startContainer, affectedRange.endContainer);
-        }
-        if (command.clearContext) {
-          this.currentRange = null;
-        }
       }
     });
   }
