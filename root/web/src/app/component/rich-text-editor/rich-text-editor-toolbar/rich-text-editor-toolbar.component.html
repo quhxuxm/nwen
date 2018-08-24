@@ -1,18 +1,18 @@
 <div class="rich-text-editor-toolbar">
-  <span class="toolbar-button" [matMenuTriggerFor]="headingMenu">
-  <fa-icon [icon]="['fas','heading']"></fa-icon>
-    <mat-menu #headingMenu="matMenu">
+  <span class="toolbar-button" [matMenuTriggerFor]="headingMenu" #trigger="matMenuTrigger">
+    <fa-icon [icon]="['fas','heading']"></fa-icon>
+    <mat-menu #headingMenu="matMenu" class="heading-menu">
       <button mat-menu-item (click)="onHeading('H1', $event)">
-      H1
+        H1
       </button>
       <button mat-menu-item (click)="onHeading('H2', $event)">
-      H2
+        H2
       </button>
       <button mat-menu-item (click)="onHeading('H3',$event)">
-      H3
+        H3
       </button>
       <button mat-menu-item (click)="onHeading('H4',$event)">
-      H4
+        H4
       </button>
     </mat-menu>
   </span>

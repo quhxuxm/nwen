@@ -1,14 +1,14 @@
+
 export class CommandContext {
+  range: Range;
 }
 
 export class Command {
   name: string;
   value: string;
   showUi: boolean;
-  rangeCommand: boolean;
-  clearContext: boolean;
   context: CommandContext;
-  callback: (affectedStartNode: Node, affectedEndNode: Node) => void;
+  callback: (currentSelection: Selection) => void;
 
   constructor() {
     this.name = null;
@@ -16,7 +16,5 @@ export class Command {
     this.showUi = false;
     this.context = new CommandContext();
     this.callback = null;
-    this.clearContext = true;
-    this.rangeCommand = true;
   }
 }

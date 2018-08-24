@@ -1,12 +1,12 @@
 @import "~src/common";
-.rich-text-editor-toolbar{
+.rich-text-editor-toolbar {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-items: start;
   margin-left: 16px;
   margin-right: 16px;
-  .toolbar-button{
+  .toolbar-button {
     width: 20px;
     height: 20px;
     cursor: pointer;
@@ -15,4 +15,13 @@
     vertical-align: center;
   }
 }
+.heading-menu {
+  width: 60px;
+  min-width: 60px !important;
 
+  .mat-menu-item {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+  }
+}

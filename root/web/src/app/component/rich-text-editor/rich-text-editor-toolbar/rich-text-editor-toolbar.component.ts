@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Command} from '../rich-text-editor-command-bus/command';
+import {Command, CommandContext} from '../rich-text-editor-command-bus/command';
 import {CommandBusService} from '../rich-text-editor-command-bus/command-bus.service';
 
 @Component({
@@ -12,14 +12,18 @@ export class RichTextEditorToolbarComponent implements OnInit {
   constructor(private commandBus: CommandBusService) {
   }
 
-  private static generateCommand(name: string, value: string, showUi: boolean, isRangeCommand?: boolean,
-                                 clearContext?: boolean,
-                                 callback?: (affectedStartNode: Node, affectedEndNode: Node) => void): Command {
+  private generateCommand(name: string, value: string,
+                          callback?: (currentSelection: Selection) => void): Command {
     const cmd = new Command();
     cmd.name = name;
     cmd.value = value;
-    cmd.showUi = showUi;
+    cmd.showUi = false;
     cmd.callback = callback;
+    if (this.commandBus.commandContext) {
+      cmd.context = this.commandBus.commandContext;
+    } else {
+      cmd.context = new CommandContext();
+    }
     return cmd;
   }
 
@@ -28,61 +32,56 @@ export class RichTextEditorToolbarComponent implements OnInit {
 
   onBold(event: Event) {
     event.preventDefault();
-    this.commandBus.sendCommand(RichTextEditorToolbarComponent.generateCommand('bold', null, false, false));
+    this.commandBus.sendCommand(this.generateCommand('bold', null, range => {
+      console.log(range);
+    }));
   }
 
   onItalic(event: Event) {
     event.preventDefault();
-    this.commandBus.sendCommand(RichTextEditorToolbarComponent.generateCommand('italic', null, false, false));
-  }
-
-  onFontSize(value: string, event: Event) {
-    event.preventDefault();
-    this.commandBus.sendCommand(RichTextEditorToolbarComponent.generateCommand('fontSize', value, false, true, true,
-      (affectedStartNode, affectedEndNode) => {
-        console.log('==============affectedStartNode=============');
-        console.log(affectedStartNode);
-        if (affectedStartNode) {
-          affectedStartNode.parentElement.removeAttribute('size');
-          affectedStartNode.parentElement.style.fontSize = value;
-        }
-        console.log('==============affectedEndNode=============');
-        console.log(affectedEndNode);
-        if (affectedEndNode) {
-          affectedEndNode.parentElement.removeAttribute('size');
-          affectedEndNode.parentElement.style.fontSize = value;
-        }
-      }));
+    this.commandBus.sendCommand(this.generateCommand('italic', null));
   }
 
   onHeading(value: string, event: Event) {
     event.preventDefault();
-    this.commandBus.sendCommand(RichTextEditorToolbarComponent.generateCommand('formatblock', value, false, false));
+    this.commandBus.sendCommand(this.generateCommand('formatblock', value, range => {
+      console.log(range);
+    }));
   }
 
   onClear(event: Event) {
     event.preventDefault();
-    this.commandBus.sendCommand(RichTextEditorToolbarComponent.generateCommand('removeFormat', null, false, false));
+    this.commandBus.sendCommand(this.generateCommand('removeFormat', null, range => {
+      console.log(range);
+    }));
   }
 
   onDelete(event: Event) {
     event.preventDefault();
-    this.commandBus.sendCommand(RichTextEditorToolbarComponent.generateCommand('delete', null, false, false));
+    this.commandBus.sendCommand(this.generateCommand('delete', null, range => {
+      console.log(range);
+    }));
   }
 
   onQuote(event: Event) {
     event.preventDefault();
-    this.commandBus.sendCommand(RichTextEditorToolbarComponent.generateCommand('formatblock', 'blockquote', false, false));
+    this.commandBus.sendCommand(this.generateCommand('formatblock', 'blockquote', range => {
+      console.log(range);
+    }));
   }
 
   onParagraph(event: Event) {
     event.preventDefault();
-    this.commandBus.sendCommand(RichTextEditorToolbarComponent.generateCommand('formatblock', 'p', false, false));
+    this.commandBus.sendCommand(this.generateCommand('formatblock', 'p', range => {
+      console.log(range);
+    }));
   }
 
   onImage(event: Event) {
     event.preventDefault();
-    this.commandBus.sendCommand(RichTextEditorToolbarComponent.generateCommand('insertHTML',
-      '<div class="test"><img src="/assets/image/1"></div>', false, false));
+    this.commandBus.sendCommand(this.generateCommand('insertHTML',
+      `<p class='temp' />`, range => {
+        console.log(range);
+      }));
   }
 }
