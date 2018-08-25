@@ -1,4 +1,7 @@
 @import "~src/common";
+:host {
+  width: 100%;
+}
 .container-lv1 {
   max-width: $GLOBAL_WIDTH_LV7;
   margin-left: auto;

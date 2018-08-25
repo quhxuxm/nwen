@@ -1,4 +1,3 @@
-
 export class CommandContext {
   range: Range;
 }
@@ -8,7 +7,7 @@ export class Command {
   value: string;
   showUi: boolean;
   context: CommandContext;
-  callback: (currentSelection: Selection) => void;
+  callback: (editorContainerElement: Element, currentSelection: Selection) => void;
 
   constructor() {
     this.name = null;

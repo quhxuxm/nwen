@@ -29,7 +29,7 @@
       </li>
     </ul>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content class="side-navigator-content">
     <mat-toolbar class="top-navigator">
       <button mat-icon-button
               (click)="sideNavigator.toggle()" class="side-navigator-open-btn">
@@ -41,7 +41,5 @@
       </button>
     </mat-toolbar>
     <ng-content></ng-content>
-    <nwen-separator></nwen-separator>
-    <nwen-footer></nwen-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

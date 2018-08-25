@@ -1,5 +1,5 @@
-<div class="rich-text-editor-toolbar">
-  <span class="toolbar-button" [matMenuTriggerFor]="headingMenu" #trigger="matMenuTrigger">
+<section>
+  <button mat-icon-button  class="toolbar-button" [matMenuTriggerFor]="headingMenu" #trigger="matMenuTrigger" matTooltip="标题">
     <fa-icon [icon]="['fas','heading']"></fa-icon>
     <mat-menu #headingMenu="matMenu" class="heading-menu">
       <button mat-menu-item (click)="onHeading('H1', $event)">
@@ -15,26 +15,33 @@
         H4
       </button>
     </mat-menu>
-  </span>
-  <span class="toolbar-button" (click)="onBold($event)">
+  </button>
+  <button mat-icon-button class="toolbar-button" (click)="onBold($event)" matTooltip="粗体">
     <fa-icon [icon]="['fas','bold']"></fa-icon>
-  </span>
-  <span class="toolbar-button">
+  </button>
+  <button mat-icon-button class="toolbar-button" matTooltip="斜体">
     <fa-icon [icon]="['fas','italic']" (click)="onItalic($event)"></fa-icon>
-  </span>
-  <span class="toolbar-button">
+  </button>
+  <button mat-icon-button class="toolbar-button" matTooltip="引用">
     <fa-icon [icon]="['fas','quote-left']" (click)="onQuote($event)"></fa-icon>
-  </span>
-  <span class="toolbar-button">
+  </button>
+  <button mat-icon-button class="toolbar-button" matTooltip="段落">
     <fa-icon [icon]="['fas','paragraph']" (click)="onParagraph($event)"></fa-icon>
-  </span>
-  <span class="toolbar-button">
-    <fa-icon [icon]="['fas','image']" (click)="onImage($event)"></fa-icon>
-  </span>
-  <span class="toolbar-button">
+  </button>
+  <button mat-icon-button class="toolbar-button" matTooltip="图片">
+    <fa-icon [icon]="['fas','image']" (click)="onImageStep1($event, fileInputElement)"></fa-icon>
+     <input #fileInputElement type="file" multiple accept="image/*" class="image-uploader-input" (change)="onImageStep2($event, fileInputElement)"/>
+  </button>
+  <button mat-icon-button class="toolbar-button" matTooltip="清除格式">
     <fa-icon [icon]="['fas','eraser']" (click)="onClear($event)"></fa-icon>
-  </span>
-  <span class="toolbar-button">
+  </button>
+  <button mat-icon-button class="toolbar-button" matTooltip="删除">
     <fa-icon [icon]="['fas','backspace']" (click)="onDelete($event)"></fa-icon>
-  </span>
-</div>
+  </button>
+  <button mat-icon-button class="toolbar-button" matTooltip="保存">
+    <fa-icon [icon]="['fas','save']" (click)="onDelete($event)"></fa-icon>
+  </button>
+  <button mat-icon-button class="toolbar-button" matTooltip="发布">
+    <fa-icon [icon]="['fas','check']" (click)="onDelete($event)"></fa-icon>
+  </button>
+</section>

@@ -1,19 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import "common";
-*{
+* {
   outline: none;
 }
 html, body {
   height: 100%;
   width: 100%;
-  font-family:$GLOBAL_FONT_FAMILY_BASE;
+  font-family: $GLOBAL_FONT_FAMILY_BASE;
   color: $GLOBAL_COLOR_TEXT_LV5;
   main {
     width: 100%;
     height: 100%;
   }
 }
-
 .separator-content {
   font-size: 28px;
   font-weight: 400;
@@ -29,9 +28,24 @@ html, body {
 .separator-content.bigger {
   font-size: 32px;
 }
-
 .separator-content.smaller {
   font-size: 22px;
 }
+div.rich-text-editor-image-loading-container {
+  width: 100%;
+  height: 50px;
+  display: block;
+  clear: both;
+  background-color: red;
+}
+img.article-detail-content-img {
+  width: 90%;
+  display: block;
+  clear: both;
+  margin: 16px auto;
+}
+
+
+
 
 

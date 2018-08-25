@@ -1,19 +1,40 @@
 @import "~src/common";
-.rich-text-editor-toolbar {
+section {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-items: start;
-  margin-left: 16px;
-  margin-right: 16px;
+  flex-wrap: wrap;
+  width: 100%;
   .toolbar-button {
-    width: 20px;
-    height: 20px;
     cursor: pointer;
-    margin: 16px;
     text-align: center;
     vertical-align: center;
+    width: 50px;
+    height: 50px;
+
+    .image-uploader-input {
+      display: none;
+    }
+
+    .mat-button-ripple-round {
+      border-radius: 0;
+
+      //* {
+      //  border-radius: 0;
+      //}
+    }
   }
+
+  .toolbar-button.mat-icon-button {
+    border-radius: 0;
+  }
+  //.toolbar-button:first-of-type{
+  //  margin-left: 0;
+  //}
+  //.toolbar-button:last-of-type{
+  //  margin-right: 0;
+  //}
 }
 .heading-menu {
   width: 60px;

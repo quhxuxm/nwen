@@ -1,11 +1,12 @@
 @import "~src/common";
-.rich-text-editor-content{
-  height: 100%;
-  padding: 16px;
-  margin-left: 16px;
-  margin-right: 16px;
-  min-height: 200px;
+.rich-text-editor-content {
+  flex-grow: 1;
+  flex-shrink: 1;
   font-size: 18px;
   font-weight: 400;
+  width: calc(100% - 32px);
+  overflow-y: auto;
+  margin-left: 16px;
+  margin-right: 16px;
 }
 

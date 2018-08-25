@@ -13,7 +13,7 @@ export class RichTextEditorToolbarComponent implements OnInit {
   }
 
   private generateCommand(name: string, value: string,
-                          callback?: (currentSelection: Selection) => void): Command {
+                          callback?: (editorContainerElement: Element, currentSelection: Selection) => void): Command {
     const cmd = new Command();
     cmd.name = name;
     cmd.value = value;
@@ -77,11 +77,46 @@ export class RichTextEditorToolbarComponent implements OnInit {
     }));
   }
 
-  onImage(event: Event) {
+  onImageStep1(event: Event, fileInputElement) {
     event.preventDefault();
-    this.commandBus.sendCommand(this.generateCommand('insertHTML',
-      `<p class='temp' />`, range => {
-        console.log(range);
+    fileInputElement.click();
+  }
+
+  onImageStep2(event: Event, fileInputElement: HTMLInputElement) {
+
+    // Set the place holder
+    this.commandBus.sendCommand(this.generateCommand(null,
+      null, (editorContainerElement, selection) => {
+        // if (selection.anchorNode.nodeType == Node.TEXT_NODE) {
+        selection.collapse(selection.focusNode, selection.focusOffset);
+        document.execCommand('insertHTML', false, '<br class="rich-text-editor-content-place-holder"/>');
+        const placeHolderElement = editorContainerElement.querySelector('br.rich-text-editor-content-place-holder');
+        const imageLoadingElement = RichTextEditorToolbarComponent.createImageLoadingElement(fileInputElement.value);
+        placeHolderElement.parentElement.replaceChild(imageLoadingElement, placeHolderElement);
+        RichTextEditorToolbarComponent.loadImage(fileInputElement, imageLoadingElement);
+        fileInputElement.value = '';
+        // }
       }));
+  }
+
+  private static createImageLoadingElement(fileName: string): Element {
+    const imgLoadingContainerElement = document.createElement(`div`);
+    imgLoadingContainerElement.setAttribute('class', 'rich-text-editor-image-loading-container');
+    imgLoadingContainerElement.innerHTML = fileName;
+    return imgLoadingContainerElement;
+  }
+
+  private static loadImage(fileInputElement: HTMLInputElement, imageLoadingElement: Element) {
+    const fileToUpload: File = fileInputElement.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(fileToUpload);
+    reader.onload = function (e) {
+      var uploadedImageElement = document.createElement('img');
+      uploadedImageElement.setAttribute('class', 'article-detail-content-img')
+      uploadedImageElement.setAttribute('src', this.result);
+      imageLoadingElement.parentElement.replaceChild(uploadedImageElement, imageLoadingElement);
+    };
+    reader.onprogress = function (e) {
+    };
   }
 }
