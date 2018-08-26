@@ -120,9 +120,7 @@ export class RichTextEditorToolbarComponent implements OnInit {
         uploadedImageElement.setAttribute('class', 'article-detail-content-img')
         uploadedImageElement.setAttribute('src', self.result);
         imageLoadingElement.parentElement.replaceChild(uploadedImageElement, imageLoadingElement);
-      }, 2000);
-    };
-    reader.onprogress = function (e) {
+      }, 1200);
     };
   }
 }

@@ -10,13 +10,14 @@ $GLOBAL_FONT_FAMILY_SPECIAL: -apple-system, SF UI Text, Arial, PingFang SC, Hira
 $GLOBAL_COLOR_TEXT_LV5: #000000;
 $GLOBAL_COLOR_TEXT_LV3: mat-color($mat-gray, 600);
 $GLOBAL_COLOR_TEXT_LV0: #FFFFFF;
+$GLOBAL_COLOR_TEXT_EMPHASIZE_LV2: mat-color($mat-green, A700);
 $GLOBAL_COLOR_TEXT_EMPHASIZE_LV3: mat-color($mat-red, 600);
 $GLOBAL_COLOR_TEXT_EMPHASIZE_LV4: mat-color($mat-brown, 500);
 $GLOBAL_COLOR_TEXT_EMPHASIZE_LV5: mat-color($mat-red, 900);
 $GLOBAL_COLOR_BORDER_LV0: #FFFFFF;
 $GLOBAL_COLOR_BORDER_LV3: mat-color($mat-gray, 300);
 $GLOBAL_COLOR_BORDER_LV5: #000000;
-
+$GLOBAL_COLOR_PROGRESS: mat-color($mat-green, A700);
 //Global breakpoint of width
 $GLOBAL_WIDTH_LV1: 330px;
 $GLOBAL_WIDTH_LV2: 450px;

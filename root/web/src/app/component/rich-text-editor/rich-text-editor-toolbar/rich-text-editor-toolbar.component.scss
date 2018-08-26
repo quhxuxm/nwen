@@ -29,12 +29,9 @@ section {
   .toolbar-button.mat-icon-button {
     border-radius: 0;
   }
-  //.toolbar-button:first-of-type{
-  //  margin-left: 0;
-  //}
-  //.toolbar-button:last-of-type{
-  //  margin-right: 0;
-  //}
+  .toolbar-button.emphasize{
+    color: $GLOBAL_COLOR_TEXT_EMPHASIZE_LV5;
+  }
 }
 .heading-menu {
   width: 60px;

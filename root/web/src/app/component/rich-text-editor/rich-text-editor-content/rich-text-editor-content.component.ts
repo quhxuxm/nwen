@@ -25,7 +25,7 @@ export class RichTextEditorContentComponent implements AfterContentInit, OnInit 
 
   ngAfterContentInit() {
     this.commandBus.receiveCommand(command => {
-      const targetContentDomElement = <Element>this.contentContainer.nativeElement;
+      const targetContentDomElement = <HTMLElement>this.contentContainer.nativeElement;
       if (document.getSelection()) {
         document.getSelection().removeAllRanges();
       }
@@ -47,5 +47,12 @@ export class RichTextEditorContentComponent implements AfterContentInit, OnInit 
     if (document.getSelection()) {
       this.commandBus.commandContext.range = document.getSelection().getRangeAt(0);
     }
+  }
+
+  onPaste(event: Event) {
+    event.preventDefault();
+    const text = event['clipboardData'].getData('text/plain');
+    document.execCommand('inserttext', false, text);
+    return false;
   }
 }

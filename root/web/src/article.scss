@@ -1,8 +1,8 @@
 .rich-text-editor-image-loading-container {
-  width: calc(100% - 64px);
+  width: calc(100%);
   height: 50px;
   clear: both;
-  margin: 16px 32px;
+  margin: 16px auto;
   border: 1px solid $GLOBAL_COLOR_BORDER_LV3;
   display: flex;
   flex-direction: row;
@@ -14,17 +14,24 @@
 
   .rich-text-editor-image-loading-progress {
     height: 10px;
-    margin-left: 16px;
-    margin-right: 16px;
-    background-color: red;
+    margin-left: 32px;
+    margin-right: 32px;
+    background-color: $GLOBAL_COLOR_PROGRESS;
     transition: width 1s;
+    cursor: default;
     width: 0;
   }
 
 }
+
+@include responsive($GLOBAL_WIDTH_LV5){
+  .rich-text-editor-image-loading-container {
+    width: calc(60%);
+  }
+}
 .rich-text-editor-image-loading-container.full {
   .rich-text-editor-image-loading-progress {
-    width: calc(100% - 32px);
+    width: calc(100% - 64px);
   }
 }
 img.article-detail-content-img {
