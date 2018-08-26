@@ -102,7 +102,9 @@ export class RichTextEditorToolbarComponent implements OnInit {
   private static createImageLoadingElement(fileName: string): Element {
     const imgLoadingContainerElement = document.createElement(`div`);
     imgLoadingContainerElement.setAttribute('class', 'rich-text-editor-image-loading-container');
-    imgLoadingContainerElement.innerHTML = fileName;
+    const progressElement = document.createElement(`div`);
+    progressElement.setAttribute('class', 'rich-text-editor-image-loading-progress');
+    imgLoadingContainerElement.insertBefore(progressElement, null);
     return imgLoadingContainerElement;
   }
 
@@ -111,10 +113,14 @@ export class RichTextEditorToolbarComponent implements OnInit {
     var reader = new FileReader();
     reader.readAsDataURL(fileToUpload);
     reader.onload = function (e) {
-      var uploadedImageElement = document.createElement('img');
-      uploadedImageElement.setAttribute('class', 'article-detail-content-img')
-      uploadedImageElement.setAttribute('src', this.result);
-      imageLoadingElement.parentElement.replaceChild(uploadedImageElement, imageLoadingElement);
+      let self = this;
+      imageLoadingElement.setAttribute('class', imageLoadingElement.getAttribute('class') + ' full');
+      setTimeout(() => {
+        var uploadedImageElement = document.createElement('img');
+        uploadedImageElement.setAttribute('class', 'article-detail-content-img')
+        uploadedImageElement.setAttribute('src', self.result);
+        imageLoadingElement.parentElement.replaceChild(uploadedImageElement, imageLoadingElement);
+      }, 2000);
     };
     reader.onprogress = function (e) {
     };

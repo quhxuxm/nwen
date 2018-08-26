@@ -1,0 +1,35 @@
+.rich-text-editor-image-loading-container {
+  width: calc(100% - 64px);
+  height: 50px;
+  clear: both;
+  margin: 16px 32px;
+  border: 1px solid $GLOBAL_COLOR_BORDER_LV3;
+  display: flex;
+  flex-direction: row;
+  justify-self: start;
+  align-items: center;
+  font-size: 8px;
+  font-weight: bold;
+  text-align: center;
+
+  .rich-text-editor-image-loading-progress {
+    height: 10px;
+    margin-left: 16px;
+    margin-right: 16px;
+    background-color: red;
+    transition: width 1s;
+    width: 0;
+  }
+
+}
+.rich-text-editor-image-loading-container.full {
+  .rich-text-editor-image-loading-progress {
+    width: calc(100% - 32px);
+  }
+}
+img.article-detail-content-img {
+  width: 90%;
+  display: block;
+  clear: both;
+  margin: 16px auto;
+}
