@@ -8,6 +8,12 @@ section {
   max-width: $GLOBAL_WIDTH_LV7;
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: start;
+  flex-shrink: 1;
+  flex-grow: 1;
 
   .author-icon {
     width: 100px;

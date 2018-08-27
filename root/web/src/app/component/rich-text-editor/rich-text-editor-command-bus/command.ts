@@ -2,12 +2,14 @@ export class CommandContext {
   range: Range;
 }
 
+export type CommandCallbackType = (editorContainerElement: HTMLElement, currentSelection: Selection) => void;
+
 export class Command {
   name: string;
   value: string;
   showUi: boolean;
   context: CommandContext;
-  callback: (editorContainerElement: Element, currentSelection: Selection) => void;
+  callback: CommandCallbackType;
 
   constructor() {
     this.name = null;

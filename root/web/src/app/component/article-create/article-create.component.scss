@@ -16,5 +16,10 @@ section {
   flex-shrink: 1;
   flex-grow: 1;
   max-width: $GLOBAL_WIDTH_LV7;
-  width: 50%;
+  width: 100%;
+}
+@include responsive($GLOBAL_WIDTH_LV5) {
+  section {
+    width: 50%;
+  }
 }

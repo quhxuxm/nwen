@@ -10,7 +10,6 @@ import {CommandBusService} from '../rich-text-editor-command-bus/command-bus.ser
 export class RichTextEditorContentComponent implements AfterContentInit, OnInit {
   @ViewChild('contentContainer', {read: ElementRef})
   private contentContainer: ElementRef;
-  private currentRange: Range;
   content: string;
 
   constructor(private commandBus: CommandBusService, private element: ElementRef) {
@@ -26,26 +25,26 @@ export class RichTextEditorContentComponent implements AfterContentInit, OnInit 
   ngAfterContentInit() {
     this.commandBus.receiveCommand(command => {
       const targetContentDomElement = <HTMLElement>this.contentContainer.nativeElement;
-      if (document.getSelection()) {
-        document.getSelection().removeAllRanges();
-      }
+      const selection = document.getSelection();
+      selection.removeAllRanges();
       const selectedRange = command.context.range;
       if (selectedRange) {
-        document.getSelection().addRange(selectedRange);
+        selection.addRange(selectedRange);
       }
       if (command.name) {
         document.execCommand(command.name, command.showUi, command.value);
       }
       if (command.callback) {
-        command.callback(targetContentDomElement, document.getSelection());
+        command.callback(targetContentDomElement, selection);
       }
     });
   }
 
   onBlur() {
     this.commandBus.commandContext = new CommandContext();
-    if (document.getSelection()) {
-      this.commandBus.commandContext.range = document.getSelection().getRangeAt(0);
+    const selection = document.getSelection();
+    if (selection.rangeCount > 0) {
+      this.commandBus.commandContext.range = selection.getRangeAt(0);
     }
   }
 

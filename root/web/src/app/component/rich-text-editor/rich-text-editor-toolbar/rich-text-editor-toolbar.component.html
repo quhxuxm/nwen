@@ -1,5 +1,14 @@
 <section>
-  <button mat-icon-button  class="toolbar-button" [matMenuTriggerFor]="headingMenu" #trigger="matMenuTrigger" matTooltip="标题">
+  <button mat-icon-button class="toolbar-button emphasize"  (click)="onSave($event)" matTooltip="保存">
+    <fa-icon [icon]="['fas','save']" (click)="onDelete($event)"></fa-icon>
+  </button>
+  <button mat-icon-button class="toolbar-button emphasize" matTooltip="发布">
+    <fa-icon [icon]="['fas','check']" (click)="onDelete($event)"></fa-icon>
+  </button>
+  <span class="divider">
+  </span>
+  <button mat-icon-button class="toolbar-button" [matMenuTriggerFor]="headingMenu" #trigger="matMenuTrigger"
+          matTooltip="标题">
     <fa-icon [icon]="['fas','heading']"></fa-icon>
     <mat-menu #headingMenu="matMenu" class="heading-menu">
       <button mat-menu-item (click)="onHeading('H1', $event)">
@@ -29,19 +38,25 @@
     <fa-icon [icon]="['fas','paragraph']" (click)="onParagraph($event)"></fa-icon>
   </button>
   <button mat-icon-button class="toolbar-button" matTooltip="图片">
-    <fa-icon [icon]="['fas','image']" (click)="onImageStep1($event, fileInputElement)"></fa-icon>
-     <input #fileInputElement type="file" multiple accept="image/*" class="image-uploader-input" (change)="onImageStep2($event, fileInputElement)"/>
+    <fa-icon [icon]="['fas','image']" (click)="onUploadClick($event, imageUploadFileInputElement)"></fa-icon>
+    <input #imageUploadFileInputElement type="file" multiple accept="image/*" class="image-uploader-input"
+           (change)="onUploadFile($event, 0, imageUploadFileInputElement)"/>
+  </button>
+  <button mat-icon-button class="toolbar-button" matTooltip="声音">
+    <fa-icon [icon]="['fas','audio-description']"
+             (click)="onUploadClick($event, audioUploadFileInputElement)"></fa-icon>
+    <input #audioUploadFileInputElement type="file" multiple accept="audio/*" class="image-uploader-input"
+           (change)="onUploadFile($event, 1, audioUploadFileInputElement)"/>
+  </button>
+  <button mat-icon-button class="toolbar-button" matTooltip="视频">
+    <fa-icon [icon]="['fas','video']" (click)="onUploadClick($event, videoUploadFileInputElement)"></fa-icon>
+    <input #videoUploadFileInputElement type="file" multiple accept="video/*" class="image-uploader-input"
+           (change)="onUploadFile($event, 2, videoUploadFileInputElement)"/>
   </button>
   <button mat-icon-button class="toolbar-button" matTooltip="清除格式">
     <fa-icon [icon]="['fas','eraser']" (click)="onClear($event)"></fa-icon>
   </button>
   <button mat-icon-button class="toolbar-button" matTooltip="删除">
     <fa-icon [icon]="['fas','backspace']" (click)="onDelete($event)"></fa-icon>
-  </button>
-  <button mat-icon-button class="toolbar-button emphasize" matTooltip="保存">
-    <fa-icon [icon]="['fas','save']" (click)="onDelete($event)"></fa-icon>
-  </button>
-  <button mat-icon-button class="toolbar-button emphasize" matTooltip="发布">
-    <fa-icon [icon]="['fas','check']" (click)="onDelete($event)"></fa-icon>
   </button>
 </section>
