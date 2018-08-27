@@ -39,25 +39,26 @@ img.article-detail-content-img {
   clear: both;
   margin: 16px auto;
 }
-
-audio.article-detail-content-audio{
+audio.article-detail-content-audio {
   width: 90%;
   display: block;
   clear: both;
   margin: 16px auto;
 }
-video.article-detail-content-video{
+video.article-detail-content-video {
   width: 90%;
   display: block;
   clear: both;
   margin: 16px auto;
 }
-
-blockquote{
+blockquote {
   background-color: $GLOBAL_COLOR_BG_LV1;
   margin: 16px;
   padding: 32px;
   border-left: 4px solid $GLOBAL_COLOR_BORDER_LV3;
   font-size: 1.2em;
   font-weight: lighter;
+}
+p {
+  margin: 16px;
 }

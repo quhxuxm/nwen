@@ -5,11 +5,21 @@ import {ArticleCreateComponent} from './component/article-create/article-create.
 import {ArticleDetailComponent} from './component/article-detail/article-detail.component';
 import {AuthorDetailComponent} from './component/author-detail/author-detail.component';
 import {HomeComponent} from './component/home/home.component';
+import {LoginComponent} from './component/login/login.component';
+import {RegisterComponent} from './component/register/register.component';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   {
     path: 'article/detail/:id',
@@ -21,6 +31,10 @@ const routes: Routes = [
   },
   {
     path: 'anthology/detail/:id',
+    component: AnthologyDetailComponent
+  },
+  {
+    path: 'anthology/create',
     component: AnthologyDetailComponent
   },
   {

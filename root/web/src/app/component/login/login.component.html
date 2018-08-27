@@ -1,0 +1,49 @@
+<section>
+  <form class="login-form" #loginForm>
+    <mat-form-field>
+      <input matInput name="username" required maxlength="40" type="text" placeholder="用户名" [(ngModel)]="userName"
+             #userNameInput="ngModel"/>
+      <fa-icon [icon]="['fas', 'user']" matSuffix></fa-icon>
+      <mat-hint>输入用户名</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput name="password" required maxlength="40" type="password" placeholder="密码"
+             [(ngModel)]="password" #passwordInput="ngModel"/>
+      <fa-icon [icon]="['fas', 'lock']" matSuffix></fa-icon>
+      <mat-hint>输入密码</mat-hint>
+    </mat-form-field>
+    <div class="button-container">
+      <mat-checkbox name="rememberme" class="checkbox-theme" color="accent">记住我</mat-checkbox>
+      <button mat-raised-button color="accent" class="button-theme">
+        登陆
+      </button>
+    </div>
+  </form>
+  <nwen-separator [showContent]="true">
+    其他账号登陆
+  </nwen-separator>
+  <div class="social-application-container">
+    <button mat-mini-fab>
+      <fa-icon [icon]="['fab','qq']"></fa-icon>
+    </button>
+    <button mat-mini-fab>
+      <fa-icon [icon]="['fab','weixin']"></fa-icon>
+    </button>
+    <button mat-mini-fab class="others" [matMenuTriggerFor]="otherLoginOptionsMenu">
+      <fa-icon [icon]="['fas','ellipsis-v']"></fa-icon>
+    </button>
+    <mat-menu #otherLoginOptionsMenu>
+      <button mat-menu-item class="fa-icon-button">
+        <fa-icon [icon]="['fab','google']"></fa-icon>
+        <span>谷歌</span>
+      </button>
+      <button mat-menu-item class="fa-icon-button">
+        <fa-icon [icon]="['fab','facebook']"></fa-icon>
+        <span>脸书</span>
+      </button>
+    </mat-menu>
+  </div>
+  <div class="register-link-container">
+    <a routerLink="/register">注册</a>
+  </div>
+</section>

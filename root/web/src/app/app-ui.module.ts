@@ -1,8 +1,11 @@
 import {LayoutModule} from '@angular/cdk/layout';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import {
-  MatButtonModule, MatIconModule, MatListModule, MatMenuModule, MatSidenavModule, MatToolbarModule, MatTooltipModule
+  MatButtonModule, MatCheckboxModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatSidenavModule,
+  MatToolbarModule,
+  MatTooltipModule
 } from '@angular/material';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
@@ -23,7 +26,9 @@ library.add(fas, far, fab);
     MatIconModule,
     MatListModule,
     MatTooltipModule,
-    MatMenuModule
+    MatMenuModule,
+    MatInputModule,
+    MatCheckboxModule
   ],
   exports: [
     LayoutModule,
@@ -34,7 +39,9 @@ library.add(fas, far, fab);
     MatIconModule,
     MatListModule,
     MatTooltipModule,
-    MatMenuModule
+    MatMenuModule,
+    MatInputModule,
+    MatCheckboxModule
   ],
   declarations: []
 })

@@ -1,0 +1,51 @@
+<section>
+  <form class="register-form">
+    <mat-form-field>
+      <input matInput name="username" required maxlength="40" type="text" placeholder="用户名"/>
+      <fa-icon [icon]="['fas', 'user']" matSuffix></fa-icon>
+      <mat-hint>输入用户名</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput name="password" required maxlength="40" type="password" placeholder="密码"/>
+      <fa-icon [icon]="['fas', 'lock']" matSuffix></fa-icon>
+      <mat-hint>输入密码</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput name="nickName" required maxlength="40" type="text" placeholder="昵称"/>
+      <fa-icon [icon]="['fas', 'laugh']" matSuffix></fa-icon>
+      <mat-hint>输入昵称</mat-hint>
+    </mat-form-field>
+    <div class="button-container">
+      <button mat-raised-button color="primary" class="button-theme">
+        注册
+      </button>
+    </div>
+  </form>
+  <nwen-separator [showContent]="true">
+    其他账号注册
+  </nwen-separator>
+  <div class=" social-application-container">
+    <button mat-mini-fab>
+      <fa-icon [icon]="['fab','qq']"></fa-icon>
+    </button>
+    <button mat-mini-fab>
+      <fa-icon [icon]="['fab','weixin']"></fa-icon>
+    </button>
+    <button mat-mini-fab class="others" [matMenuTriggerFor]="otherRegisterOptionsMenu">
+      <fa-icon [icon]="['fas','ellipsis-v']"></fa-icon>
+    </button>
+    <mat-menu #otherRegisterOptionsMenu>
+      <button mat-menu-item class="fa-icon-button">
+        <fa-icon [icon]="['fab','google']"></fa-icon>
+        <span>谷歌</span>
+      </button>
+      <button mat-menu-item class="fa-icon-button">
+        <fa-icon [icon]="['fab','facebook']"></fa-icon>
+        <span>脸书</span>
+      </button>
+    </mat-menu>
+  </div>
+  <div class="login-link-container">
+    <a routerLink="/login">登陆</a>
+  </div>
+</section>
