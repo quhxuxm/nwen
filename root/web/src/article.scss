@@ -52,3 +52,12 @@ video.article-detail-content-video{
   clear: both;
   margin: 16px auto;
 }
+
+blockquote{
+  background-color: $GLOBAL_COLOR_BG_LV1;
+  margin: 16px;
+  padding: 32px;
+  border-left: 4px solid $GLOBAL_COLOR_BORDER_LV3;
+  font-size: 1.2em;
+  font-weight: lighter;
+}
