@@ -31,6 +31,8 @@ import {RichTextEditorContentComponent} from './component/rich-text-editor/rich-
 import {RegisterComponent} from './component/register/register.component';
 import {LoginComponent} from './component/login/login.component';
 import {AnthologyCreateComponent} from './component/anthology-create/anthology-create.component';
+import { ProfileComponent } from './component/profile/profile.component';
+import { AboutComponent } from './component/about/about.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import {AnthologyCreateComponent} from './component/anthology-create/anthology-c
     RichTextEditorContentComponent,
     RegisterComponent,
     LoginComponent,
-    AnthologyCreateComponent
+    AnthologyCreateComponent,
+    ProfileComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
