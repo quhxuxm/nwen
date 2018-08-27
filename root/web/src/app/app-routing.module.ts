@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {AnthologyCreateComponent} from './component/anthology-create/anthology-create.component';
 import {AnthologyDetailComponent} from './component/anthology-detail/anthology-detail.component';
 import {ArticleCreateComponent} from './component/article-create/article-create.component';
 import {ArticleDetailComponent} from './component/article-detail/article-detail.component';
@@ -35,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: 'anthology/create',
-    component: AnthologyDetailComponent
+    component: AnthologyCreateComponent
   },
   {
     path: 'author/detail/:id',

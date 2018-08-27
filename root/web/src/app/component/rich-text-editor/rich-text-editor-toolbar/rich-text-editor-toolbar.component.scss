@@ -31,7 +31,8 @@ section {
 
   .divider{
     height: 24px;
-    border: 1px solid $GLOBAL_COLOR_BORDER_LV5;
+    border-left: 2px solid $GLOBAL_COLOR_BORDER_LV5;
+    border-right: none;
   }
 }
 .heading-menu {
