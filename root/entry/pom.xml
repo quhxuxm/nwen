@@ -84,11 +84,11 @@
                         </goals>
                         <configuration>
                             <outputDirectory>
-                                ${project.build.directory}/classes/static
+                                ${project.build.directory}/classes/static/web
                             </outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.basedir}/../web/target/dist/web</directory>
+                                    <directory>${project.basedir}/../web/target/output</directory>
                                 </resource>
                             </resources>
                         </configuration>
