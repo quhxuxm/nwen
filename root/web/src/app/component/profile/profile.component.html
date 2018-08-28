@@ -1,3 +1,44 @@
-<p>
-  profile works!
-</p>
+<section>
+  <form class="anthology-create-form">
+
+
+
+    <mat-form-field>
+      <input matInput name="title" [disabled]="true" required maxlength="40" type="text" placeholder="用户名"/>
+      <fa-icon [icon]="['fas', 'user']" matSuffix></fa-icon>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput name="title" [disabled]="true" required maxlength="40" type="text" placeholder="邮箱"/>
+      <fa-icon [icon]="['fas', 'envelope']" matSuffix></fa-icon>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput name="title" required maxlength="40" type="text" placeholder="昵称"/>
+      <fa-icon [icon]="['fas', 'laugh']" matSuffix></fa-icon>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput name="title" required maxlength="40" type="text" placeholder="密码"/>
+      <fa-icon [icon]="['fas', 'lock']" matSuffix></fa-icon>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput name="description" maxlength="200" placeholder="作者介绍"></textarea>
+      <mat-hint align="end">还能输入100字</mat-hint>
+    </mat-form-field>
+
+    <div class="author-icon-uploader-container">
+      <div class="author-icon" style="background-image: url('/assets/image/1')">
+      </div>
+      <button mat-raised-button color="primary" class="button-theme">
+        上传头像
+      </button>
+    </div>
+    <div class="button-container">
+      <button mat-raised-button color="primary">
+        更新
+      </button>
+    </div>
+  </form>
+</section>
