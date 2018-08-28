@@ -11,11 +11,14 @@
 section {
   width: calc(100% - 64px);
   max-width: $GLOBAL_WIDTH_LV3;
-  margin: auto 32px;
+  margin: 60px 32px;
   flex-direction: column;
   align-items: center;
   justify-items: center;
   display: flex;
+  .tab-container {
+    width: 100%;
+  }
 
   @include responsive($GLOBAL_COLOR_BORDER_LV5) {
     width: 500px;
@@ -26,8 +29,8 @@ section {
     flex-direction: column;
     align-items: start;
     justify-items: start;
-    width: 100%;
-    margin-top: 60px;
+    width: calc(100% - 32px);
+
     > * {
       width: 100%;
       margin-top: 16px;
@@ -36,8 +39,8 @@ section {
     > * + * {
       margin-top: 0;
     }
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 16px;
+    margin-right: 16px;
     max-width: 500px;
 
     @include responsive($GLOBAL_COLOR_BORDER_LV5) {
@@ -75,7 +78,7 @@ section {
       margin-top: 60px;
       margin-bottom: 60px;
 
-      button{
+      button {
         margin-left: auto;
       }
     }
