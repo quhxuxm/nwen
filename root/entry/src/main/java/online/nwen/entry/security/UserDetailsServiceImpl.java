@@ -1,8 +1,8 @@
 package online.nwen.entry.security;
 
-import com.quhxuxm.quh.project.simpleblog.service.api.IAuthorService;
-import com.quhxuxm.quh.project.simpleblog.service.api.exception.ServiceException;
-import com.quhxuxm.quh.project.simpleblog.service.dto.AuthorAuthenticateDTO;
+import online.nwen.service.api.IAuthorService;
+import online.nwen.service.api.exception.ServiceException;
+import online.nwen.service.dto.AuthorAuthenticateDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
