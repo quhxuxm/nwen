@@ -77,7 +77,7 @@
                 <version>3.0.2</version>
                 <executions>
                     <execution>
-                        <id>copy-client-static-resources</id>
+                        <id>copy-web-static-resources</id>
                         <phase>process-resources</phase>
                         <goals>
                             <goal>copy-resources</goal>
@@ -88,7 +88,7 @@
                             </outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.basedir}/../web/target/output</directory>
+                                    <directory>${project.basedir}/../web/target</directory>
                                 </resource>
                             </resources>
                         </configuration>
