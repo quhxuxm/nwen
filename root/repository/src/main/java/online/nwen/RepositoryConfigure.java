@@ -1,4 +1,4 @@
-package online.nwen.repository;
+package online.nwen;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;

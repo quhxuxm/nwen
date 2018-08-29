@@ -1,4 +1,4 @@
-package online.nwen.service;
+package online.nwen;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
