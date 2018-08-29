@@ -42,7 +42,7 @@
                 <argument>build</argument>
                 <argument>--base-href</argument>
                 <!--This is the base context path for the client side-->
-                <argument>/</argument>
+                <argument>/client</argument>
               </arguments>
             </configuration>
           </execution>
