@@ -120,7 +120,7 @@
         }
       }
     },
-    "web-e2e": {
+    "client-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
