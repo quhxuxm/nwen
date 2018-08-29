@@ -1,12 +1,13 @@
 package online.nwen.service.impl;
 
-import com.quhxuxm.quh.project.simpleblog.common.ICommonConstant;
-import com.quhxuxm.quh.project.simpleblog.domain.*;
-import com.quhxuxm.quh.project.simpleblog.repository.*;
-import com.quhxuxm.quh.project.simpleblog.service.api.IArticleService;
-import com.quhxuxm.quh.project.simpleblog.service.api.IAuthorService;
-import com.quhxuxm.quh.project.simpleblog.service.api.exception.ServiceException;
-import com.quhxuxm.quh.project.simpleblog.service.dto.*;
+
+import online.nwen.domain.*;
+import online.nwen.repository.*;
+import online.nwen.service.api.IArticleService;
+import online.nwen.service.api.IAuthorService;
+import online.nwen.service.api.exception.ServiceException;
+import online.nwen.service.dto.*;
+import online.nwen.service.impl.common.ICommonConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

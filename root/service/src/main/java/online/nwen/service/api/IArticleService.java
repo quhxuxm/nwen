@@ -1,9 +1,9 @@
 package online.nwen.service.api;
 
-import com.quhxuxm.quh.project.simpleblog.domain.Article;
-import com.quhxuxm.quh.project.simpleblog.domain.Author;
-import com.quhxuxm.quh.project.simpleblog.service.api.exception.ServiceException;
-import com.quhxuxm.quh.project.simpleblog.service.dto.*;
+import online.nwen.domain.Article;
+import online.nwen.domain.Author;
+import online.nwen.service.api.exception.ServiceException;
+import online.nwen.service.dto.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
