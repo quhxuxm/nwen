@@ -13,48 +13,48 @@ import {RegisterComponent} from './component/register/register.component';
 
 const routes: Routes = [
   {
-    path: '/client/home',
+    path: '/home',
     component: HomeComponent
   },
   {
-    path: '/client/login',
+    path: '/login',
     component: LoginComponent
   },
   {
-    path: '/client/register',
+    path: '/register',
     component: RegisterComponent
   },
   {
-    path: '/client/profile',
+    path: '/profile',
     component: ProfileComponent
   },
   {
-    path: '/client/about',
+    path: '/about',
     component: AboutComponent
   },
   {
-    path: '/client/article/detail/:id',
+    path: '/article/detail/:id',
     component: ArticleDetailComponent
   },
   {
-    path: '/client/article/create',
+    path: '/article/create',
     component: ArticleCreateComponent
   },
   {
-    path: '/client/anthology/detail/:id',
+    path: '/anthology/detail/:id',
     component: AnthologyDetailComponent
   },
   {
-    path: '/client/anthology/create',
+    path: '/anthology/create',
     component: AnthologyCreateComponent
   },
   {
-    path: '/client/author/detail/:id',
+    path: '/author/detail/:id',
     component: AuthorDetailComponent
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: '/home',
     pathMatch: 'full'
   }
 ];
