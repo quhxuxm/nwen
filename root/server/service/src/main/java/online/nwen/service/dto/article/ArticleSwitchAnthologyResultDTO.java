@@ -1,4 +1,4 @@
-package online.nwen.service.dto;
+package online.nwen.service.dto.article;
 
 public class ArticleSwitchAnthologyResultDTO {
 }

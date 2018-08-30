@@ -1,24 +1,16 @@
-package online.nwen.service.dto;
+package online.nwen.service.dto.author;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AnthologyAssignTagsDTO implements Serializable {
-    private Long anthologyId;
+public class AuthorAssignTagsDTO implements Serializable {
     private Long authorId;
     private Set<String> tags;
+    private boolean isSelect;
 
-    public AnthologyAssignTagsDTO() {
+    public AuthorAssignTagsDTO() {
         this.tags = new HashSet<>();
-    }
-
-    public Long getAnthologyId() {
-        return anthologyId;
-    }
-
-    public void setAnthologyId(Long anthologyId) {
-        this.anthologyId = anthologyId;
     }
 
     public Long getAuthorId() {
@@ -35,5 +27,13 @@ public class AnthologyAssignTagsDTO implements Serializable {
 
     public void setTags(Set<String> tags) {
         this.tags = tags;
+    }
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
     }
 }

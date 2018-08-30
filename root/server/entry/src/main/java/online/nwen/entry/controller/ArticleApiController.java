@@ -1,6 +1,6 @@
 package online.nwen.entry.controller;
 
-import online.nwen.service.dto.*;
+import online.nwen.service.dto.article.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,17 +17,17 @@ public class ArticleApiController {
     }
 
     @PostMapping("/{id}/update")
-    public ArticleUpdateResultDTO update(@PathVariable("id") Long id, ArticleUpdateDTO articleUpdate) {
+    public UpdateArticleResultDTO update(@PathVariable("id") Long id, UpdateArticleDTO updateArticleDTO) {
         return null;
     }
 
     @PostMapping("/{id}/delete")
-    public ArticleDeleteResultDTO delete(@PathVariable("id") Long id) {
+    public DeleteArticleResultDTO delete(@PathVariable("id") Long id) {
         return null;
     }
 
     @PostMapping("/create")
-    public ArticleCreateResultDTO create(ArticleCreateDTO articleCreation) {
+    public CreateArticleResultDTO create(CreateArticleDTO createArticleDTO) {
         return null;
     }
 

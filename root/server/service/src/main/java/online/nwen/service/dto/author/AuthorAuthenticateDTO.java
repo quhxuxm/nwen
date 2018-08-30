@@ -1,4 +1,4 @@
-package online.nwen.service.dto;
+package online.nwen.service.dto.author;
 
 import java.util.HashSet;
 import java.util.Set;

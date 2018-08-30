@@ -1,4 +1,4 @@
-package online.nwen.service.dto;
+package online.nwen.service.dto.article;
 
 import java.io.Serializable;
 import java.util.Set;

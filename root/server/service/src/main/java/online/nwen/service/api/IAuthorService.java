@@ -1,10 +1,10 @@
 package online.nwen.service.api;
 
 import online.nwen.service.api.exception.ServiceException;
-import online.nwen.service.dto.*;
+import online.nwen.service.dto.author.*;
 
 public interface IAuthorService {
-    Long register(AuthorRegisterDTO registerAuthorDTO) throws ServiceException;
+    Long register(CreateAuthorDTO registerAuthorDTO) throws ServiceException;
 
     AuthorDetailDTO findDetailById(Long id) throws ServiceException;
 

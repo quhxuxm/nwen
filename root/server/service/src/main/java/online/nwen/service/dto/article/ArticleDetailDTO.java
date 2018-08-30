@@ -1,14 +1,18 @@
-package online.nwen.service.dto;
+package online.nwen.service.dto.article;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-public class ArticleSummaryDTO implements Serializable {
+public class ArticleDetailDTO implements Serializable {
     private Long articleId;
     private String title;
+    private String content;
     private String summary;
     private Date createDate;
     private Date updateDate;
+    private Set<String> tags;
     private Long authorId;
     private String authorNickName;
     private Long authorIconImageId;
@@ -19,13 +23,9 @@ public class ArticleSummaryDTO implements Serializable {
     private Long bookmarkNumber;
     private Long commentNumber;
     private Long viewNumber;
-    private Long coverImageId;
 
-    public ArticleSummaryDTO() {
-        this.praiseNumber = 0L;
-        this.commentNumber = 0L;
-        this.viewNumber = 0L;
-        this.bookmarkNumber = 0L;
+    public ArticleDetailDTO() {
+        this.tags = new HashSet<>();
     }
 
     public Long getArticleId() {
@@ -44,6 +44,14 @@ public class ArticleSummaryDTO implements Serializable {
         this.title = title;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public Date getCreateDate() {
         return createDate;
     }
@@ -58,6 +66,14 @@ public class ArticleSummaryDTO implements Serializable {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
     }
 
     public Long getAuthorId() {
@@ -138,14 +154,6 @@ public class ArticleSummaryDTO implements Serializable {
 
     public void setCommentNumber(Long commentNumber) {
         this.commentNumber = commentNumber;
-    }
-
-    public Long getCoverImageId() {
-        return coverImageId;
-    }
-
-    public void setCoverImageId(Long coverImageId) {
-        this.coverImageId = coverImageId;
     }
 
     public Long getViewNumber() {

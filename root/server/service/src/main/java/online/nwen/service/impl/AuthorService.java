@@ -4,7 +4,7 @@ import online.nwen.domain.*;
 import online.nwen.repository.*;
 import online.nwen.service.api.IAuthorService;
 import online.nwen.service.api.exception.ServiceException;
-import online.nwen.service.dto.*;
+import online.nwen.service.dto.author.*;
 import online.nwen.service.impl.common.ICommonConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +57,7 @@ class AuthorService implements IAuthorService {
 
     @Transactional(rollbackFor = ServiceException.class)
     @Override
-    public Long register(AuthorRegisterDTO authorRegisterDTO)
+    public Long register(CreateAuthorDTO authorRegisterDTO)
             throws ServiceException {
         try {
             if (this.authorRepository

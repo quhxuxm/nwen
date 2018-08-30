@@ -3,7 +3,7 @@ package online.nwen.service.api;
 import online.nwen.domain.Article;
 import online.nwen.domain.Author;
 import online.nwen.service.api.exception.ServiceException;
-import online.nwen.service.dto.*;
+import online.nwen.service.dto.article.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

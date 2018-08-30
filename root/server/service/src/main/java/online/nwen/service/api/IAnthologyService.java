@@ -3,7 +3,7 @@ package online.nwen.service.api;
 import online.nwen.domain.Anthology;
 import online.nwen.domain.Author;
 import online.nwen.service.api.exception.ServiceException;
-import online.nwen.service.dto.*;
+import online.nwen.service.dto.anthology.*;
 
 public interface IAnthologyService {
     Long saveAnthology(CreateAnthologyDTO createAnthologyDTO)

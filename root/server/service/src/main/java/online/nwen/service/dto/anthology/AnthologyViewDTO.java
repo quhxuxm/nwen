@@ -1,4 +1,4 @@
-package online.nwen.service.dto;
+package online.nwen.service.dto.anthology;
 
 import java.io.Serializable;
 

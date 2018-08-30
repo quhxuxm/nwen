@@ -1,19 +1,18 @@
-package online.nwen.service.dto;
+package online.nwen.service.dto.article;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UpdateArticleDTO implements Serializable {
+public class CreateArticleDTO implements Serializable {
     private Long authorId;
-    private Long articleId;
+    private Long anthologyId;
     private String title;
     private String content;
     private String summary;
     private Set<String> tags;
-    private boolean isPublished;
 
-    public UpdateArticleDTO() {
+    public CreateArticleDTO() {
         this.tags = new HashSet<>();
     }
 
@@ -23,6 +22,14 @@ public class UpdateArticleDTO implements Serializable {
 
     public void setAuthorId(Long authorId) {
         this.authorId = authorId;
+    }
+
+    public Long getAnthologyId() {
+        return anthologyId;
+    }
+
+    public void setAnthologyId(Long anthologyId) {
+        this.anthologyId = anthologyId;
     }
 
     public String getTitle() {
@@ -55,22 +62,6 @@ public class UpdateArticleDTO implements Serializable {
 
     public void setSummary(String summary) {
         this.summary = summary;
-    }
-
-    public Long getArticleId() {
-        return articleId;
-    }
-
-    public void setArticleId(Long articleId) {
-        this.articleId = articleId;
-    }
-
-    public void setPublished(boolean published) {
-        isPublished = published;
-    }
-
-    public boolean isPublished() {
-        return isPublished;
     }
 }
 
