@@ -79,10 +79,10 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.basedir}/target/classes/static/client</outputDirectory>
+                            <outputDirectory>${project.basedir}/target/classes/static</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.basedir}/../../client/target/client</directory>
+                                    <directory>${project.basedir}/../../client/target</directory>
                                 </resource>
                             </resources>
                         </configuration>
