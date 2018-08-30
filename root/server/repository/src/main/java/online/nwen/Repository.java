@@ -7,5 +7,5 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 @Configuration
 @EnableJpaRepositories
 @EnableSpringDataWebSupport
-public class RepositoryConfigure {
+public class Repository {
 }

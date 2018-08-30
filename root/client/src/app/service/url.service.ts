@@ -8,7 +8,7 @@ export class UrlService {
   }
 
   generateImageUrl(id: string): string {
-    return `/assets/image/${id}`;
+    return `assets/image/${id}`;
   }
 
   generateAuthorDetailRouterUrl(id: string): string {
