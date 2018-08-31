@@ -1,46 +1,37 @@
 package online.nwen.service.api.exception;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ServiceException extends Exception {
-    public enum Code {
-        AUTHOR_TOKEN_EXIST,
-        AUTHOR_NICK_NAME_EXIST,
-        AUTHOR_NOT_EXIST_BY_ID,
-        AUTHOR_NOT_EXIST_BY_TOKEN,
-        AUTHOR_NOT_PARTICIPANT_OF_ANTHOLOGY,
-        AUTHOR_NOT_OWNER_OF_ARTICLE,
-        AUTHOR_NOT_OWNER_OF_ANTHOLOGY,
-        PERSISTENCE_FAIL
+    private final Map<String, String> payload;
+
+    public ServiceException() {
+        super();
+        this.payload = new HashMap<>();
     }
 
-    private final Code code;
-
-    public ServiceException(Code code) {
-        this.code = code;
-    }
-
-    public ServiceException(String message, Code code) {
+    public ServiceException(String message) {
         super(message);
-        this.code = code;
+        this.payload = new HashMap<>();
     }
 
-    public ServiceException(Throwable cause, Code code) {
-        super(cause);
-        this.code = code;
-    }
-
-    public ServiceException(String message, Throwable cause, Code code) {
+    public ServiceException(String message, Throwable cause) {
         super(message, cause);
-        this.code = code;
+        this.payload = new HashMap<>();
     }
 
-    public ServiceException(String message, Throwable cause,
-                            boolean enableSuppression,
-                            boolean writableStackTrace, Code code) {
+    public ServiceException(Throwable cause) {
+        super(cause);
+        this.payload = new HashMap<>();
+    }
+
+    public ServiceException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
-        this.code = code;
+        this.payload = new HashMap<>();
     }
 
-    public Code getCode() {
-        return code;
+    public Map<String, String> getPayload() {
+        return payload;
     }
 }

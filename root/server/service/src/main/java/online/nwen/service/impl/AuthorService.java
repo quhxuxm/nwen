@@ -57,7 +57,7 @@ class AuthorService implements IAuthorService {
 
     @Transactional(rollbackFor = ServiceException.class)
     @Override
-    public Long register(CreateAuthorDTO authorRegisterDTO)
+    public CreateAuthorResultDTO register(CreateAuthorDTO authorRegisterDTO)
             throws ServiceException {
         try {
             if (this.authorRepository
@@ -99,7 +99,9 @@ class AuthorService implements IAuthorService {
             authorDefaultAnthologyPK.setAuthor(author);
             authorDefaultAnthology.setPk(authorDefaultAnthologyPK);
             this.authorDefaultAnthologyRepository.save(authorDefaultAnthology);
-            return author.getId();
+            CreateAuthorResultDTO result = new CreateAuthorResultDTO();
+            result.setAuthorId(author.getId());
+            return result;
         } catch (PersistenceException e) {
             logger.error(
                     "Fail to register because of exception when save author "

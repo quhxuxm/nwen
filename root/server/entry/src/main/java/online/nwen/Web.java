@@ -10,6 +10,15 @@ import org.springframework.web.servlet.resource.VersionResourceResolver;
 @Configuration
 @EnableWebMvc
 public class Web implements WebMvcConfigurer {
+    private static final String ROOT_URL_PATTERN = "/**";
+    private static final String ROOT_URL = "/";
+    private static final String UI_URL = "/ui/";
+    private static final String[] STATIC_RESOURCE_LOCATIONS = {"classpath:static/"};
+    private static final String UI_INDEX_PAGE = "/ui/index.html";
+
+    public Web() {
+    }
+
     /**
      * Register the static resource.
      *
@@ -17,10 +26,10 @@ public class Web implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:static/")
+        registry.addResourceHandler(ROOT_URL_PATTERN)
+                .addResourceLocations(STATIC_RESOURCE_LOCATIONS)
                 .resourceChain(true)
-                .addResolver(new VersionResourceResolver().addContentVersionStrategy("/**"));
+                .addResolver(new VersionResourceResolver().addContentVersionStrategy(ROOT_URL_PATTERN));
     }
 
     /**
@@ -32,8 +41,9 @@ public class Web implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         //Redirect the root to index.html
-        registry.addRedirectViewController("/", "/ui/index.html");
+        registry.addRedirectViewController(ROOT_URL, UI_INDEX_PAGE);
         //Redirect the "/ui/#/**" to index.html
-        registry.addRedirectViewController("/ui/", "/ui/index.html");
+        registry.addRedirectViewController(UI_URL,
+                UI_INDEX_PAGE);
     }
 }
