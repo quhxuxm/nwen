@@ -10,7 +10,11 @@ import org.springframework.web.servlet.resource.VersionResourceResolver;
 @Configuration
 @EnableWebMvc
 public class Web implements WebMvcConfigurer {
-
+    /**
+     * Register the static resource.
+     *
+     * @param registry The static resource registry.
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
@@ -19,9 +23,17 @@ public class Web implements WebMvcConfigurer {
                 .addResolver(new VersionResourceResolver().addContentVersionStrategy("/**"));
     }
 
+    /**
+     * Redirect the ui request to the main html(index.html) of client side.
+     * After redirect the angular engine will be loaded and running.
+     *
+     * @param registry The view registry
+     */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addRedirectViewController("/", "/index.html");
-        //registry.addRedirectViewController("/client/**", "/index.html");
+        //Redirect the root to index.html
+        registry.addRedirectViewController("/", "/ui/index.html");
+        //Redirect the "/ui/#/**" to index.html
+        registry.addRedirectViewController("/ui/", "/ui/index.html");
     }
 }

@@ -36,7 +36,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "target",
+            "outputPath": "target/ui",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -79,6 +79,7 @@
           },
           "configurations": {
             "production": {
+              "servePath": "/ui",
               "browserTarget": "client:build:production"
             }
           }

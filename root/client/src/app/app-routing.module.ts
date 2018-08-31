@@ -13,54 +13,56 @@ import {RegisterComponent} from './component/register/register.component';
 
 const routes: Routes = [
   {
-    path: '/home',
+    path: 'home',
     component: HomeComponent
   },
   {
-    path: '/login',
+    path: 'login',
     component: LoginComponent
   },
   {
-    path: '/register',
+    path: 'register',
     component: RegisterComponent
   },
   {
-    path: '/profile',
+    path: 'profile',
     component: ProfileComponent
   },
   {
-    path: '/about',
+    path: 'about',
     component: AboutComponent
   },
   {
-    path: '/article/detail/:id',
+    path: 'article/detail/:id',
     component: ArticleDetailComponent
   },
   {
-    path: '/article/create',
+    path: 'article/create',
     component: ArticleCreateComponent
   },
   {
-    path: '/anthology/detail/:id',
+    path: 'anthology/detail/:id',
     component: AnthologyDetailComponent
   },
   {
-    path: '/anthology/create',
+    path: 'anthology/create',
     component: AnthologyCreateComponent
   },
   {
-    path: '/author/detail/:id',
+    path: 'author/detail/:id',
     component: AuthorDetailComponent
   },
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: 'home',
     pathMatch: 'full'
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    useHash: true
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

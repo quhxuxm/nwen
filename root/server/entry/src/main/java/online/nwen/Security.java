@@ -8,10 +8,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class Security extends WebSecurityConfigurerAdapter {
+    /**
+     * Disable the spring security.
+     *
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .anyRequest().permitAll();
+                .anyRequest().permitAll().and().csrf().disable();
     }
 }
