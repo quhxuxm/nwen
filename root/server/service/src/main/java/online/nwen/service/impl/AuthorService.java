@@ -5,7 +5,6 @@ import online.nwen.repository.*;
 import online.nwen.service.api.IAuthorService;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.author.*;
-import online.nwen.service.impl.common.ICommonConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,7 +56,7 @@ class AuthorService implements IAuthorService {
 
     @Transactional(rollbackFor = ServiceException.class)
     @Override
-    public CreateAuthorResultDTO register(CreateAuthorDTO authorRegisterDTO)
+    public RegisterAuthorResultDTO register(RegisterAuthorDTO authorRegisterDTO)
             throws ServiceException {
         try {
             if (this.authorRepository
@@ -66,7 +65,7 @@ class AuthorService implements IAuthorService {
                         + "token = {}.", authorRegisterDTO.getToken());
                 throw
                         new ServiceException(
-                                ServiceException.Code.AUTHOR_TOKEN_EXIST);
+                                ServiceException.Code.REGISTER_TOKEN_EXIST_ERROR);
             }
             if (this.authorRepository
                     .existsByNickName(authorRegisterDTO.getNickName())) {
@@ -76,7 +75,7 @@ class AuthorService implements IAuthorService {
                         authorRegisterDTO.getNickName());
                 throw
                         new ServiceException(
-                                ServiceException.Code.AUTHOR_NICK_NAME_EXIST);
+                                ServiceException.Code.REGISTER_NICK_NAME_EXIST_ERROR);
             }
             Author author = new Author();
             author.setToken(authorRegisterDTO.getToken());
@@ -84,7 +83,7 @@ class AuthorService implements IAuthorService {
                     .encode(authorRegisterDTO.getPassword()));
             author.setNickName(authorRegisterDTO.getNickName());
             Role authorRole = this.roleRepository
-                    .findByName(ICommonConstant.RoleName.AUTHOR);
+                    .findByName(Role.Name.ROLE_AUTHOR);
             Set<Role> roleSet = new HashSet<>();
             roleSet.add(authorRole);
             author.setRoles(roleSet);
@@ -99,7 +98,7 @@ class AuthorService implements IAuthorService {
             authorDefaultAnthologyPK.setAuthor(author);
             authorDefaultAnthology.setPk(authorDefaultAnthologyPK);
             this.authorDefaultAnthologyRepository.save(authorDefaultAnthology);
-            CreateAuthorResultDTO result = new CreateAuthorResultDTO();
+            RegisterAuthorResultDTO result = new RegisterAuthorResultDTO();
             result.setAuthorId(author.getId());
             return result;
         } catch (PersistenceException e) {
@@ -109,7 +108,7 @@ class AuthorService implements IAuthorService {
             throw new ServiceException(
                     "Fail to register because of exception when save author "
                             + "default anthology.",
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -123,13 +122,13 @@ class AuthorService implements IAuthorService {
                     e);
             throw new ServiceException(
                     "Can not find author detail because of the exception.",
-                    ServiceException.Code.AUTHOR_NOT_EXIST_BY_ID);
+                    ServiceException.Code.AUTHOR_NOT_EXIST_ERROR);
         } catch (PersistenceException e) {
             logger.error(
                     "Can not find author detail because of the exception..", e);
             throw new ServiceException(
                     "Can not find author detail because of the exception..",
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -140,7 +139,7 @@ class AuthorService implements IAuthorService {
             if (author == null) {
                 throw new ServiceException(
                         "Can not find author detail because of the exception.",
-                        ServiceException.Code.AUTHOR_NOT_EXIST_BY_TOKEN);
+                        ServiceException.Code.AUTHOR_NOT_EXIST_ERROR);
             }
             AuthorDetailDTO result = this.convert(author);
             author.setLastLoginDate(new Date());
@@ -150,7 +149,7 @@ class AuthorService implements IAuthorService {
             logger.error("Can not login because of the exception.", e);
             throw new ServiceException(
                     "Can not login because of the exception.",
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -218,8 +217,7 @@ class AuthorService implements IAuthorService {
                             AuthorTag authorTag = new AuthorTag();
                             authorTag.setPk(authorTagPk);
                             authorTag.setSelected(true);
-                            authorTag.setWeight(
-                                    ICommonConstant.DefaultValue.AUTHOR_SELECTED_TAG_INIT_WEIGHT);
+                            authorTag.setWeight(1L);
                             this.authorTagRepository.save(authorTag);
                         });
             });
@@ -228,7 +226,7 @@ class AuthorService implements IAuthorService {
                     e);
             throw new ServiceException(
                     "Can not assign tog to author because of exception.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -263,7 +261,7 @@ class AuthorService implements IAuthorService {
                     e);
             throw new ServiceException(
                     "Can not assign tog to author because of exception.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -274,7 +272,7 @@ class AuthorService implements IAuthorService {
             Author author = this.authorRepository.findByToken(token);
             if (author == null) {
                 throw new ServiceException(
-                        ServiceException.Code.AUTHOR_NOT_EXIST_BY_TOKEN);
+                        ServiceException.Code.AUTHOR_NOT_EXIST_ERROR);
             }
             AuthorAuthenticateDTO result = new AuthorAuthenticateDTO();
             result.setId(author.getId());
@@ -285,7 +283,7 @@ class AuthorService implements IAuthorService {
             return result;
         } catch (PersistenceException e) {
             throw new ServiceException(e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 }

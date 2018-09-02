@@ -1,6 +1,5 @@
 package online.nwen.service.impl;
 
-
 import online.nwen.domain.*;
 import online.nwen.repository.*;
 import online.nwen.service.api.IArticleService;
@@ -8,7 +7,6 @@ import online.nwen.service.api.IAuthorService;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.article.*;
 import online.nwen.service.dto.author.AuthorAssignTagsDTO;
-import online.nwen.service.impl.common.ICommonConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -105,7 +103,7 @@ class ArticleService implements IArticleService {
                             "Author is not a participant of the anthology.");
                     throw new ServiceException(
                             "Author is not a participant of the anthology.",
-                            ServiceException.Code.AUTHOR_NOT_PARTICIPANT_OF_ANTHOLOGY);
+                            ServiceException.Code.NOT_PARTICIPANT_ERROR);
                 }
             }
             Article article = new Article();
@@ -139,8 +137,7 @@ class ArticleService implements IArticleService {
                 articleTagPk.setTag(tag);
                 articleTag.setPk(articleTagPk);
                 articleTag.setSelected(value);
-                articleTag.setWeight(
-                        ICommonConstant.DefaultValue.ARTICLE_SELECTED_TAG_INIT_WEIGHT);
+                articleTag.setWeight(1L);
                 this.articleTagRepository.save(articleTag);
             });
             return article.getId();
@@ -148,7 +145,7 @@ class ArticleService implements IArticleService {
             logger.error("Fail to save article because of exception.", e);
             throw new ServiceException(
                     "Fail to save article because of exception.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -165,7 +162,7 @@ class ArticleService implements IArticleService {
                         "Can not assign tags to article because the author id not the owner of the article.");
                 throw new ServiceException(
                         "Can not assign tags to article because the author id not the owner of the article.",
-                        ServiceException.Code.AUTHOR_NOT_OWNER_OF_ARTICLE);
+                        ServiceException.Code.NOT_OWNER_ERROR);
             }
             article.setUpdateDate(new Date());
             this.articleRepository.save(article);
@@ -188,8 +185,7 @@ class ArticleService implements IArticleService {
                 articleTagPk.setArticle(article);
                 articleTagPk.setTag(tag);
                 articleTag.setSelected(true);
-                articleTag.setWeight(
-                        ICommonConstant.DefaultValue.ARTICLE_SELECTED_TAG_INIT_WEIGHT);
+                articleTag.setWeight(1L);
                 this.articleTagRepository.save(articleTag);
             });
         } catch (PersistenceException e) {
@@ -197,7 +193,7 @@ class ArticleService implements IArticleService {
                     e);
             throw new ServiceException(
                     "Fail to assign article tags because of exception.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -233,7 +229,7 @@ class ArticleService implements IArticleService {
             logger.error("Fail to bookmark article because of exception.", e);
             throw new ServiceException(
                     "Fail to bookmark article because of exception.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -268,7 +264,7 @@ class ArticleService implements IArticleService {
             logger.error("Fail to praise article because of exception.", e);
             throw new ServiceException(
                     "Fail to praise article because of exception.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -326,7 +322,7 @@ class ArticleService implements IArticleService {
         } catch (PersistenceException e) {
             throw new ServiceException(
                     "Can not view article because of exception.",
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -358,7 +354,7 @@ class ArticleService implements IArticleService {
                     e);
             throw new ServiceException(
                     "Can not increase author tag weight according to article because of exception.",
-                    e, ServiceException.Code.PERSISTENCE_FAIL);
+                    e, ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -409,7 +405,7 @@ class ArticleService implements IArticleService {
         } catch (PersistenceException e) {
             throw new ServiceException(
                     "Can not find articles order by bookmark number.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -431,7 +427,7 @@ class ArticleService implements IArticleService {
         } catch (PersistenceException e) {
             throw new ServiceException(
                     "Can not list articles order by praise number.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -451,7 +447,7 @@ class ArticleService implements IArticleService {
         } catch (PersistenceException e) {
             throw new ServiceException(
                     "Can not list articles order by view number.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -473,7 +469,7 @@ class ArticleService implements IArticleService {
         } catch (PersistenceException e) {
             throw new ServiceException(
                     "Can not list articles order by comment number.",
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -513,7 +509,7 @@ class ArticleService implements IArticleService {
         } catch (PersistenceException e) {
             throw new ServiceException(
                     "Can not list articles by author interests.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -537,7 +533,7 @@ class ArticleService implements IArticleService {
         } catch (PersistenceException e) {
             throw new ServiceException(
                     "Can not list the articles in the anthology because of exception.",
-                    e, ServiceException.Code.PERSISTENCE_FAIL);
+                    e, ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -561,7 +557,7 @@ class ArticleService implements IArticleService {
         } catch (PersistenceException e) {
             throw new ServiceException(
                     "Can not list the articles in the author because of exception.",
-                    e, ServiceException.Code.PERSISTENCE_FAIL);
+                    e, ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -581,7 +577,7 @@ class ArticleService implements IArticleService {
         } catch (PersistenceException e) {
             throw new ServiceException(
                     "Can not list articles order by view number.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 }

@@ -1,6 +1,5 @@
 package online.nwen.service.impl;
 
-
 import online.nwen.domain.*;
 import online.nwen.repository.*;
 import online.nwen.service.api.IAnthologyService;
@@ -8,7 +7,6 @@ import online.nwen.service.api.IAuthorService;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.anthology.*;
 import online.nwen.service.dto.author.AuthorAssignTagsDTO;
-import online.nwen.service.impl.common.ICommonConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -101,7 +99,7 @@ class AnthologyService implements IAnthologyService {
             logger.error("Fail to save anthology because of exception.", e);
             throw new ServiceException(
                     "Fail to save anthology because of exception.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -119,7 +117,7 @@ class AnthologyService implements IAnthologyService {
                         "Can not assign tags to anthology because the author id not the owner of the anthology.");
                 throw new ServiceException(
                         "Can not assign tags to anthology because the author id not the owner of the anthology.",
-                        ServiceException.Code.AUTHOR_NOT_OWNER_OF_ANTHOLOGY);
+                        ServiceException.Code.NOT_OWNER_ERROR);
             }
             anthology.setUpdateDate(new Date());
             this.anthologyRepository.save(anthology);
@@ -142,8 +140,7 @@ class AnthologyService implements IAnthologyService {
                 anthologyTagPk.setAnthology(anthology);
                 anthologyTagPk.setTag(tag);
                 anthologyTag.setSelected(true);
-                anthologyTag.setWeight(
-                        ICommonConstant.DefaultValue.ANTHOLOGY_SELECTED_TAG_INIT_WEIGHT);
+                anthologyTag.setWeight(1L);
                 this.anthologyTagRepository.save(anthologyTag);
             });
         } catch (PersistenceException e) {
@@ -151,7 +148,7 @@ class AnthologyService implements IAnthologyService {
                     e);
             throw new ServiceException(
                     "Fail to assign article tags because of exception.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -184,7 +181,7 @@ class AnthologyService implements IAnthologyService {
             logger.error("Fail to bookmark anthology because of exception.", e);
             throw new ServiceException(
                     "Fail to bookmark anthology because of exception.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -216,7 +213,7 @@ class AnthologyService implements IAnthologyService {
             logger.error("Fail to praise anthology because of exception.", e);
             throw new ServiceException(
                     "Fail to praise anthology because of exception.", e,
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -250,7 +247,7 @@ class AnthologyService implements IAnthologyService {
         } catch (PersistenceException e) {
             throw new ServiceException(
                     "Can not view article because of exception.",
-                    ServiceException.Code.PERSISTENCE_FAIL);
+                    ServiceException.Code.SYSTEM_ERROR);
         }
     }
 
@@ -283,7 +280,7 @@ class AnthologyService implements IAnthologyService {
                     e);
             throw new ServiceException(
                     "Can not increase author tag weight according to anthology because of exception.",
-                    e, ServiceException.Code.PERSISTENCE_FAIL);
+                    e, ServiceException.Code.SYSTEM_ERROR);
         }
     }
 }

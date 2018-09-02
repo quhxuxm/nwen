@@ -4,7 +4,7 @@ import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.author.*;
 
 public interface IAuthorService {
-    CreateAuthorResultDTO register(CreateAuthorDTO registerAuthorDTO) throws ServiceException;
+    RegisterAuthorResultDTO register(RegisterAuthorDTO registerAuthorDTO) throws ServiceException;
 
     AuthorDetailDTO findDetailById(Long id) throws ServiceException;
 

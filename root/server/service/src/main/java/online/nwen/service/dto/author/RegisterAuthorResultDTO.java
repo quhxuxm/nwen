@@ -1,6 +1,6 @@
 package online.nwen.service.dto.author;
 
-public class CreateAuthorResultDTO {
+public class RegisterAuthorResultDTO {
     private Long authorId;
 
     public Long getAuthorId() {

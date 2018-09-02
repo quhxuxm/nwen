@@ -21,22 +21,6 @@ public class AuthorApiController {
         return null;
     }
 
-    @PostMapping("/create")
-    public ApiResponse<CreateAuthorResultDTO> create(ApiRequest<CreateAuthorDTO> createAuthorRequest)
-            throws ServiceException {
-        if (null == createAuthorDTO.getToken()) {
-            ServiceException e = new ServiceException();
-            e.getPayload().put("token", "empty");
-            throw e;
-        }
-        if (null == createAuthorDTO.getPassword()) {
-            throw new ServiceException();
-        }
-        if (null == createAuthorDTO.getNickName()) {
-            throw new ServiceException();
-        }
-        return this.authorService.register(createAuthorDTO);
-    }
 
     @PostMapping("/{id}/update")
     public ApiResponse<UpdateAuthorResultDTO> update(@PathVariable("id") Long id,

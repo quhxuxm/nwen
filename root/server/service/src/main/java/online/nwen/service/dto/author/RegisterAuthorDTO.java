@@ -2,7 +2,7 @@ package online.nwen.service.dto.author;
 
 import java.io.Serializable;
 
-public class CreateAuthorDTO implements Serializable {
+public class RegisterAuthorDTO implements Serializable {
     private String token;
     private String password;
     private String nickName;

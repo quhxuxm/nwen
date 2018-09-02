@@ -1,28 +1,33 @@
 <section>
   <form class="register-form">
     <mat-form-field>
-      <input matInput name="username" required maxlength="40" type="text" placeholder="用户名"/>
+      <input matInput name="token" required maxlength="40" type="text" [(ngModel)]="token" placeholder="Username"/>
       <fa-icon [icon]="['fas', 'user']" matSuffix></fa-icon>
-      <mat-hint align="end">最长40个数字或字母</mat-hint>
+      <mat-hint align="start">You can use letters,numbers</mat-hint>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        Username is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="password" required maxlength="40" type="password" placeholder="密码"/>
+      <input matInput name="password" required maxlength="40" type="password" [(ngModel)]="password"
+             placeholder="Password"/>
       <fa-icon [icon]="['fas', 'lock']" matSuffix></fa-icon>
-      <mat-hint align="end">最长40个数字或字母</mat-hint>
+      <mat-hint align="start">8 or more characters with a mix of letters, numbers & symbols</mat-hint>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="nickName" required maxlength="40" type="text" placeholder="昵称"/>
+      <input matInput name="nickName" required maxlength="40" type="text" [(ngModel)]="nickName"
+             placeholder="Nickname"/>
       <fa-icon [icon]="['fas', 'laugh']" matSuffix></fa-icon>
-      <mat-hint align="end">最长40个数字或字母</mat-hint>
+      <mat-hint align="start">You can use letters,numbers, max 20</mat-hint>
     </mat-form-field>
     <div class="button-container">
-      <button mat-raised-button color="primary" class="button-theme">
-        注册
+      <button mat-raised-button color="primary" class="button-theme" (click)="register()">
+        Register
       </button>
     </div>
   </form>
   <nwen-separator [showContent]="true">
-    其他账号注册
+    Register with social account
   </nwen-separator>
   <div class=" social-application-container">
     <button mat-mini-fab>
@@ -31,21 +36,11 @@
     <button mat-mini-fab>
       <fa-icon [icon]="['fab','weixin']"></fa-icon>
     </button>
-    <button mat-mini-fab class="others" [matMenuTriggerFor]="otherRegisterOptionsMenu">
+    <button mat-mini-fab class="others">
       <fa-icon [icon]="['fas','ellipsis-v']"></fa-icon>
     </button>
-    <mat-menu #otherRegisterOptionsMenu>
-      <button mat-menu-item class="fa-icon-button">
-        <fa-icon [icon]="['fab','google']"></fa-icon>
-        <span>谷歌</span>
-      </button>
-      <button mat-menu-item class="fa-icon-button">
-        <fa-icon [icon]="['fab','facebook']"></fa-icon>
-        <span>脸书</span>
-      </button>
-    </mat-menu>
   </div>
   <div class="login-link-container">
-    <a routerLink="/login">登陆</a>
+    <a routerLink="/login">Go to login</a>
   </div>
 </section>

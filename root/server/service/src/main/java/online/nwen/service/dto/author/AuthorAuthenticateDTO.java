@@ -1,5 +1,7 @@
 package online.nwen.service.dto.author;
 
+import online.nwen.domain.Role;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,7 +9,7 @@ public class AuthorAuthenticateDTO {
     private Long id;
     private String token;
     private String password;
-    private Set<String> roles;
+    private Set<Role.Name> roles;
 
     public AuthorAuthenticateDTO() {
         this.roles = new HashSet<>();
@@ -29,11 +31,11 @@ public class AuthorAuthenticateDTO {
         this.password = password;
     }
 
-    public Set<String> getRoles() {
+    public Set<Role.Name> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<String> roles) {
+    public void setRoles(Set<Role.Name> roles) {
         this.roles = roles;
     }
 

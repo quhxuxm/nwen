@@ -1,8 +1,15 @@
 package online.nwen.entry.request;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ApiRequest<PayloadType> {
-    private String token;
+    private Map<String, String> header;
     private PayloadType payload;
+
+    public ApiRequest() {
+        this.header = new HashMap<>();
+    }
 
     public PayloadType getPayload() {
         return payload;
@@ -12,11 +19,7 @@ public class ApiRequest<PayloadType> {
         this.payload = payload;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
+    public Map<String, String> getHeader() {
+        return header;
     }
 }

@@ -1,5 +1,7 @@
 package online.nwen.service.dto.author;
 
+import online.nwen.domain.Role;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -11,7 +13,7 @@ public class AuthorDetailDTO implements Serializable {
     private String token;
     private Date lastLoginDate;
     private Date registerDate;
-    private Set<String> roles;
+    private Set<Role.Name> roles;
     private Long authorIconImageId;
     private Long articleNumber;
     private Long commentNumber;
@@ -65,11 +67,11 @@ public class AuthorDetailDTO implements Serializable {
         this.registerDate = registerDate;
     }
 
-    public Set<String> getRoles() {
+    public Set<Role.Name> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<String> roles) {
+    public void setRoles(Set<Role.Name> roles) {
         this.roles = roles;
     }
 

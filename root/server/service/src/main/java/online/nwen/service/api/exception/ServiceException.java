@@ -1,37 +1,55 @@
 package online.nwen.service.api.exception;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ServiceException extends Exception {
-    private final Map<String, String> payload;
+    public enum Code {
+        //Common errors
+        REQUEST_PAYLOAD_EMPTY_ERROR,
+        SYSTEM_ERROR,
+        NOT_OWNER_ERROR,
+        //Register errors
+        REGISTER_TOKEN_IS_EMPTY_ERROR,
+        REGISTER_PASSWORD_IS_EMPTY_ERROR,
+        REGISTER_NICK_NAME_IS_EMPTY_ERROR,
+        REGISTER_TOKEN_FORMAT_INCORRECT,
+        REGISTER_PASSWORD_FORMAT_INCORRECT,
+        REGISTER_NICKNAME_FORMAT_INCORRECT,
+        REGISTER_TOKEN_EXIST_ERROR,
+        REGISTER_NICK_NAME_EXIST_ERROR,
+        //Anthology
+        NOT_PARTICIPANT_ERROR,
+        //Author
+        AUTHOR_NOT_EXIST_ERROR,
+    }
 
-    public ServiceException() {
+    private final Code code;
+
+    public ServiceException(Code code) {
         super();
-        this.payload = new HashMap<>();
+        this.code = code;
     }
 
-    public ServiceException(String message) {
+    public ServiceException(String message, Code code) {
         super(message);
-        this.payload = new HashMap<>();
+        this.code = code;
     }
 
-    public ServiceException(String message, Throwable cause) {
+    public ServiceException(String message, Throwable cause, Code code) {
         super(message, cause);
-        this.payload = new HashMap<>();
+        this.code = code;
     }
 
-    public ServiceException(Throwable cause) {
+    public ServiceException(Throwable cause, Code code) {
         super(cause);
-        this.payload = new HashMap<>();
+        this.code = code;
     }
 
-    public ServiceException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public ServiceException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace,
+                            Code code) {
         super(message, cause, enableSuppression, writableStackTrace);
-        this.payload = new HashMap<>();
+        this.code = code;
     }
 
-    public Map<String, String> getPayload() {
-        return payload;
+    public Code getCode() {
+        return code;
     }
 }
