@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AbstractControl, ValidatorFn} from '@angular/forms';
 import {ApiExceptionHandler, ApiResponseHandler, ApiService} from '../../service/api.service';
 import {ApiRequest} from '../../vo/api/request/ApiRequest';
 import {RegisterRequestPayload} from '../../vo/register-request-payload';
@@ -32,10 +33,18 @@ export class RegisterComponent implements OnInit {
     };
     const apiExceptionHandler: ApiExceptionHandler = response => {
       if ('REGISTER_TOKEN_EXIST_ERROR' === response.code) {
-
       }
       console.log(response.code);
     };
     this.apiService.post('/api/register', null, null, registerRequest, apiResponseHandler, apiExceptionHandler);
   }
+
+  private formatValidator(formatRe: RegExp): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const forbidden = formatRe.test(control.value);
+      return forbidden ? {'forbiddenName': {value: control.value}} : null;
+    };
+  }
 }
+
+
