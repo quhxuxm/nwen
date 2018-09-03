@@ -14,8 +14,14 @@ export class RegisterComponent implements OnInit {
   token: string;
   password: string;
   nickName: string;
+  tokenErrorCode: string;
+  passwordErrorCode: string;
+  nickNameErrorCode: string;
 
   constructor(private apiService: ApiService) {
+    this.tokenErrorCode = null;
+    this.passwordErrorCode = null;
+    this.nickNameErrorCode = null;
   }
 
   ngOnInit() {
@@ -29,11 +35,11 @@ export class RegisterComponent implements OnInit {
     payload.nickName = this.nickName;
     registerRequest.payload = payload;
     const apiResponseHandler: ApiResponseHandler<RegisterResponsePayload> = response => {
+      this.tokenErrorCode = null;
       console.log(response.payload)
     };
     const apiExceptionHandler: ApiExceptionHandler = response => {
-      if ('REGISTER_TOKEN_EXIST_ERROR' === response.code) {
-      }
+      this.tokenErrorCode = response.code;
       console.log(response.code);
     };
     this.apiService.post('/api/register', null, null, registerRequest, apiResponseHandler, apiExceptionHandler);

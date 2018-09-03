@@ -37,7 +37,11 @@ export class ApiService {
         return;
       }
       const apiExceptionResponse = <ApiResponse<ExceptionPayload>>(errorResponse.error);
-      if (exceptionHandler) {
+      if (exceptionHandler && apiExceptionResponse) {
+        if(!apiExceptionResponse.payload){
+          console.log("Unknown error.");
+          return;
+        }
         exceptionHandler(apiExceptionResponse.payload);
       }
     }, () => {
