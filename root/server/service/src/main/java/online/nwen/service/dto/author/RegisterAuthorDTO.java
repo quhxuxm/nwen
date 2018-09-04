@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class RegisterAuthorDTO implements Serializable {
     private String token;
     private String password;
-    private String nickName;
+    private String nickname;
 
     public String getToken() {
         return token;
@@ -23,11 +23,11 @@ public class RegisterAuthorDTO implements Serializable {
         this.password = password;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

@@ -68,11 +68,11 @@ class AuthorService implements IAuthorService {
                                 ServiceException.Code.REGISTER_TOKEN_EXIST_ERROR);
             }
             if (this.authorRepository
-                    .existsByNickName(authorRegisterDTO.getNickName())) {
+                    .existsByNickName(authorRegisterDTO.getNickname())) {
                 logger.error(
                         "Can not register because of nick name exist already, "
                                 + "nick name = {}.",
-                        authorRegisterDTO.getNickName());
+                        authorRegisterDTO.getNickname());
                 throw
                         new ServiceException(
                                 ServiceException.Code.REGISTER_NICKNAME_EXIST_ERROR);
@@ -81,7 +81,7 @@ class AuthorService implements IAuthorService {
             author.setToken(authorRegisterDTO.getToken());
             author.setPassword(this.passwordEncoder
                     .encode(authorRegisterDTO.getPassword()));
-            author.setNickName(authorRegisterDTO.getNickName());
+            author.setNickName(authorRegisterDTO.getNickname());
             Role authorRole = this.roleRepository
                     .findByName(Role.Name.ROLE_AUTHOR);
             Set<Role> roleSet = new HashSet<>();

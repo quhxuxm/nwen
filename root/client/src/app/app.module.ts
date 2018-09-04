@@ -3,6 +3,8 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AppRoutingModule} from './app-routing.module';
 import {AppUiModule} from './app-ui.module';
 import {AppComponent} from './app.component';
@@ -35,6 +37,10 @@ import {RichTextEditorToolbarComponent} from './component/rich-text-editor/rich-
 import {RichTextEditorComponent} from './component/rich-text-editor/rich-text-editor.component';
 import {SeparatorComponent} from './component/separator/separator.component';
 import {ApiService} from './service/api.service';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/');
+}
 
 @NgModule({
   declarations: [
@@ -75,7 +81,14 @@ import {ApiService} from './service/api.service';
     ReactiveFormsModule,
     AppRoutingModule,
     AppUiModule,
-    HttpClientModule
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [HttpClient, ApiService],
   bootstrap: [AppComponent]

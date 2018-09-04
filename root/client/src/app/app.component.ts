@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'nwen-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'web';
+  title = 'NWen';
+
+  constructor(private translate: TranslateService) {
+    translate.addLangs(['zh', 'en']);
+    translate.setDefaultLang('en');
+    const languageOfBrowser = translate.getBrowserLang();
+    translate.use(languageOfBrowser);
+  }
 }

@@ -43,7 +43,7 @@ public class RegisterApiController {
         if (null == payload.getPassword()) {
             throw new ServiceException(ServiceException.Code.REGISTER_PASSWORD_IS_EMPTY_ERROR);
         }
-        if (null == payload.getNickName()) {
+        if (null == payload.getNickname()) {
             throw new ServiceException(ServiceException.Code.REGISTER_NICKNAME_IS_EMPTY_ERROR);
         }
         if (!this.apiConfiguration.getTokenPattern().matcher(request.getPayload().getToken()).find()) {
@@ -52,13 +52,13 @@ public class RegisterApiController {
         if (!this.apiConfiguration.getPasswordPattern().matcher(request.getPayload().getPassword()).find()) {
             throw new ServiceException(ServiceException.Code.REGISTER_PASSWORD_FORMAT_INCORRECT);
         }
-        if(payload.getNickName().length() > 40){
+        if(payload.getNickname().length() > 40){
             throw new ServiceException(ServiceException.Code.REGISTER_NICKNAME_MAX_LENGTH_INCORRECT);
         }
-        if(payload.getNickName().length() < 3){
+        if(payload.getNickname().length() < 3){
             throw new ServiceException(ServiceException.Code.REGISTER_NICKNAME_MIN_LENGTH_INCORRECT);
         }
-        if (!this.apiConfiguration.getNickNamePattern().matcher(request.getPayload().getNickName()).find()) {
+        if (!this.apiConfiguration.getNickNamePattern().matcher(request.getPayload().getNickname()).find()) {
             throw new ServiceException(ServiceException.Code.REGISTER_NICKNAME_FORMAT_INCORRECT);
         }
     }

@@ -14,7 +14,7 @@ import {RegisterResponsePayload} from '../../vo/register-response-payload';
 export class RegisterComponent implements OnInit {
   token: string;
   password: string;
-  nickName: string;
+  nickname: string;
   @ViewChild('registerForm')
   registerForm: FormGroup;
 
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
     const payload = new RegisterRequestPayload();
     payload.token = this.token;
     payload.password = this.password;
-    payload.nickName = this.nickName;
+    payload.nickname = this.nickname;
     registerRequest.payload = payload;
     const apiResponseHandler: ApiResponseHandler<RegisterResponsePayload> = response => {
       console.log(response.payload);
@@ -70,31 +70,31 @@ export class RegisterComponent implements OnInit {
       }
       //Nick name server errors
       if ('REGISTER_NICKNAME_IS_EMPTY_ERROR' === response.code) {
-        this.registerForm.controls['nickName'].setErrors({
+        this.registerForm.controls['nickname'].setErrors({
           'server-empty': response.code
         });
         return;
       }
       if ('REGISTER_NICKNAME_FORMAT_INCORRECT' === response.code) {
-        this.registerForm.controls['nickName'].setErrors({
+        this.registerForm.controls['nickname'].setErrors({
           'server-format': response.code
         });
         return;
       }
       if ('REGISTER_NICKNAME_EXIST_ERROR' === response.code) {
-        this.registerForm.controls['nickName'].setErrors({
+        this.registerForm.controls['nickname'].setErrors({
           'server-unique': response.code
         });
         return;
       }
       if ('REGISTER_NICKNAME_MAX_LENGTH_INCORRECT' === response.code) {
-        this.registerForm.controls['nickName'].setErrors({
+        this.registerForm.controls['nickname'].setErrors({
           'server-max-length': response.code
         });
         return;
       }
       if ('REGISTER_NICKNAME_MIN_LENGTH_INCORRECT' === response.code) {
-        this.registerForm.controls['nickName'].setErrors({
+        this.registerForm.controls['nickname'].setErrors({
           'server-min-length': response.code
         });
         return;
