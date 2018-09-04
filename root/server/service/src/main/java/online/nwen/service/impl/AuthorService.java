@@ -75,7 +75,7 @@ class AuthorService implements IAuthorService {
                         authorRegisterDTO.getNickName());
                 throw
                         new ServiceException(
-                                ServiceException.Code.REGISTER_NICK_NAME_EXIST_ERROR);
+                                ServiceException.Code.REGISTER_NICKNAME_EXIST_ERROR);
             }
             Author author = new Author();
             author.setToken(authorRegisterDTO.getToken());

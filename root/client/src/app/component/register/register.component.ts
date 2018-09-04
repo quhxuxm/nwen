@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractControl, ValidatorFn} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
 import {ApiExceptionHandler, ApiResponseHandler, ApiService} from '../../service/api.service';
 import {ApiRequest} from '../../vo/api/request/ApiRequest';
 import {RegisterRequestPayload} from '../../vo/register-request-payload';
@@ -14,14 +15,10 @@ export class RegisterComponent implements OnInit {
   token: string;
   password: string;
   nickName: string;
-  tokenErrorCode: string;
-  passwordErrorCode: string;
-  nickNameErrorCode: string;
+  @ViewChild('registerForm')
+  registerForm: FormGroup;
 
-  constructor(private apiService: ApiService) {
-    this.tokenErrorCode = null;
-    this.passwordErrorCode = null;
-    this.nickNameErrorCode = null;
+  constructor(private apiService: ApiService, private router: Router) {
   }
 
   ngOnInit() {
@@ -35,21 +32,75 @@ export class RegisterComponent implements OnInit {
     payload.nickName = this.nickName;
     registerRequest.payload = payload;
     const apiResponseHandler: ApiResponseHandler<RegisterResponsePayload> = response => {
-      this.tokenErrorCode = null;
-      console.log(response.payload)
+      console.log(response.payload);
+      this.router.navigateByUrl('/login');
     };
     const apiExceptionHandler: ApiExceptionHandler = response => {
-      this.tokenErrorCode = response.code;
-      console.log(response.code);
+      //Token server errors
+      if ('REGISTER_TOKEN_IS_EMPTY_ERROR' === response.code) {
+        this.registerForm.controls['token'].setErrors({
+          'server-empty': response.code
+        });
+        return;
+      }
+      if ('REGISTER_TOKEN_FORMAT_INCORRECT' === response.code) {
+        this.registerForm.controls['token'].setErrors({
+          'server-format': response.code
+        });
+        return;
+      }
+      if ('REGISTER_TOKEN_EXIST_ERROR' === response.code) {
+        this.registerForm.controls['token'].setErrors({
+          'server-unique': response.code
+        });
+        return;
+      }
+      //Password server errors
+      if ('REGISTER_PASSWORD_IS_EMPTY_ERROR' === response.code) {
+        this.registerForm.controls['password'].setErrors({
+          'server-empty': response.code
+        });
+        return;
+      }
+      if ('REGISTER_PASSWORD_FORMAT_INCORRECT' === response.code) {
+        this.registerForm.controls['password'].setErrors({
+          'server-format': response.code
+        });
+        return;
+      }
+      //Nick name server errors
+      if ('REGISTER_NICKNAME_IS_EMPTY_ERROR' === response.code) {
+        this.registerForm.controls['nickName'].setErrors({
+          'server-empty': response.code
+        });
+        return;
+      }
+      if ('REGISTER_NICKNAME_FORMAT_INCORRECT' === response.code) {
+        this.registerForm.controls['nickName'].setErrors({
+          'server-format': response.code
+        });
+        return;
+      }
+      if ('REGISTER_NICKNAME_EXIST_ERROR' === response.code) {
+        this.registerForm.controls['nickName'].setErrors({
+          'server-unique': response.code
+        });
+        return;
+      }
+      if ('REGISTER_NICKNAME_MAX_LENGTH_INCORRECT' === response.code) {
+        this.registerForm.controls['nickName'].setErrors({
+          'server-max-length': response.code
+        });
+        return;
+      }
+      if ('REGISTER_NICKNAME_MIN_LENGTH_INCORRECT' === response.code) {
+        this.registerForm.controls['nickName'].setErrors({
+          'server-min-length': response.code
+        });
+        return;
+      }
     };
     this.apiService.post('/api/register', null, null, registerRequest, apiResponseHandler, apiExceptionHandler);
-  }
-
-  private formatValidator(formatRe: RegExp): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      const forbidden = formatRe.test(control.value);
-      return forbidden ? {'forbiddenName': {value: control.value}} : null;
-    };
   }
 }
 

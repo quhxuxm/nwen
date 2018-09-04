@@ -44,16 +44,22 @@ public class RegisterApiController {
             throw new ServiceException(ServiceException.Code.REGISTER_PASSWORD_IS_EMPTY_ERROR);
         }
         if (null == payload.getNickName()) {
-            throw new ServiceException(ServiceException.Code.REGISTER_NICK_NAME_IS_EMPTY_ERROR);
+            throw new ServiceException(ServiceException.Code.REGISTER_NICKNAME_IS_EMPTY_ERROR);
         }
         if (!this.apiConfiguration.getTokenPattern().matcher(request.getPayload().getToken()).find()) {
-            throw new ServiceException(ServiceException.Code.REGISTER_TOKEN_IS_EMPTY_ERROR);
+            throw new ServiceException(ServiceException.Code.REGISTER_TOKEN_FORMAT_INCORRECT);
         }
         if (!this.apiConfiguration.getPasswordPattern().matcher(request.getPayload().getPassword()).find()) {
-            throw new ServiceException(ServiceException.Code.REGISTER_PASSWORD_IS_EMPTY_ERROR);
+            throw new ServiceException(ServiceException.Code.REGISTER_PASSWORD_FORMAT_INCORRECT);
+        }
+        if(payload.getNickName().length() > 40){
+            throw new ServiceException(ServiceException.Code.REGISTER_NICKNAME_MAX_LENGTH_INCORRECT);
+        }
+        if(payload.getNickName().length() < 3){
+            throw new ServiceException(ServiceException.Code.REGISTER_NICKNAME_MIN_LENGTH_INCORRECT);
         }
         if (!this.apiConfiguration.getNickNamePattern().matcher(request.getPayload().getNickName()).find()) {
-            throw new ServiceException(ServiceException.Code.REGISTER_NICK_NAME_IS_EMPTY_ERROR);
+            throw new ServiceException(ServiceException.Code.REGISTER_NICKNAME_FORMAT_INCORRECT);
         }
     }
 }

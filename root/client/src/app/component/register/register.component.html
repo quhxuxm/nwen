@@ -1,34 +1,96 @@
 <section>
   <form #registerForm="ngForm" (ngSubmit)="register()" class="register-form">
     <mat-form-field>
-      <input matInput name="token" required maxlength="40" minlength="8" type="text" [(ngModel)]="token" placeholder="Email"
-             #email="ngModel"/>
+      <input matInput name="token" required maxlength="40" type="text" placeholder="Email"
+             [(ngModel)]="token"
+             pattern="^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$"
+             #tokenInput="ngModel"/>
       <fa-icon [icon]="['fas', 'user']" matSuffix></fa-icon>
       <mat-hint align="start">Please use a valid email address</mat-hint>
-      <mat-error *ngIf="email.hasError('required')">
+      <mat-error *ngIf="tokenInput.hasError('required')">
         Email is <strong>required</strong>
       </mat-error>
-      <mat-error *ngIf="email.hasError('maxlength')">
+      <mat-error *ngIf="tokenInput.hasError('maxlength')">
         Email max length is <strong>40</strong>
       </mat-error>
-      <mat-error *ngIf="email.hasError('minlength')">
-        Email min length is <strong>8</strong>
+      <mat-error *ngIf="tokenInput.hasError('pattern')">
+        Email format is incorrect
       </mat-error>
-      <mat-error *ngIf="tokenErrorCode">
-        Email error: <strong>{{tokenErrorCode}}</strong>
+      <!--The server side validation error-->
+      <mat-error *ngIf="tokenInput.hasError('server-empty')">
+        Email server error: <strong>{{tokenInput.errors['server-empty']}}</strong>
+      </mat-error>
+      <mat-error *ngIf="tokenInput.hasError('server-format')">
+        Email server error: <strong>{{tokenInput.errors['server-format']}}</strong>
+      </mat-error>
+      <mat-error *ngIf="tokenInput.hasError('server-unique')">
+        Email server error: <strong>{{tokenInput.errors['server-unique']}}</strong>
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="password" required maxlength="40" type="password" [(ngModel)]="password"
-             placeholder="Password"/>
+      <input matInput name="password" required maxlength="40" minlength="6" type="password"
+             [(ngModel)]="password"
+             placeholder="Password"
+             pattern="^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$"
+             #passwordInput="ngModel"/>
       <fa-icon [icon]="['fas', 'lock']" matSuffix></fa-icon>
       <mat-hint align="start">6 or more characters with a mix of letters, numbers & symbols</mat-hint>
+      <mat-error *ngIf="passwordInput.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="passwordInput.hasError('maxlength')">
+        Password max length is <strong>40</strong>
+      </mat-error>
+      <mat-error *ngIf="passwordInput.hasError('minlength')">
+        Password min length is <strong>6</strong>
+      </mat-error>
+      <mat-error *ngIf="passwordInput.hasError('pattern')">
+        Password format is incorrect
+      </mat-error>
+      <!--The server side validation error-->
+      <mat-error *ngIf="passwordInput.hasError('server-empty')">
+        Password server error: <strong>{{passwordInput.errors['server-empty']}}</strong>
+      </mat-error>
+      <mat-error *ngIf="passwordInput.hasError('server-format')">
+        Password server error: <strong>{{passwordInput.errors['server-format']}}</strong>
+      </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="nickName" required maxlength="40" type="text" [(ngModel)]="nickName"
-             placeholder="Nickname"/>
+      <input matInput name="nickName" required maxlength="40" minlength="3" type="text"
+             [(ngModel)]="nickName"
+             placeholder="Nickname"
+             pattern="^[\u4E00-\u9FA5A-Za-z0-9_]+$"
+             #nickNameInput="ngModel"/>
       <fa-icon [icon]="['fas', 'laugh']" matSuffix></fa-icon>
       <mat-hint align="start">You can use letters,numbers, max 20</mat-hint>
+      <mat-error *ngIf="nickNameInput.hasError('required')">
+        Nickname is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="nickNameInput.hasError('maxlength')">
+        Nickname max length is <strong>40</strong>
+      </mat-error>
+      <mat-error *ngIf="nickNameInput.hasError('minlength')">
+        Nickname max length is <strong>3</strong>
+      </mat-error>
+      <mat-error *ngIf="nickNameInput.hasError('pattern')">
+        Nickname format is incorrect
+      </mat-error>
+      <!--The server side validation error-->
+      <mat-error *ngIf="nickNameInput.hasError('server-empty')">
+        Nickname server error: <strong>{{nickNameInput.errors['server-empty']}}</strong>
+      </mat-error>
+      <mat-error *ngIf="nickNameInput.hasError('server-format')">
+        Nickname server error: <strong>{{nickNameInput.errors['server-format']}}</strong>
+      </mat-error>
+      <mat-error *ngIf="nickNameInput.hasError('server-unique')">
+        Nickname server error: <strong>{{nickNameInput.errors['server-unique']}}</strong>
+      </mat-error>
+      <mat-error *ngIf="nickNameInput.hasError('server-max-length')">
+        Nickname server error: <strong>{{nickNameInput.errors['server-max-length']}}</strong>
+      </mat-error>
+      <mat-error *ngIf="nickNameInput.hasError('server-min-length')">
+        Nickname server error: <strong>{{nickNameInput.errors['server-min-length']}}</strong>
+      </mat-error>
     </mat-form-field>
     <div class="button-container">
       <button mat-raised-button color="primary" class="button-theme" type="submit">
