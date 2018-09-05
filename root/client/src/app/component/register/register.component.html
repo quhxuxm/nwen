@@ -23,53 +23,53 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="password" required maxlength="40" minlength="6" type="password"
+      <input matInput name="password" required maxlength="16" minlength="6" type="password"
              [(ngModel)]="password"
-             placeholder="{{'register.password' | translate}}"
-             pattern="^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$"
+             placeholder="{{'register.password.placeholder' | translate}}"
+             pattern="^.*(?=.{6,16})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*?\[\]\(\)\=\-\_\+\\\|\<\>\,\.\/]).*$"
              #passwordInput="ngModel"/>
       <fa-icon [icon]="['fas', 'lock']" matSuffix></fa-icon>
-      <mat-hint align="start">6 or more characters with a mix of letters, numbers & symbols</mat-hint>
+      <mat-hint align="start">{{'register.password.hint' | translate}}</mat-hint>
       <mat-error *ngIf="passwordInput.hasError('required')">
-        Password is <strong>required</strong>
+        {{'register.password.error.client.required' | translate}}
       </mat-error>
       <mat-error *ngIf="passwordInput.hasError('maxlength')">
-        Password max length is <strong>40</strong>
+        {{'register.password.error.client.maxlength' | translate}}
       </mat-error>
       <mat-error *ngIf="passwordInput.hasError('minlength')">
-        Password min length is <strong>6</strong>
+        {{'register.password.error.client.minlength' | translate}}
       </mat-error>
       <mat-error *ngIf="passwordInput.hasError('pattern')">
-        Password format is incorrect
+        {{'register.password.error.client.pattern' | translate}}
       </mat-error>
       <!--The server side validation error-->
       <mat-error *ngIf="passwordInput.hasError('server')">
-        Password server error: <strong>{{passwordInput.errors['server']}}</strong>
+        {{'register.password.error.server.'+ passwordInput.errors['server'] | translate}}
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="nickname" required maxlength="40" minlength="3" type="text"
+      <input matInput name="nickname" required maxlength="12" minlength="3" type="text"
              [(ngModel)]="nickname"
-             placeholder="{{'register.nickname' | translate}}"
+             placeholder="{{'register.nickname.placeholder' | translate}}"
              pattern="^[\u4E00-\u9FA5A-Za-z0-9_]+$"
              #nicknameInput="ngModel"/>
       <fa-icon [icon]="['fas', 'laugh']" matSuffix></fa-icon>
-      <mat-hint align="start">You can use letters,numbers, max 20</mat-hint>
+      <mat-hint align="start">{{'register.nickname.hint' | translate}}</mat-hint>
       <mat-error *ngIf="nicknameInput.hasError('required')">
-        Nickname is <strong>required</strong>
+        {{'register.nickname.error.client.required' | translate}}
       </mat-error>
       <mat-error *ngIf="nicknameInput.hasError('maxlength')">
-        Nickname max length is <strong>40</strong>
+        {{'register.nickname.error.client.maxlength' | translate}}
       </mat-error>
       <mat-error *ngIf="nicknameInput.hasError('minlength')">
-        Nickname max length is <strong>3</strong>
+        {{'register.nickname.error.client.minlength' | translate}}
       </mat-error>
       <mat-error *ngIf="nicknameInput.hasError('pattern')">
-        Nickname format is incorrect
+        {{'register.nickname.error.client.pattern' | translate}}
       </mat-error>
       <!--The server side validation error-->
       <mat-error *ngIf="nicknameInput.hasError('server')">
-        Nickname server error: <strong>{{nicknameInput.errors['server']}}</strong>
+        {{'register.nickname.error.server.'+ nicknameInput.errors['server'] | translate}}
       </mat-error>
     </mat-form-field>
     <div class="button-container">

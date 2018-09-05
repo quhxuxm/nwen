@@ -100,7 +100,8 @@ export class RegisterComponent implements OnInit {
         return;
       }
     };
-    this.apiService.post('/api/register', null, null, registerRequest, apiResponseHandler, apiExceptionHandler);
+    this.apiService.post('/api/register', null, null,
+      registerRequest, apiResponseHandler, apiExceptionHandler);
   }
 }
 

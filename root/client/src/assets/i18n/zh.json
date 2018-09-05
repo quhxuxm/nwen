@@ -8,6 +8,22 @@
   "register.email.error.server.REGISTER_TOKEN_FORMAT_INCORRECT":"邮箱格式错误",
   "register.email.error.server.REGISTER_TOKEN_EXIST_ERROR":"邮箱已经存在",
 
-  "register.password": "密码",
-  "register.nickname": "昵称"
+  "register.password.placeholder": " 密码",
+  "register.password.hint":"请输入最短6位最长16位数字和字母",
+  "register.password.error.client.required":"请输入密码",
+  "register.password.error.client.maxlenght":"密码超过16位",
+  "register.password.error.client.minlenght":"密码少于6位",
+  "register.password.error.client.pattern":"密码格式错误",
+  "register.password.error.server.REGISTER_PASSWORD_IS_EMPTY_ERROR":"请输入密码",
+  "register.password.error.server.REGISTER_PASSWORD_FORMAT_INCORRECT":"密码格式错误",
+
+  "register.nickname.placeholder": "昵称",
+  "register.nickname.hint":"请输入最长12个字最短3个字",
+  "register.nickname.error.client.required":"请输入昵称",
+  "register.nickname.error.client.maxlength":"昵称超过12个字",
+  "register.nickname.error.client.minlength":"昵称少于3个字",
+  "register.nickname.error.client.pattern":"昵称格式错误",
+  "register.nickname.error.server.REGISTER_NICKNAME_IS_EMPTY_ERROR":"请输入昵称",
+  "register.nickname.error.server.REGISTER_NICKNAME_FORMAT_INCORRECT":"昵称格式错误",
+  "register.nickname.error.server.REGISTER_NICKNAME_EXIST_ERROR":"昵称已经存在"
 }
