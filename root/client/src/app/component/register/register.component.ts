@@ -39,63 +39,63 @@ export class RegisterComponent implements OnInit {
       //Token server errors
       if ('REGISTER_TOKEN_IS_EMPTY_ERROR' === response.code) {
         this.registerForm.controls['token'].setErrors({
-          'server-empty': response.code
+          'server': response.code
         });
         return;
       }
       if ('REGISTER_TOKEN_FORMAT_INCORRECT' === response.code) {
         this.registerForm.controls['token'].setErrors({
-          'server-format': response.code
+          'server': response.code
         });
         return;
       }
       if ('REGISTER_TOKEN_EXIST_ERROR' === response.code) {
         this.registerForm.controls['token'].setErrors({
-          'server-unique': response.code
+          'server': response.code
         });
         return;
       }
       //Password server errors
       if ('REGISTER_PASSWORD_IS_EMPTY_ERROR' === response.code) {
         this.registerForm.controls['password'].setErrors({
-          'server-empty': response.code
+          'server': response.code
         });
         return;
       }
       if ('REGISTER_PASSWORD_FORMAT_INCORRECT' === response.code) {
         this.registerForm.controls['password'].setErrors({
-          'server-format': response.code
+          'server': response.code
         });
         return;
       }
       //Nick name server errors
       if ('REGISTER_NICKNAME_IS_EMPTY_ERROR' === response.code) {
         this.registerForm.controls['nickname'].setErrors({
-          'server-empty': response.code
+          'server': response.code
         });
         return;
       }
       if ('REGISTER_NICKNAME_FORMAT_INCORRECT' === response.code) {
         this.registerForm.controls['nickname'].setErrors({
-          'server-format': response.code
+          'server': response.code
         });
         return;
       }
       if ('REGISTER_NICKNAME_EXIST_ERROR' === response.code) {
         this.registerForm.controls['nickname'].setErrors({
-          'server-unique': response.code
+          'server': response.code
         });
         return;
       }
       if ('REGISTER_NICKNAME_MAX_LENGTH_INCORRECT' === response.code) {
         this.registerForm.controls['nickname'].setErrors({
-          'server-max-length': response.code
+          'server': response.code
         });
         return;
       }
       if ('REGISTER_NICKNAME_MIN_LENGTH_INCORRECT' === response.code) {
         this.registerForm.controls['nickname'].setErrors({
-          'server-min-length': response.code
+          'server': response.code
         });
         return;
       }

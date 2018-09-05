@@ -5,8 +5,8 @@
   "register.email.error.client.maxlenght":"邮箱地址超过40个字符",
   "register.email.error.client.pattern":"邮箱格式错误",
   "register.email.error.server.REGISTER_TOKEN_IS_EMPTY_ERROR":"请输入邮箱地址",
-  "register.email.error.server.REGISTER_TOKEN_FORMAT_INCORRECT":"邮箱已经存在",
-  "register.email.error.server.REGISTER_TOKEN_EXIST_ERROR":"邮箱格式错误",
+  "register.email.error.server.REGISTER_TOKEN_FORMAT_INCORRECT":"邮箱格式错误",
+  "register.email.error.server.REGISTER_TOKEN_EXIST_ERROR":"邮箱已经存在",
 
   "register.password": "密码",
   "register.nickname": "昵称"

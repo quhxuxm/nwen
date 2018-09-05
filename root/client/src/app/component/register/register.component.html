@@ -18,9 +18,8 @@
         {{'register.email.error.client.pattern' | translate}}
       </mat-error>
       <!--The server side validation error-->
-      <mat-error *ngFor="let errorKey of tokenInput.errors.keys">
-        {{'register.email.error.server.'+ tokenInput.errors[errorKey] | translate}}
-        <!-- {{tokenInput.errors['server-empty']}} -->
+      <mat-error *ngIf="tokenInput.hasError('server')">
+        {{'register.email.error.server.'+ tokenInput.errors['server'] | translate}}
       </mat-error>
     </mat-form-field>
     <mat-form-field>
@@ -44,11 +43,8 @@
         Password format is incorrect
       </mat-error>
       <!--The server side validation error-->
-      <mat-error *ngIf="passwordInput.hasError('server-empty')">
-        Password server error: <strong>{{passwordInput.errors['server-empty']}}</strong>
-      </mat-error>
-      <mat-error *ngIf="passwordInput.hasError('server-format')">
-        Password server error: <strong>{{passwordInput.errors['server-format']}}</strong>
+      <mat-error *ngIf="passwordInput.hasError('server')">
+        Password server error: <strong>{{passwordInput.errors['server']}}</strong>
       </mat-error>
     </mat-form-field>
     <mat-form-field>
@@ -72,20 +68,8 @@
         Nickname format is incorrect
       </mat-error>
       <!--The server side validation error-->
-      <mat-error *ngIf="nicknameInput.hasError('server-empty')">
-        Nickname server error: <strong>{{nicknameInput.errors['server-empty']}}</strong>
-      </mat-error>
-      <mat-error *ngIf="nicknameInput.hasError('server-format')">
-        Nickname server error: <strong>{{nicknameInput.errors['server-format']}}</strong>
-      </mat-error>
-      <mat-error *ngIf="nicknameInput.hasError('server-unique')">
-        Nickname server error: <strong>{{nicknameInput.errors['server-unique']}}</strong>
-      </mat-error>
-      <mat-error *ngIf="nicknameInput.hasError('server-max-length')">
-        Nickname server error: <strong>{{nicknameInput.errors['server-max-length']}}</strong>
-      </mat-error>
-      <mat-error *ngIf="nicknameInput.hasError('server-min-length')">
-        Nickname server error: <strong>{{nicknameInput.errors['server-min-length']}}</strong>
+      <mat-error *ngIf="nicknameInput.hasError('server')">
+        Nickname server error: <strong>{{nicknameInput.errors['server']}}</strong>
       </mat-error>
     </mat-form-field>
     <div class="button-container">
