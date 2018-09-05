@@ -1,4 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {ApiExceptionHandler, ApiResponseHandler, ApiService} from '../../service/api.service';
+import {ApiRequest} from '../../vo/api/request/ApiRequest';
+import {LoginRequestPayload} from '../../vo/login-request-payload';
+import {LoginResponsePayload} from '../../vo/login-response-payload';
 
 @Component({
   selector: 'nwen-login',
@@ -6,12 +12,62 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  userName: string;
+  token: string;
   password: string;
+  @ViewChild('loginForm')
+  loginForm: FormGroup;
 
-  constructor() {
+  constructor(private apiService: ApiService, private router: Router) {
   }
 
   ngOnInit() {
+  }
+
+  public login() {
+    const loginApiRequest: ApiRequest<LoginRequestPayload> = new ApiRequest();
+    const payload = new LoginRequestPayload();
+    payload.token = this.token;
+    payload.password = this.password;
+    loginApiRequest.payload = payload;
+    const apiResponseHandler: ApiResponseHandler<LoginResponsePayload> = response => {
+      console.log(response.payload);
+      this.router.navigateByUrl('/home');
+    };
+    const apiExceptionHandler: ApiExceptionHandler = response => {
+      //Token server errors
+      if ('LOGIN_TOKEN_IS_EMPTY_ERROR' === response.code) {
+        this.loginForm.controls['token'].setErrors({
+          'server': response.code
+        });
+        return;
+      }
+      if ('LOGIN_TOKEN_FORMAT_INCORRECT' === response.code) {
+        this.loginForm.controls['token'].setErrors({
+          'server': response.code
+        });
+        return;
+      }
+      if ('LOGIN_TOKEN_EXIST_ERROR' === response.code) {
+        this.loginForm.controls['token'].setErrors({
+          'server': response.code
+        });
+        return;
+      }
+      //Password server errors
+      if ('LOGIN_PASSWORD_IS_EMPTY_ERROR' === response.code) {
+        this.loginForm.controls['password'].setErrors({
+          'server': response.code
+        });
+        return;
+      }
+      if ('LOGIN_PASSWORD_FORMAT_INCORRECT' === response.code) {
+        this.loginForm.controls['password'].setErrors({
+          'server': response.code
+        });
+        return;
+      }
+    };
+    this.apiService.post('/api/login', null, null,
+      loginApiRequest, apiResponseHandler, apiExceptionHandler);
   }
 }

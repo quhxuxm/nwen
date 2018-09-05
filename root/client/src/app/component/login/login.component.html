@@ -1,26 +1,65 @@
 <section>
   <form class="login-form" #loginForm>
     <mat-form-field>
-      <input matInput name="username" required maxlength="40" type="text" placeholder="用户名" [(ngModel)]="userName"
-             #userNameInput="ngModel"/>
+      <input matInput
+             name="token" required maxlength="40" type="text"
+             placeholder="{{'login.email.placeholder' | translate}}"
+             [(ngModel)]="token"
+             pattern="^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$"
+             #tokenInput="ngModel"/>
       <fa-icon [icon]="['fas', 'user']" matSuffix></fa-icon>
-      <mat-hint align="end">最长40个数字或字母</mat-hint>
+      <mat-hint align="start">{{'login.email.hint' | translate}}</mat-hint>
+      <mat-error *ngIf="tokenInput.hasError('required')">
+        {{'login.email.error.client.required' | translate}}
+      </mat-error>
+      <mat-error *ngIf="tokenInput.hasError('maxlength')">
+        {{'login.email.error.client.maxlenght' | translate}}
+      </mat-error>
+      <mat-error *ngIf="tokenInput.hasError('pattern')">
+        {{'login.email.error.client.pattern' | translate}}
+      </mat-error>
+      <!--The server side validation error-->
+      <mat-error *ngIf="tokenInput.hasError('server')">
+        {{'login.email.error.server.'+ tokenInput.errors['server'] | translate}}
+      </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="password" required maxlength="40" type="password" placeholder="密码"
+      <input matInput
+             name="password"
+             required maxlength="16" minlength="6"
+             pattern="^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*?\[\]\(\)\=\-\_\+\\\|\<\>\,\.\/]).*$"
+             type="password" placeholder="{{'login.password.placeholder' | translate }}"
              [(ngModel)]="password" #passwordInput="ngModel"/>
       <fa-icon [icon]="['fas', 'lock']" matSuffix></fa-icon>
-      <mat-hint align="end">最长40个数字或字母</mat-hint>
+      <mat-hint align="start">{{'login.password.hint' | translate }}</mat-hint>
+      <mat-error *ngIf="passwordInput.hasError('required')">
+        {{'login.password.error.client.required' | translate}}
+      </mat-error>
+      <mat-error *ngIf="passwordInput.hasError('maxlength')">
+        {{'login.password.error.client.maxlenght' | translate}}
+      </mat-error>
+      <mat-error *ngIf="passwordInput.hasError('minlength')">
+        {{'login.password.error.client.minlenght' | translate}}
+      </mat-error>
+      <mat-error *ngIf="passwordInput.hasError('pattern')">
+        {{'login.password.error.client.pattern' | translate}}
+      </mat-error>
+      <!--The server side validation error-->
+      <mat-error *ngIf="passwordInput.hasError('server')">
+        {{'login.password.error.server.'+ passwordInput.errors['server'] | translate}}
+      </mat-error>
     </mat-form-field>
     <div class="button-container">
-      <mat-checkbox name="rememberme" class="checkbox-theme" color="accent">记住我</mat-checkbox>
+      <mat-checkbox name="rememberme" class="checkbox-theme" color="accent">
+        {{'login.remember' | translate}}
+      </mat-checkbox>
       <button mat-raised-button color="accent" class="button-theme">
-        登陆
+        {{'login.button' | translate}}
       </button>
     </div>
   </form>
   <nwen-separator [showContent]="true">
-    其他账号登陆
+    {{'login.separator.content' | translate}}
   </nwen-separator>
   <div class="social-application-container">
     <button mat-mini-fab>
@@ -29,21 +68,11 @@
     <button mat-mini-fab>
       <fa-icon [icon]="['fab','weixin']"></fa-icon>
     </button>
-    <button mat-mini-fab class="others" [matMenuTriggerFor]="otherLoginOptionsMenu">
+    <button mat-mini-fab class="others">
       <fa-icon [icon]="['fas','ellipsis-v']"></fa-icon>
     </button>
-    <mat-menu #otherLoginOptionsMenu>
-      <button mat-menu-item class="fa-icon-button">
-        <fa-icon [icon]="['fab','google']"></fa-icon>
-        <span>谷歌</span>
-      </button>
-      <button mat-menu-item class="fa-icon-button">
-        <fa-icon [icon]="['fab','facebook']"></fa-icon>
-        <span>脸书</span>
-      </button>
-    </mat-menu>
   </div>
   <div class="register-link-container">
-    <a routerLink="/register">注册</a>
+    <a routerLink="/register">{{'login.button.go-to-register' | translate}}</a>
   </div>
 </section>
