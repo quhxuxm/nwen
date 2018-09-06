@@ -48,7 +48,7 @@ public class AuthenticationService implements IAuthenticationService {
             Algorithm algorithm = Algorithm.HMAC256(this.jwtConfiguration.getSecret());
             String jwtToken = JWT.create()
                     .withIssuer(this.jwtConfiguration.getIssuer())
-                    .withSubject(author.getToken())
+                    .withSubject(author.getId().toString())
                     .withExpiresAt(new Date(System.currentTimeMillis() + this.jwtConfiguration.getExpiration()))
                     .sign(algorithm);
             authenticateResultDTO.setJwtToken(jwtToken);

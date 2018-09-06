@@ -30,7 +30,8 @@ export class LoginComponent implements OnInit {
     payload.password = this.password;
     loginApiRequest.payload = payload;
     const apiResponseHandler: ApiResponseHandler<LoginResponsePayload> = response => {
-      console.log(response.payload);
+      console.log(response.payload.jwtToken);
+      this.apiService.securityContext.jwtToken = response.payload.jwtToken;
       this.router.navigateByUrl('/home');
     };
     const apiExceptionHandler: ApiExceptionHandler = response => {

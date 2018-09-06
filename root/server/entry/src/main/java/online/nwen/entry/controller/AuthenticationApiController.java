@@ -29,9 +29,4 @@ public class AuthenticationApiController {
         apiResponse.setSuccess(true);
         return apiResponse;
     }
-
-    @PostMapping("/logout")
-    public ApiResponse<AuthenticateResultDTO> logout(@RequestBody ApiRequest<AuthenticateDTO> request) {
-        return null;
-    }
 }
