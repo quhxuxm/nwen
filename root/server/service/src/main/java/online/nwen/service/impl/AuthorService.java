@@ -16,7 +16,6 @@ import javax.persistence.PersistenceException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 class AuthorService implements IAuthorService {
@@ -132,27 +131,6 @@ class AuthorService implements IAuthorService {
         }
     }
 
-    @Override
-    public AuthorDetailDTO loginByToken(String token) throws ServiceException {
-        try {
-            Author author = this.authorRepository.findByToken(token);
-            if (author == null) {
-                throw new ServiceException(
-                        "Can not find author detail because of the exception.",
-                        ServiceException.Code.AUTHOR_NOT_EXIST_ERROR);
-            }
-            AuthorDetailDTO result = this.convert(author);
-            author.setLastLoginDate(new Date());
-            this.authorRepository.save(author);
-            return result;
-        } catch (PersistenceException e) {
-            logger.error("Can not login because of the exception.", e);
-            throw new ServiceException(
-                    "Can not login because of the exception.",
-                    ServiceException.Code.SYSTEM_ERROR);
-        }
-    }
-
     private AuthorDetailDTO convert(Author author) {
         AuthorDetailDTO result = new AuthorDetailDTO();
         result.setAuthorId(author.getId());
@@ -261,28 +239,6 @@ class AuthorService implements IAuthorService {
                     e);
             throw new ServiceException(
                     "Can not assign tog to author because of exception.", e,
-                    ServiceException.Code.SYSTEM_ERROR);
-        }
-    }
-
-    @Override
-    public AuthorAuthenticateDTO findForAuthenticate(String token)
-            throws ServiceException {
-        try {
-            Author author = this.authorRepository.findByToken(token);
-            if (author == null) {
-                throw new ServiceException(
-                        ServiceException.Code.AUTHOR_NOT_EXIST_ERROR);
-            }
-            AuthorAuthenticateDTO result = new AuthorAuthenticateDTO();
-            result.setId(author.getId());
-            result.setToken(author.getToken());
-            result.setPassword(author.getPassword());
-            result.setRoles(author.getRoles().stream().map(Role::getName)
-                    .collect(Collectors.toSet()));
-            return result;
-        } catch (PersistenceException e) {
-            throw new ServiceException(e,
                     ServiceException.Code.SYSTEM_ERROR);
         }
     }

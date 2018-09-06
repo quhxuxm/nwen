@@ -1,5 +1,5 @@
 <section>
-  <form class="login-form" #loginForm>
+  <form class="login-form" (ngSubmit)="login()" #loginForm>
     <mat-form-field>
       <input matInput
              name="token" required maxlength="40" type="text"

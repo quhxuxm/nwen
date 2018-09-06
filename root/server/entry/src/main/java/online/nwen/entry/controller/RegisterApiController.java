@@ -52,12 +52,6 @@ public class RegisterApiController {
         if (!this.apiConfiguration.getPasswordPattern().matcher(request.getPayload().getPassword()).find()) {
             throw new ServiceException(ServiceException.Code.REGISTER_PASSWORD_FORMAT_INCORRECT);
         }
-        if(payload.getNickname().length() > 40){
-            throw new ServiceException(ServiceException.Code.REGISTER_NICKNAME_MAX_LENGTH_INCORRECT);
-        }
-        if(payload.getNickname().length() < 3){
-            throw new ServiceException(ServiceException.Code.REGISTER_NICKNAME_MIN_LENGTH_INCORRECT);
-        }
         if (!this.apiConfiguration.getNickNamePattern().matcher(request.getPayload().getNickname()).find()) {
             throw new ServiceException(ServiceException.Code.REGISTER_NICKNAME_FORMAT_INCORRECT);
         }

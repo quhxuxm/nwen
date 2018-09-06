@@ -28,8 +28,5 @@ public class AuthorApiController {
         return null;
     }
 
-    @PostMapping("/authenticate")
-    public ApiResponse<AuthorAuthenticationDTO> authenticate() {
-        return null;
-    }
+
 }

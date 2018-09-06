@@ -53,6 +53,12 @@ export class LoginComponent implements OnInit {
         });
         return;
       }
+      if ('AUTHENTICATION_TOKEN_NOT_EXIST' === response.code) {
+        this.loginForm.controls['token'].setErrors({
+          'server': response.code
+        });
+        return;
+      }
       //Password server errors
       if ('LOGIN_PASSWORD_IS_EMPTY_ERROR' === response.code) {
         this.loginForm.controls['password'].setErrors({
@@ -66,8 +72,14 @@ export class LoginComponent implements OnInit {
         });
         return;
       }
+      if ('AUTHENTICATION_PASSWORD_NOT_MATCH' === response.code) {
+        this.loginForm.controls['password'].setErrors({
+          'server': response.code
+        });
+        return;
+      }
     };
-    this.apiService.post('/api/login', null, null,
+    this.apiService.post('/api/authenticate', null, null,
       loginApiRequest, apiResponseHandler, apiExceptionHandler);
   }
 }

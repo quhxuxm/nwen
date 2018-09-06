@@ -8,14 +8,9 @@ public interface IAuthorService {
 
     AuthorDetailDTO findDetailById(Long id) throws ServiceException;
 
-    AuthorDetailDTO loginByToken(String token) throws ServiceException;
-
     void assignTagsToAuthor(AuthorAssignTagsDTO authorAssignTagsDTO)
             throws ServiceException;
 
     void assignFollowerToAuthor(AuthorAssignFollowerDTO authorAssignFollowerDTO)
-            throws ServiceException;
-
-    AuthorAuthenticateDTO findForAuthenticate(String token)
             throws ServiceException;
 }

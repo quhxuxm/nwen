@@ -3,7 +3,7 @@ package online.nwen.entry.interceptor;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import online.nwen.entry.configuration.JwtConfiguration;
+import online.nwen.service.configuration.JwtConfiguration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
