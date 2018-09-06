@@ -20,10 +20,16 @@ export class ApiService {
     this._securityContext = new SecurityContext();
   }
 
-  get<ResponsePayloadType>(url: string, headers: StringMap = {}, params: StringMap = {},
+  get<ResponsePayloadType>(url: string, headers: StringMap, params: StringMap,
                            responseHandler?: ApiResponseHandler<ResponsePayloadType>,
                            exceptionHandler?: ApiExceptionHandler, invokeCompleteHandler?: ApiInvokeCompleteHandler
   ) {
+    if (headers == null) {
+      headers = {}
+    }
+    if (params == null) {
+      params = {}
+    }
     if (this._securityContext.jwtToken) {
       headers['Authorization'] = this._securityContext.jwtToken;
     }
@@ -54,12 +60,18 @@ export class ApiService {
     })
   }
 
-  post<RequestPayloadType, ResponsePayloadType>(url: string, headers: StringMap = {}, params: StringMap = {},
+  post<RequestPayloadType, ResponsePayloadType>(url: string, headers: StringMap, params: StringMap,
                                                 body?: ApiRequest<RequestPayloadType>,
                                                 responseHandler?: ApiResponseHandler<ResponsePayloadType>,
                                                 exceptionHandler?: ApiExceptionHandler,
                                                 invokeCompleteHandler?: ApiInvokeCompleteHandler
   ) {
+    if (headers == null) {
+      headers = {}
+    }
+    if (params == null) {
+      params = {}
+    }
     if (this._securityContext.jwtToken) {
       headers['Authorization'] = this._securityContext.jwtToken;
     }

@@ -20,12 +20,12 @@ import javax.servlet.http.HttpServletResponse;
  * The interceptor used to fill the thread local that contains the authenticated author detail
  */
 @Component
-public class JwtTokenHolderInterceptor implements HandlerInterceptor {
+public class SecurityInterceptor implements HandlerInterceptor {
     private JWTVerifier verifier;
     private IAuthorService authorService;
 
-    public JwtTokenHolderInterceptor(JwtConfiguration jwtConfiguration,
-                                     IAuthorService authorService) {
+    public SecurityInterceptor(JwtConfiguration jwtConfiguration,
+                               IAuthorService authorService) {
         this.authorService = authorService;
         Algorithm algorithm = Algorithm.HMAC256(jwtConfiguration.getSecret());
         this.verifier = JWT.require(algorithm)

@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class AuthenticationApiController {
+public class SecurityApiController {
     private IAuthenticationService authenticationService;
 
-    public AuthenticationApiController(IAuthenticationService authenticationService) {
+    public SecurityApiController(IAuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }
 
@@ -28,5 +28,10 @@ public class AuthenticationApiController {
         apiResponse.setPayload(authenticateResultDTO);
         apiResponse.setSuccess(true);
         return apiResponse;
+    }
+
+    @PostMapping("/verify")
+    public ApiResponse<AuthenticateResultDTO> verify(@RequestBody ApiRequest<AuthenticateDTO> request) {
+        return null;
     }
 }

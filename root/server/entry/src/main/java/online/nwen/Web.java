@@ -1,10 +1,8 @@
 package online.nwen;
 
+import online.nwen.entry.interceptor.SecurityInterceptor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.resource.VersionResourceResolver;
 
 @Configuration
@@ -15,8 +13,10 @@ public class Web implements WebMvcConfigurer {
     private static final String UI_URL = "/ui/";
     private static final String[] STATIC_RESOURCE_LOCATIONS = {"classpath:static/"};
     private static final String UI_INDEX_PAGE = "/ui/index.html";
+    private SecurityInterceptor securityInterceptor;
 
-    public Web() {
+    public Web(SecurityInterceptor securityInterceptor) {
+        this.securityInterceptor = securityInterceptor;
     }
 
     /**
@@ -45,5 +45,10 @@ public class Web implements WebMvcConfigurer {
         //Redirect the "/ui/#/**" to index.html
         registry.addRedirectViewController(UI_URL,
                 UI_INDEX_PAGE);
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(this.securityInterceptor).excludePathPatterns("/api/authenticate", "/api/register");
     }
 }
