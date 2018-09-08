@@ -9,17 +9,20 @@
       <nwen-logo class="logo" routerLink="/home"></nwen-logo>
     </mat-toolbar>
     <ul>
-      <li>
+      <li *ngIf="!securityContext.isAuthenticated()">
         <a routerLink="/login">登陆/注册</a>
       </li>
       <li>
-        <a  routerLink="/anthology/create">创建文集</a>
+        <a routerLink="/anthology/create">创建文集</a>
       </li>
       <li>
-        <a  routerLink="/profile">我的主页</a>
+        <a routerLink="/profile">我的主页</a>
       </li>
       <li>
-        <a  routerLink="/about">关于我们</a>
+        <a routerLink="/about">关于我们</a>
+      </li>
+      <li *ngIf="securityContext.isAuthenticated()">
+        <a (click)="logout()">退出</a>
       </li>
     </ul>
   </mat-sidenav>

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IArticleService {
-    Long saveArticle(CreateArticleDTO createArticleDTO) throws ServiceException;
+    Long saveArticle(SaveArticleDTO saveArticleDTO) throws ServiceException;
 
     Long updateArticle(UpdateArticleDTO updateArticleDTO)
             throws ServiceException;

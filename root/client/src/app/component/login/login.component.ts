@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ApiExceptionHandler, ApiResponseHandler, ApiService} from '../../service/api.service';
+import {SecurityService} from '../../service/security.service';
 import {ApiRequest} from '../../vo/api/request/ApiRequest';
 import {LoginRequestPayload} from '../../vo/login-request-payload';
 import {LoginResponsePayload} from '../../vo/login-response-payload';
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   @ViewChild('loginForm')
   loginForm: FormGroup;
 
-  constructor(private apiService: ApiService, private router: Router) {
+  constructor(private apiService: ApiService, private securityService: SecurityService, private router: Router) {
   }
 
   ngOnInit() {
@@ -31,7 +32,10 @@ export class LoginComponent implements OnInit {
     loginApiRequest.payload = payload;
     const apiResponseHandler: ApiResponseHandler<LoginResponsePayload> = response => {
       console.log(response.payload.jwtToken);
-      this.apiService.securityContext.jwtToken = response.payload.jwtToken;
+      this.securityService.securityContext.jwtToken = response.payload.jwtToken;
+      this.securityService.securityContext.expireTime = response.payload.expireTime;
+      localStorage.setItem('JWT_TOKEN', this.securityService.securityContext.jwtToken);
+      localStorage.setItem('JWT_EXPIRE_TIME', this.securityService.securityContext.expireTime.toString());
       this.router.navigateByUrl('/home');
     };
     const apiExceptionHandler: ApiExceptionHandler = response => {

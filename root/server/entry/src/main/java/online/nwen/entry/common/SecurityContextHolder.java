@@ -1,6 +1,5 @@
 package online.nwen.entry.common;
 
-import com.auth0.jwt.interfaces.DecodedJWT;
 import online.nwen.service.dto.author.AuthorDetailDTO;
 
 public class SecurityContextHolder {
@@ -10,8 +9,8 @@ public class SecurityContextHolder {
     private SecurityContextHolder() {
     }
 
-    public void initContext(AuthorDetailDTO currentAuthor, DecodedJWT jwt) {
-        SecurityContext context = new SecurityContext(currentAuthor, jwt);
+    public void initContext(AuthorDetailDTO currentAuthor, String jwtToken) {
+        SecurityContext context = new SecurityContext(currentAuthor, jwtToken);
         CONTEXT_CONTAINER.set(context);
     }
 

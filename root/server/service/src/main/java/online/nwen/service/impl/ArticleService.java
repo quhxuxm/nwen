@@ -80,16 +80,20 @@ class ArticleService implements IArticleService {
 
     @Transactional
     @Override
-    public Long saveArticle(CreateArticleDTO createArticleDTO)
+    public Long saveArticle(SaveArticleDTO saveArticleDTO)
             throws ServiceException {
         try {
+            Long anthologyId = null;
+            if (saveArticleDTO.getAnthologyId() != null) {
+                anthologyId = saveArticleDTO.getAnthologyId();
+            }
             Anthology anthology = this.anthologyRepository
-                    .getOne(createArticleDTO.getAnthologyId());
+                    .getOne(anthologyId);
             Author author = this.authorRepository
-                    .getOne(createArticleDTO.getAuthorId());
+                    .getOne(saveArticleDTO.getAuthorId());
             boolean authorOwnAnthology = false;
             if (anthology.getAuthor().getId()
-                    .equals(createArticleDTO.getAuthorId())) {
+                    .equals(saveArticleDTO.getAuthorId())) {
                 authorOwnAnthology = true;
             }
             if (!authorOwnAnthology) {
@@ -107,17 +111,17 @@ class ArticleService implements IArticleService {
                 }
             }
             Article article = new Article();
-            article.setTitle(createArticleDTO.getTitle());
-            article.setContent(createArticleDTO.getContent());
+            article.setTitle(saveArticleDTO.getTitle());
+            article.setContent(saveArticleDTO.getContent());
             article.setCreateDate(new Date());
-            article.setSummary(createArticleDTO.getSummary());
+            article.setSummary(saveArticleDTO.getSummary());
             article.setAnthology(anthology);
             this.articleRepository.save(article);
             author.getAdditionalInfo().setArticleNumber(
                     author.getAdditionalInfo().getArticleNumber() + 1);
             this.authorRepository.save(author);
             Map<String, Boolean> articleTags = new HashMap<>();
-            createArticleDTO.getTags().forEach(tagText -> {
+            saveArticleDTO.getTags().forEach(tagText -> {
                 articleTags.put(tagText, true);
             });
             Set<AnthologyTag> anthologyTags = this.anthologyTagRepository

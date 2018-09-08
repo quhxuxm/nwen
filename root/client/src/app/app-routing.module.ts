@@ -10,6 +10,7 @@ import {HomeComponent} from './component/home/home.component';
 import {LoginComponent} from './component/login/login.component';
 import {ProfileComponent} from './component/profile/profile.component';
 import {RegisterComponent} from './component/register/register.component';
+import {SecurityGuard} from './security/security.guard';
 
 const routes: Routes = [
   {
@@ -26,7 +27,8 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [SecurityGuard]
   },
   {
     path: 'about',
@@ -38,7 +40,8 @@ const routes: Routes = [
   },
   {
     path: 'article/create',
-    component: ArticleCreateComponent
+    component: ArticleCreateComponent,
+    canActivate: [SecurityGuard]
   },
   {
     path: 'anthology/detail/:id',

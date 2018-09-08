@@ -1,6 +1,7 @@
 package online.nwen;
 
-import online.nwen.entry.interceptor.SecurityInterceptor;
+import online.nwen.entry.interceptor.SecurityContextInitializeInterceptor;
+import online.nwen.entry.interceptor.SecurityVerifyInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.resource.VersionResourceResolver;
@@ -13,10 +14,13 @@ public class Web implements WebMvcConfigurer {
     private static final String UI_URL = "/ui/";
     private static final String[] STATIC_RESOURCE_LOCATIONS = {"classpath:static/"};
     private static final String UI_INDEX_PAGE = "/ui/index.html";
-    private SecurityInterceptor securityInterceptor;
+    private SecurityVerifyInterceptor securityVerifyInterceptor;
+    private SecurityContextInitializeInterceptor securityContextInitializeInterceptor;
 
-    public Web(SecurityInterceptor securityInterceptor) {
-        this.securityInterceptor = securityInterceptor;
+    public Web(SecurityVerifyInterceptor securityVerifyInterceptor,
+               SecurityContextInitializeInterceptor securityContextInitializeInterceptor) {
+        this.securityVerifyInterceptor = securityVerifyInterceptor;
+        this.securityContextInitializeInterceptor = securityContextInitializeInterceptor;
     }
 
     /**
@@ -49,6 +53,9 @@ public class Web implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(this.securityInterceptor).excludePathPatterns("/api/authenticate", "/api/register");
+        registry.addInterceptor(this.securityVerifyInterceptor)
+                .addPathPatterns("/api/security/**");
+        registry.addInterceptor(this.securityContextInitializeInterceptor)
+                .excludePathPatterns("/api/authenticate", "/api/register").addPathPatterns("/api/**");
     }
 }

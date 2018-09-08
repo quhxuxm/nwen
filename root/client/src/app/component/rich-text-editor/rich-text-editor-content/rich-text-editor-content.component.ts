@@ -54,4 +54,8 @@ export class RichTextEditorContentComponent implements AfterContentInit, OnInit 
     document.execCommand('inserttext', false, text);
     return false;
   }
+
+  getContent() {
+    return (<HTMLDivElement>this.contentContainer.nativeElement).innerHTML;
+  }
 }

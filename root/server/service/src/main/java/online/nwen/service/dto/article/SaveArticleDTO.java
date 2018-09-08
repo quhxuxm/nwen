@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CreateArticleDTO implements Serializable {
+public class SaveArticleDTO implements Serializable {
     private Long authorId;
     private Long anthologyId;
     private String title;
@@ -12,7 +12,7 @@ public class CreateArticleDTO implements Serializable {
     private String summary;
     private Set<String> tags;
 
-    public CreateArticleDTO() {
+    public SaveArticleDTO() {
         this.tags = new HashSet<>();
     }
 

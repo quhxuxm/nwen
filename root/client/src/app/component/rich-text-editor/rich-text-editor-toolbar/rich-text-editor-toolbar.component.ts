@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {Command, CommandCallbackType, CommandContext} from '../rich-text-editor-command-bus/command';
 import {CommandBusService} from '../rich-text-editor-command-bus/command-bus.service';
 
@@ -15,6 +15,11 @@ type FileConvertResultHandler = (result: string) => void;
   encapsulation: ViewEncapsulation.None
 })
 export class RichTextEditorToolbarComponent implements OnInit {
+  @Output()
+  saveEvent: EventEmitter<any> = new EventEmitter();
+  @Output()
+  publishEvent: EventEmitter<any> = new EventEmitter();
+
   constructor(private commandBus: CommandBusService) {
   }
 
@@ -99,11 +104,14 @@ export class RichTextEditorToolbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  onPublish(event: Event) {
+    event.preventDefault();
+    this.publishEvent.emit(null);
+  }
+
   onSave(event: Event) {
     event.preventDefault();
-    this.commandBus.sendCommand(this.generateCommand(null, null, editorContainerElement => {
-      alert(editorContainerElement.innerHTML);
-    }));
+    this.saveEvent.emit(null);
   }
 
   onBold(event: Event) {

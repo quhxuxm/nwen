@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {ApiRequest} from '../vo/api/request/ApiRequest';
 import {ApiResponse} from '../vo/api/response/ApiResponse';
 import {ExceptionPayload} from '../vo/api/response/ExceptionPayload';
-import {SecurityContext} from '../vo/security-context';
+import {SecurityService} from './security.service';
 
 export type ApiResponseHandler<ResponsePayloadType> = (response: ApiResponse<ResponsePayloadType>) => void;
 export type ApiExceptionHandler = (exception: ExceptionPayload) => void;
@@ -14,10 +14,7 @@ type StringMap = { [name: string]: string };
   providedIn: 'root'
 })
 export class ApiService {
-  private _securityContext: SecurityContext;
-
-  constructor(private _httpClient: HttpClient) {
-    this._securityContext = new SecurityContext();
+  constructor(private _httpClient: HttpClient, private _securityService: SecurityService) {
   }
 
   get<ResponsePayloadType>(url: string, headers: StringMap, params: StringMap,
@@ -30,8 +27,11 @@ export class ApiService {
     if (params == null) {
       params = {}
     }
-    if (this._securityContext.jwtToken) {
-      headers['Authorization'] = this._securityContext.jwtToken;
+    if (!this._securityService.securityContext.jwtToken) {
+      this._securityService.securityContext.jwtToken = localStorage.getItem('JWT_TOKEN');
+    }
+    if (this._securityService.securityContext.jwtToken) {
+      headers['Authorization'] = this._securityService.securityContext.jwtToken;
     }
     this._httpClient.get(url, {
       headers: headers,
@@ -72,8 +72,11 @@ export class ApiService {
     if (params == null) {
       params = {}
     }
-    if (this._securityContext.jwtToken) {
-      headers['Authorization'] = this._securityContext.jwtToken;
+    if (!this._securityService.securityContext.jwtToken) {
+      this._securityService.securityContext.jwtToken = localStorage.getItem('JWT_TOKEN');
+    }
+    if (this._securityService.securityContext.jwtToken) {
+      headers['Authorization'] = this._securityService.securityContext.jwtToken;
     }
     this._httpClient.post(url, body, {
       headers: headers,
@@ -97,10 +100,6 @@ export class ApiService {
         invokeCompleteHandler();
       }
     })
-  }
-
-  get securityContext(): SecurityContext {
-    return this._securityContext;
   }
 }
 

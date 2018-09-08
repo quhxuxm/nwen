@@ -1,22 +1,21 @@
 package online.nwen.entry.common;
 
-import com.auth0.jwt.interfaces.DecodedJWT;
 import online.nwen.service.dto.author.AuthorDetailDTO;
 
 public class SecurityContext {
     private AuthorDetailDTO currentAuthor;
-    private DecodedJWT jwt;
+    private String jwtToken;
 
-    public SecurityContext(AuthorDetailDTO currentAuthor, DecodedJWT jwt) {
+    public SecurityContext(AuthorDetailDTO currentAuthor, String jwtToken) {
         this.currentAuthor = currentAuthor;
-        this.jwt = jwt;
+        this.jwtToken = jwtToken;
     }
 
     public AuthorDetailDTO getCurrentAuthor() {
         return currentAuthor;
     }
 
-    public DecodedJWT getJwt() {
-        return jwt;
+    public String getJwtToken() {
+        return jwtToken;
     }
 }

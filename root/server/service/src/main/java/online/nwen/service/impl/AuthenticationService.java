@@ -46,12 +46,14 @@ public class AuthenticationService implements IAuthenticationService {
             this.authorRepository.save(author);
             AuthenticateResultDTO authenticateResultDTO = new AuthenticateResultDTO();
             Algorithm algorithm = Algorithm.HMAC256(this.jwtConfiguration.getSecret());
+            long expireTime = System.currentTimeMillis() + this.jwtConfiguration.getExpiration();
             String jwtToken = JWT.create()
                     .withIssuer(this.jwtConfiguration.getIssuer())
                     .withSubject(author.getId().toString())
-                    .withExpiresAt(new Date(System.currentTimeMillis() + this.jwtConfiguration.getExpiration()))
+                    .withExpiresAt(new Date(expireTime))
                     .sign(algorithm);
             authenticateResultDTO.setJwtToken(jwtToken);
+            authenticateResultDTO.setExpireTime(expireTime);
             return authenticateResultDTO;
         } catch (PersistenceException | UnsupportedEncodingException e) {
             throw new ServiceException(e,
