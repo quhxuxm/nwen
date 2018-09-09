@@ -4,6 +4,7 @@ import {SecurityService} from '../../service/security.service';
 import {ApiRequest} from '../../vo/api/request/ApiRequest';
 import {SaveRichTextEditorContentPayload} from '../../vo/save-rich-text-editor-content-payload';
 import {RichTextEditorContentComponent} from './rich-text-editor-content/rich-text-editor-content.component';
+import {RichTextEditorTitleComponent} from './rich-text-editor-title/rich-text-editor-title.component';
 
 @Component({
   selector: 'nwen-rich-text-editor',
@@ -13,6 +14,8 @@ import {RichTextEditorContentComponent} from './rich-text-editor-content/rich-te
 export class RichTextEditorComponent implements OnInit {
   @ViewChild(RichTextEditorContentComponent)
   private richTextEditorContentComponent: RichTextEditorContentComponent;
+  @ViewChild(RichTextEditorTitleComponent)
+  private richTextEditorTitleComponent: RichTextEditorTitleComponent;
   @Input()
   saveUrl: string;
   publishUrl: string;
@@ -30,7 +33,12 @@ export class RichTextEditorComponent implements OnInit {
     apiRequest.payload = payload;
     payload.anthologyId = null;
     payload.content = this.richTextEditorContentComponent.getContent();
-    payload.title = '标题';
+    payload.title = this.richTextEditorTitleComponent.title;
+    let summary = this.richTextEditorContentComponent.getText();
+    if (summary.length > 100) {
+      summary = summary.substring(0, 100);
+    }
+    payload.summary = summary;
     this.apiService.post(this.saveUrl, null, null, apiRequest);
   }
 

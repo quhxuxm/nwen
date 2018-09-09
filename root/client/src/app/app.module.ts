@@ -37,6 +37,7 @@ import {RichTextEditorToolbarComponent} from './component/rich-text-editor/rich-
 import {RichTextEditorComponent} from './component/rich-text-editor/rich-text-editor.component';
 import {SeparatorComponent} from './component/separator/separator.component';
 import {ApiService} from './service/api.service';
+import { RichTextEditorTitleComponent } from './component/rich-text-editor/rich-text-editor-title/rich-text-editor-title.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -72,7 +73,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     AnthologyCreateComponent,
     ProfileComponent,
-    AboutComponent
+    AboutComponent,
+    RichTextEditorTitleComponent
   ],
   imports: [
     BrowserModule,

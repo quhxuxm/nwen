@@ -36,7 +36,12 @@ export class SecurityContext {
   }
 
   isAuthenticated(): boolean {
+    if (!this._jwtToken) {
+      return false;
+    }
     const currentDate = new Date();
-    return this._jwtToken != null && (currentDate.getMilliseconds() <= this.expireTime);
+    const expireDate = new Date();
+    expireDate.setTime(this._expireTime);
+    return currentDate <= expireDate;
   }
 }

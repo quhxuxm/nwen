@@ -58,4 +58,7 @@ export class RichTextEditorContentComponent implements AfterContentInit, OnInit 
   getContent() {
     return (<HTMLDivElement>this.contentContainer.nativeElement).innerHTML;
   }
+  getText() {
+    return (<HTMLDivElement>this.contentContainer.nativeElement).innerText;
+  }
 }

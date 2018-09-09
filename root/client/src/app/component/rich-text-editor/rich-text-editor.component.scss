@@ -26,6 +26,7 @@ section {
     flex-shrink: 0;
     align-items: start;
     justify-items: center;
+    background-color: $GLOBAL_COLOR_BG_LV3;
   }
   nwen-rich-text-editor-content {
     display: flex;

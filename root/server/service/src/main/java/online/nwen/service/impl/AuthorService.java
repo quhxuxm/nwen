@@ -111,6 +111,7 @@ class AuthorService implements IAuthorService {
         }
     }
 
+    @Transactional
     @Override
     public AuthorDetailDTO findDetailById(Long id) throws ServiceException {
         try {

@@ -1,5 +1,6 @@
 package online.nwen.entry.controller;
 
+import online.nwen.entry.common.SecurityContextHolder;
 import online.nwen.entry.request.ApiRequest;
 import online.nwen.entry.response.ApiResponse;
 import online.nwen.service.api.IArticleService;
@@ -38,8 +39,13 @@ public class ArticleApiController {
     }
 
     @PostMapping("/security/article/save")
-    public ApiResponse<SaveArticleResultDTO> save(ApiRequest<SaveArticleDTO> saveArticleRequest)
+    public ApiResponse<SaveArticleResultDTO> save(@RequestBody ApiRequest<SaveArticleDTO> saveArticleRequest)
             throws ServiceException {
+        if (SecurityContextHolder.INSTANCE.getContext().getCurrentAuthor() == null) {
+            throw new ServiceException(ServiceException.Code.SYSTEM_ERROR);
+        }
+        saveArticleRequest.getPayload()
+                .setAuthorId(SecurityContextHolder.INSTANCE.getContext().getCurrentAuthor().getAuthorId());
         Long articleId = this.articleService.saveArticle(saveArticleRequest.getPayload());
         SaveArticleResultDTO resultPayload = new SaveArticleResultDTO();
         resultPayload.setArticleId(articleId);

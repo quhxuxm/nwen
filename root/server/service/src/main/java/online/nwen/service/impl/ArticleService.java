@@ -35,6 +35,7 @@ class ArticleService implements IArticleService {
     private IArticleCommentRepository articleCommentRepository;
     private IAnthologyTagRepository anthologyTagRepository;
     private IArticleAdditionalInfoRepository articleAdditionalInfoRepository;
+    private IAuthorDefaultAnthologyRepository authorDefaultAnthologyRepository;
 
     ArticleService(ITagRepository tagRepository,
                    IArticleTagRepository articleTagRepository,
@@ -48,7 +49,8 @@ class ArticleService implements IArticleService {
                    IAuthorService authorService,
                    IArticleCommentRepository articleCommentRepository,
                    IAnthologyTagRepository anthologyTagRepository,
-                   IArticleAdditionalInfoRepository articleAdditionalInfoRepository) {
+                   IArticleAdditionalInfoRepository articleAdditionalInfoRepository,
+                   IAuthorDefaultAnthologyRepository authorDefaultAnthologyRepository) {
         this.tagRepository = tagRepository;
         this.articleTagRepository = articleTagRepository;
         this.anthologyParticipantRepository = anthologyParticipantRepository;
@@ -62,6 +64,7 @@ class ArticleService implements IArticleService {
         this.articleCommentRepository = articleCommentRepository;
         this.anthologyTagRepository = anthologyTagRepository;
         this.articleAdditionalInfoRepository = articleAdditionalInfoRepository;
+        this.authorDefaultAnthologyRepository = authorDefaultAnthologyRepository;
     }
 
     @Transactional
@@ -83,12 +86,19 @@ class ArticleService implements IArticleService {
     public Long saveArticle(SaveArticleDTO saveArticleDTO)
             throws ServiceException {
         try {
-            Long anthologyId = null;
+            Anthology anthology = null;
             if (saveArticleDTO.getAnthologyId() != null) {
-                anthologyId = saveArticleDTO.getAnthologyId();
+                anthology = this.anthologyRepository.getOne(saveArticleDTO.getAnthologyId());
+            } else {
+                AuthorDefaultAnthology authorDefaultAnthology = this.authorDefaultAnthologyRepository
+                        .findByPkAuthor(this.authorRepository.getOne(saveArticleDTO.getAuthorId()));
+                if (authorDefaultAnthology == null) {
+                    logger.error("Fail to save article because of can not find default anthology.");
+                    throw
+                            new ServiceException(ServiceException.Code.SYSTEM_ERROR);
+                }
+                anthology = authorDefaultAnthology.getPk().getAnthology();
             }
-            Anthology anthology = this.anthologyRepository
-                    .getOne(anthologyId);
             Author author = this.authorRepository
                     .getOne(saveArticleDTO.getAuthorId());
             boolean authorOwnAnthology = false;
