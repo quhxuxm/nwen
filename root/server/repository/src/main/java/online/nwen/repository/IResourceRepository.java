@@ -1,7 +1,8 @@
 package online.nwen.repository;
 
 import online.nwen.domain.Resource;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface IResourceRepository extends JpaRepository<Resource, Long> {
+public interface IResourceRepository extends MongoRepository<Resource, String> {
+    Resource findByMd5(String md5);
 }

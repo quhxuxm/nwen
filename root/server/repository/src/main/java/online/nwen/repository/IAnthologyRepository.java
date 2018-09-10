@@ -1,9 +1,7 @@
 package online.nwen.repository;
 
 import online.nwen.domain.Anthology;
-import online.nwen.domain.Author;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface IAnthologyRepository extends JpaRepository<Anthology, Long> {
-    long countByAuthor(Author author);
+public interface IAnthologyRepository extends MongoRepository<Anthology, String> {
 }
