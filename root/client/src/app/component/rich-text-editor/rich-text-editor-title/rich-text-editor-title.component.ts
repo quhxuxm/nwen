@@ -14,4 +14,8 @@ export class RichTextEditorTitleComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  valueChange(value: string) {
+    this.title = value;
+  }
 }

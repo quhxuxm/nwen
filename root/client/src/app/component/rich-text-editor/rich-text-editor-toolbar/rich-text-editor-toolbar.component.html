@@ -1,9 +1,9 @@
 <section>
   <button mat-icon-button class="toolbar-button emphasize"  (click)="onSave($event)" matTooltip="保存">
-    <fa-icon [icon]="['fas','save']" (click)="onSave($event)"></fa-icon>
+    <fa-icon [icon]="['fas','save']"></fa-icon>
   </button>
-  <button mat-icon-button class="toolbar-button emphasize" matTooltip="发布">
-    <fa-icon [icon]="['fas','check']" (click)="onPublish($event)"></fa-icon>
+  <button mat-icon-button class="toolbar-button emphasize" (click)="onPublish($event)" matTooltip="发布" >
+    <fa-icon [icon]="['fas','check']"></fa-icon>
   </button>
   <span class="divider">
   </span>

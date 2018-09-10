@@ -1,1 +1,4 @@
-<input name="title" type="text" [(value)]="title" placeholder="请输入文章标题" />
+<input #richTextEditorTitleInput name="title" type="text" [value]="title"
+       (change)="valueChange($event.target.value)"
+       placeholder="{{'article.create.title.placeholder' | translate}}"
+       maxlength="100" minlength="1" required [ngClass]="{'invalid': !richTextEditorTitleInput.valid && !richTextEditorTitleInput.pristine }"/>

@@ -47,5 +47,6 @@
   "login.button":"登陆",
   "login.remember":"保持登陆状态",
   "login.separator.content": "社交账号登陆",
-  "login.button.go-to-register": "注册"
+  "login.button.go-to-register": "注册",
+  "article.create.title.placeholder":"请输入文章标题 ..."
 }
