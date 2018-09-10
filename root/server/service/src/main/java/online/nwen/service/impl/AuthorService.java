@@ -1,7 +1,11 @@
 package online.nwen.service.impl;
 
-import online.nwen.domain.*;
-import online.nwen.repository.*;
+import online.nwen.domain.Anthology;
+import online.nwen.domain.Author;
+import online.nwen.domain.Role;
+import online.nwen.repository.IAnthologyRepository;
+import online.nwen.repository.IArticleRepository;
+import online.nwen.repository.IAuthorRepository;
 import online.nwen.service.api.IAuthorService;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.author.*;
@@ -11,125 +15,76 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceException;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Optional;
 
 @Service
 class AuthorService implements IAuthorService {
     private static final Logger logger = LoggerFactory
             .getLogger(AuthorService.class);
-    private IAuthorDefaultAnthologyRepository authorDefaultAnthologyRepository;
     private IAuthorRepository authorRepository;
-    private IRoleRepository roleRepository;
     private IAnthologyRepository anthologyRepository;
-    private IAuthorTagRepository authorTagRepository;
     private IArticleRepository articleRepository;
-    private ITagRepository tagRepository;
-    private IAuthorFollowerRepository authorFollowerRepository;
-    private IArticleCommentRepository articleCommentRepository;
     private PasswordEncoder passwordEncoder;
 
     AuthorService(
-            IAuthorDefaultAnthologyRepository authorDefaultAnthologyRepository,
-            IAuthorRepository authorRepository, IRoleRepository roleRepository,
+            IAuthorRepository authorRepository,
             IAnthologyRepository anthologyRepository,
-            IAuthorTagRepository authorTagRepository,
-            IArticleRepository articleRepository, ITagRepository tagRepository,
-            IAuthorFollowerRepository authorFollowerRepository,
-            IArticleCommentRepository articleCommentRepository,
+            IArticleRepository articleRepository,
             PasswordEncoder passwordEncoder) {
-        this.authorDefaultAnthologyRepository = authorDefaultAnthologyRepository;
         this.authorRepository = authorRepository;
-        this.roleRepository = roleRepository;
         this.anthologyRepository = anthologyRepository;
-        this.authorTagRepository = authorTagRepository;
         this.articleRepository = articleRepository;
-        this.tagRepository = tagRepository;
-        this.authorFollowerRepository = authorFollowerRepository;
-        this.articleCommentRepository = articleCommentRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Transactional(rollbackFor = ServiceException.class)
     @Override
     public RegisterAuthorResultDTO register(RegisterAuthorDTO authorRegisterDTO)
             throws ServiceException {
-        try {
-            if (this.authorRepository
-                    .existsByToken(authorRegisterDTO.getToken())) {
-                logger.error("Can not register because of token exist already, "
-                        + "token = {}.", authorRegisterDTO.getToken());
-                throw
-                        new ServiceException(
-                                ServiceException.Code.REGISTER_TOKEN_EXIST_ERROR);
-            }
-            if (this.authorRepository
-                    .existsByNickName(authorRegisterDTO.getNickname())) {
-                logger.error(
-                        "Can not register because of nick name exist already, "
-                                + "nick name = {}.",
-                        authorRegisterDTO.getNickname());
-                throw
-                        new ServiceException(
-                                ServiceException.Code.REGISTER_NICKNAME_EXIST_ERROR);
-            }
-            Author author = new Author();
-            author.setToken(authorRegisterDTO.getToken());
-            author.setPassword(this.passwordEncoder
-                    .encode(authorRegisterDTO.getPassword()));
-            author.setNickName(authorRegisterDTO.getNickname());
-            Role authorRole = this.roleRepository
-                    .findByName(Role.Name.ROLE_AUTHOR);
-            Set<Role> roleSet = new HashSet<>();
-            roleSet.add(authorRole);
-            author.setRoles(roleSet);
-            author.setRegisterDate(new Date());
-            this.authorRepository.save(author);
-            Anthology anthology = new Anthology();
-            anthology.setAuthor(author);
-            this.anthologyRepository.save(anthology);
-            AuthorDefaultAnthology authorDefaultAnthology = new AuthorDefaultAnthology();
-            AuthorDefaultAnthology.PK authorDefaultAnthologyPK = new AuthorDefaultAnthology.PK();
-            authorDefaultAnthologyPK.setAnthology(anthology);
-            authorDefaultAnthologyPK.setAuthor(author);
-            authorDefaultAnthology.setPk(authorDefaultAnthologyPK);
-            this.authorDefaultAnthologyRepository.save(authorDefaultAnthology);
-            RegisterAuthorResultDTO result = new RegisterAuthorResultDTO();
-            result.setAuthorId(author.getId());
-            return result;
-        } catch (PersistenceException e) {
-            logger.error(
-                    "Fail to register because of exception when save author "
-                            + "default anthology.", e);
-            throw new ServiceException(
-                    "Fail to register because of exception when save author "
-                            + "default anthology.",
-                    ServiceException.Code.SYSTEM_ERROR);
+        if (this.authorRepository
+                .existsByToken(authorRegisterDTO.getToken())) {
+            logger.error("Can not register because of token exist already, "
+                    + "token = {}.", authorRegisterDTO.getToken());
+            throw
+                    new ServiceException(
+                            ServiceException.Code.REGISTER_TOKEN_EXIST_ERROR);
         }
+        if (this.authorRepository
+                .existsByNickName(authorRegisterDTO.getNickname())) {
+            logger.error(
+                    "Can not register because of nick name exist already, "
+                            + "nick name = {}.",
+                    authorRegisterDTO.getNickname());
+            throw
+                    new ServiceException(
+                            ServiceException.Code.REGISTER_NICKNAME_EXIST_ERROR);
+        }
+        Author author = new Author();
+        author.setToken(authorRegisterDTO.getToken());
+        author.setPassword(this.passwordEncoder
+                .encode(authorRegisterDTO.getPassword()));
+        author.setNickName(authorRegisterDTO.getNickname());
+        author.setRegisterDate(new Date());
+        author.getRoles().add(Role.AUTHOR);
+        this.authorRepository.save(author);
+        Anthology anthology = new Anthology();
+        anthology.setAuthorId(author.getId());
+        this.anthologyRepository.save(anthology);
+        author.setDefaultAnthologyId(anthology.getId());
+        this.authorRepository.save(author);
+        RegisterAuthorResultDTO result = new RegisterAuthorResultDTO();
+        result.setAuthorId(author.getId());
+        return result;
     }
 
-    @Transactional
     @Override
-    public AuthorDetailDTO findDetailById(Long id) throws ServiceException {
-        try {
-            Author author = this.authorRepository.getOne(id);
-            return this.convert(author);
-        } catch (EntityNotFoundException e) {
-            logger.error("Can not find author detail because of the exception.",
-                    e);
-            throw new ServiceException(
-                    "Can not find author detail because of the exception.",
-                    ServiceException.Code.AUTHOR_NOT_EXIST_ERROR);
-        } catch (PersistenceException e) {
-            logger.error(
-                    "Can not find author detail because of the exception..", e);
-            throw new ServiceException(
-                    "Can not find author detail because of the exception..",
-                    ServiceException.Code.SYSTEM_ERROR);
+    public AuthorDetailDTO findDetailById(String id) throws ServiceException {
+        Optional<Author> authorOptional = this.authorRepository.findById(id);
+        if (authorOptional.isPresent()) {
+            return this.convert(authorOptional.get());
         }
+        throw new ServiceException(ServiceException.Code.AUTHOR_NOT_EXIST_ERROR);
     }
 
     private AuthorDetailDTO convert(Author author) {
@@ -140,15 +95,13 @@ class AuthorService implements IAuthorService {
         result.setRegisterDate(author.getRegisterDate());
         result.setToken(author.getToken());
         author.getRoles().forEach(role -> {
-            result.getRoles().add(role.getName());
+            result.getRoles().add(role);
         });
-        Set<AuthorTag> authorTags = this.authorTagRepository
-                .findAllByPkAuthorAndIsSelectedIsTrue(author);
-        authorTags.forEach(authorTag -> {
-            result.getTags().add(authorTag.getPk().getTag().getText());
+        author.getTags().forEach(authorTag -> {
+            result.getTags().add(authorTag);
         });
         result.setAnthologyNumber(
-                this.anthologyRepository.countByAuthor(author));
+                this.anthologyRepository.countByAuthorId(author.getId()));
         result.setArticleNumber(
                 this.articleRepository.countByAnthologyAuthor(author));
         result.setCommentNumber(

@@ -1,13 +1,13 @@
 package online.nwen.service.dto.author;
 
 public class RegisterAuthorResultDTO {
-    private Long authorId;
+    private String authorId;
 
-    public Long getAuthorId() {
+    public String getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(Long authorId) {
+    public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
 }

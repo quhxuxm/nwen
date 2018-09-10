@@ -6,7 +6,7 @@ import online.nwen.service.dto.author.*;
 public interface IAuthorService {
     RegisterAuthorResultDTO register(RegisterAuthorDTO registerAuthorDTO) throws ServiceException;
 
-    AuthorDetailDTO findDetailById(Long id) throws ServiceException;
+    AuthorDetailDTO findDetailById(String id) throws ServiceException;
 
     void assignTagsToAuthor(AuthorAssignTagsDTO authorAssignTagsDTO)
             throws ServiceException;

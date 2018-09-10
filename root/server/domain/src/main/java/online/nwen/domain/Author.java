@@ -19,7 +19,7 @@ public class Author implements Serializable {
     private String description;
     @Indexed(unique = true)
     private String nickName;
-    private Set<String> roles;
+    private Set<Role> roles;
     private Date registerDate;
     private Date lastLoginDate;
     private Set<String> tags;
@@ -64,11 +64,11 @@ public class Author implements Serializable {
         this.iconImageId = iconImageId;
     }
 
-    public Set<String> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<String> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
