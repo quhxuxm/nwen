@@ -1,24 +1,19 @@
 package online.nwen.domain;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
-@Entity
-@Table(name = "resource")
-@Cacheable
+@Document(collection = "resources")
 public class Resource implements Serializable {
     private static final long serialVersionUID = -7001454343688484844L;
     @Id
-    @GeneratedValue
-    @Column(name = "id")
     private Long id;
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(nullable = false, name = "content")
     private byte[] content;
-    @Column(nullable = false, length = 40, name = "mime_type")
-    private String mimeType;
-    @Column(unique = true, nullable = false, length = 128, name = "md5")
+    private String contentType;
+    @Indexed(unique = true)
     private String md5;
 
     public Long getId() {
@@ -37,12 +32,12 @@ public class Resource implements Serializable {
         this.content = content;
     }
 
-    public String getMimeType() {
-        return mimeType;
+    public String getContentType() {
+        return contentType;
     }
 
-    public void setMimeType(String mimeType) {
-        this.mimeType = mimeType;
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 
     public String getMd5() {

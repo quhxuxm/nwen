@@ -1,61 +1,51 @@
 package online.nwen.domain;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity
-@Table(name = "anthology")
-@Cacheable
+@Document(collection = "anthologies")
 public class Anthology implements Serializable {
     private static final long serialVersionUID = -190322673132950827L;
     @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private Long id;
-    @Column(name = "title")
+    private String id;
     private String title;
-    @Column(name = "summary")
     private String summary;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_date", nullable = false, updatable = false)
     private Date createDate;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "update_date", nullable = false)
     private Date updateDate;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "publish_date")
     private Date publishDate;
-    @Column(name = "shared_date")
     private Date sharedDate;
-    @ManyToOne
-    @JoinColumn(name = "author_id", referencedColumnName = "id",
-            nullable = false, updatable = false)
-    private Author author;
-    @ManyToOne
-    @JoinColumn(name = "cover_image_id", referencedColumnName = "id")
-    private Resource coverImage;
-    @Column(name = "is_published", nullable = false)
+    private String authorId;
+    private String coverImageId;
     private Boolean isPublished;
-    @Column(name = "is_shared", nullable = false)
     private Boolean isShared;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "additional_info_id", referencedColumnName = "id")
-    private AnthologyAdditionalInfo additionalInfo;
+    private Long praiseNumber;
+    private Long commentNumber;
+    private Long bookmarkNumber;
+    private Set<String> tags;
+    private Set<String> participantAuthorIds;
 
     public Anthology() {
         this.createDate = new Date();
         this.updateDate = this.createDate;
         this.isPublished = false;
         this.isShared = false;
-        this.additionalInfo = new AnthologyAdditionalInfo();
+        this.praiseNumber = 0L;
+        this.commentNumber = 0L;
+        this.bookmarkNumber = 0L;
+        this.tags = new HashSet<>();
+        this.participantAuthorIds = new HashSet<>();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -75,6 +65,14 @@ public class Anthology implements Serializable {
         this.summary = summary;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
     public Date getUpdateDate() {
         return updateDate;
     }
@@ -91,28 +89,28 @@ public class Anthology implements Serializable {
         this.publishDate = publishDate;
     }
 
-    public Author getAuthor() {
-        return author;
+    public Date getSharedDate() {
+        return sharedDate;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setSharedDate(Date sharedDate) {
+        this.sharedDate = sharedDate;
     }
 
-    public Resource getCoverImage() {
-        return coverImage;
+    public String getAuthorId() {
+        return authorId;
     }
 
-    public void setCoverImage(Resource coverImage) {
-        this.coverImage = coverImage;
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public String getCoverImageId() {
+        return coverImageId;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCoverImageId(String coverImageId) {
+        this.coverImageId = coverImageId;
     }
 
     public Boolean getPublished() {
@@ -131,19 +129,43 @@ public class Anthology implements Serializable {
         isShared = shared;
     }
 
-    public Date getSharedDate() {
-        return sharedDate;
+    public Long getPraiseNumber() {
+        return praiseNumber;
     }
 
-    public void setSharedDate(Date sharedDate) {
-        this.sharedDate = sharedDate;
+    public void setPraiseNumber(Long praiseNumber) {
+        this.praiseNumber = praiseNumber;
     }
 
-    public AnthologyAdditionalInfo getAdditionalInfo() {
-        return additionalInfo;
+    public Long getCommentNumber() {
+        return commentNumber;
     }
 
-    public void setAdditionalInfo(AnthologyAdditionalInfo additionalInfo) {
-        this.additionalInfo = additionalInfo;
+    public void setCommentNumber(Long commentNumber) {
+        this.commentNumber = commentNumber;
+    }
+
+    public Long getBookmarkNumber() {
+        return bookmarkNumber;
+    }
+
+    public void setBookmarkNumber(Long bookmarkNumber) {
+        this.bookmarkNumber = bookmarkNumber;
+    }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
+    }
+
+    public Set<String> getParticipantAuthorIds() {
+        return participantAuthorIds;
+    }
+
+    public void setParticipantAuthorIds(Set<String> participantAuthorIds) {
+        this.participantAuthorIds = participantAuthorIds;
     }
 }

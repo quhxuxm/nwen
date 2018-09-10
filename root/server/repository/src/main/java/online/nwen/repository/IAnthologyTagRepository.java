@@ -1,8 +1,6 @@
 package online.nwen.repository;
 
 import online.nwen.domain.Anthology;
-import online.nwen.domain.AnthologyTag;
-import online.nwen.domain.ArticleTag;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Set;

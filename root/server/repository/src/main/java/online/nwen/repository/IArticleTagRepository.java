@@ -1,8 +1,6 @@
 package online.nwen.repository;
 
 import online.nwen.domain.Article;
-import online.nwen.domain.ArticleTag;
-import online.nwen.domain.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

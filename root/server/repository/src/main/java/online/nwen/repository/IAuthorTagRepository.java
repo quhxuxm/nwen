@@ -1,7 +1,6 @@
 package online.nwen.repository;
 
 import online.nwen.domain.Author;
-import online.nwen.domain.AuthorTag;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Set;

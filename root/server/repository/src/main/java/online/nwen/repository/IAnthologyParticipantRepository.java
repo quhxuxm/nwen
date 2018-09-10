@@ -1,6 +1,5 @@
 package online.nwen.repository;
 
-import online.nwen.domain.AnthologyParticipant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IAnthologyParticipantRepository

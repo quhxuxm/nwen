@@ -1,49 +1,35 @@
 package online.nwen.domain;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Set;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "author")
-@Cacheable
+import java.io.Serializable;
+import java.util.*;
+
+@Document(collection = "authors")
 public class Author implements Serializable {
     private static final long serialVersionUID = -2652995801468036436L;
     @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private Long id;
-    @ManyToOne
-    @JoinColumn(name = "icon_image_id", referencedColumnName = "id")
-    private Resource iconImage;
-    @Column(name = "description")
-    private String description;
-    @Column(name = "nick_name", nullable = false, unique = true, length = 64)
-    private String nickName;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinTable(name = "author_role", joinColumns = {
-            @JoinColumn(name = "author_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id",
-                    referencedColumnName = "id")})
-    private Set<Role> roles;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "additional_info_id", referencedColumnName = "id")
-    private AuthorAdditionalInfo additionalInfo;
-    @Column(name = "token", nullable = false, updatable = false, unique = true)
+    private String id;
+    @Indexed(unique = true)
     private String token;
-    @Column(name = "password", nullable = false)
     private String password;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "register_date", nullable = false, updatable = false)
+    private String iconImageId;
+    private String description;
+    @Indexed(unique = true)
+    private String nickName;
+    private Set<String> roles;
     private Date registerDate;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "last_login_date")
     private Date lastLoginDate;
+    private Set<String> tags;
+    private Map<String, Date> followers;
+    private String defaultAnthologyId;
 
     public Author() {
-        this.additionalInfo = new AuthorAdditionalInfo();
         this.registerDate = new Date();
+        this.tags = new HashSet<>();
+        this.followers = new HashMap<>();
     }
 
     public String getDescription() {
@@ -54,11 +40,11 @@ public class Author implements Serializable {
         this.description = description;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -70,28 +56,28 @@ public class Author implements Serializable {
         this.nickName = nickName;
     }
 
-    public Resource getIconImage() {
-        return iconImage;
+    public String getIconImageId() {
+        return iconImageId;
     }
 
-    public void setIconImage(Resource iconImage) {
-        this.iconImage = iconImage;
+    public void setIconImageId(String iconImageId) {
+        this.iconImageId = iconImageId;
     }
 
-    public Set<Role> getRoles() {
+    public Set<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
 
-    public AuthorAdditionalInfo getAdditionalInfo() {
-        return additionalInfo;
+    public Map<String, Date> getFollowers() {
+        return followers;
     }
 
-    public void setAdditionalInfo(AuthorAdditionalInfo additionalInfo) {
-        this.additionalInfo = additionalInfo;
+    public void setFollowers(Map<String, Date> followers) {
+        this.followers = followers;
     }
 
     public String getToken() {
@@ -124,5 +110,21 @@ public class Author implements Serializable {
 
     public void setLastLoginDate(Date lastLoginDate) {
         this.lastLoginDate = lastLoginDate;
+    }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
+    }
+
+    public String getDefaultAnthologyId() {
+        return defaultAnthologyId;
+    }
+
+    public void setDefaultAnthologyId(String defaultAnthologyId) {
+        this.defaultAnthologyId = defaultAnthologyId;
     }
 }

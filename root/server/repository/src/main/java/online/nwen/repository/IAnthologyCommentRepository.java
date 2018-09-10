@@ -1,7 +1,6 @@
 package online.nwen.repository;
 
 import online.nwen.domain.Anthology;
-import online.nwen.domain.AnthologyComment;
 import online.nwen.domain.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 

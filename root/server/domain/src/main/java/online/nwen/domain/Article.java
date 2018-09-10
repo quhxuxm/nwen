@@ -1,60 +1,45 @@
 package online.nwen.domain;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "article")
-@Cacheable
+import java.io.Serializable;
+import java.util.*;
+
+@Document(collection = "articles")
 public class Article implements Serializable {
     private static final long serialVersionUID = 8070388670184979679L;
     @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private Long id;
-    @Column(name = "title", nullable = false, length = 1000)
+    private String id;
     private String title;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "publish_date")
     private Date publishDate;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "update_date", nullable = false)
     private Date updateDate;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_date", nullable = false, updatable = false)
     private Date createDate;
-    @Lob
-    @Column(name = "content", nullable = false)
-    @Basic(fetch = FetchType.LAZY)
     private String content;
-    @Column(name = "summary", nullable = false, length = 2000)
     private String summary;
-    @ManyToOne
-    @JoinColumn(name = "anthology_id", referencedColumnName = "id",
-            nullable = false, updatable = false)
-    private Anthology anthology;
-    @ManyToOne
-    @JoinColumn(name = "cover_image_id", referencedColumnName = "id")
-    private Resource coverImage;
-    @Column(name = "is_published", nullable = false)
+    private String anthologyId;
+    private String coverImageId;
     private Boolean isPublished;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "additional_info_id", referencedColumnName = "id")
-    private ArticleAdditionalInfo additionalInfo;
+    private Set<String> tags;
+    private Map<String, Date> bookmarks;
+    private Map<String, Date> praises;
+    private Map<String, Date> viewers;
 
     public Article() {
         this.createDate = new Date();
+        this.tags = new HashSet<>();
+        this.bookmarks = new HashMap<>();
+        this.praises = new HashMap<>();
+        this.viewers = new HashMap<>();
         this.updateDate = this.createDate;
         this.isPublished = false;
-        this.additionalInfo = new ArticleAdditionalInfo();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -98,28 +83,12 @@ public class Article implements Serializable {
         this.content = content;
     }
 
-    public Anthology getAnthology() {
-        return anthology;
-    }
-
-    public void setAnthology(Anthology anthology) {
-        this.anthology = anthology;
-    }
-
     public String getSummary() {
         return summary;
     }
 
     public void setSummary(String summary) {
         this.summary = summary;
-    }
-
-    public Resource getCoverImage() {
-        return coverImage;
-    }
-
-    public void setCoverImage(Resource coverImage) {
-        this.coverImage = coverImage;
     }
 
     public Boolean getPublished() {
@@ -130,11 +99,51 @@ public class Article implements Serializable {
         isPublished = published;
     }
 
-    public ArticleAdditionalInfo getAdditionalInfo() {
-        return additionalInfo;
+    public String getAnthologyId() {
+        return anthologyId;
     }
 
-    public void setAdditionalInfo(ArticleAdditionalInfo additionalInfo) {
-        this.additionalInfo = additionalInfo;
+    public void setAnthologyId(String anthologyId) {
+        this.anthologyId = anthologyId;
+    }
+
+    public String getCoverImageId() {
+        return coverImageId;
+    }
+
+    public void setCoverImageId(String coverImageId) {
+        this.coverImageId = coverImageId;
+    }
+
+    public Map<String, Date> getBookmarks() {
+        return bookmarks;
+    }
+
+    public void setBookmarks(Map<String, Date> bookmarks) {
+        this.bookmarks = bookmarks;
+    }
+
+    public Map<String, Date> getPraises() {
+        return praises;
+    }
+
+    public void setPraises(Map<String, Date> praises) {
+        this.praises = praises;
+    }
+
+    public Map<String, Date> getViewers() {
+        return viewers;
+    }
+
+    public void setViewers(Map<String, Date> viewers) {
+        this.viewers = viewers;
+    }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
     }
 }

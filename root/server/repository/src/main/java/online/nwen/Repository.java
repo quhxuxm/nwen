@@ -1,11 +1,9 @@
 package online.nwen;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
-@EnableJpaRepositories
-@EnableSpringDataWebSupport
+@EnableMongoRepositories
 public class Repository {
 }
