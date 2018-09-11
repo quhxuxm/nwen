@@ -68,6 +68,7 @@ class AuthorService implements IAuthorService {
         anthology.setAuthorId(author.getId());
         this.anthologyRepository.save(anthology);
         author.setDefaultAnthologyId(anthology.getId());
+        author.setAnthologyNumber(author.getAnthologyNumber() + 1);
         this.authorRepository.save(author);
         RegisterAuthorResultDTO result = new RegisterAuthorResultDTO();
         result.setAuthorId(author.getId());

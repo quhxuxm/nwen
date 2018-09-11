@@ -38,18 +38,20 @@ public class ArticleApiController {
         return null;
     }
 
-    @PostMapping("/security/article/save")
-    public ApiResponse<SaveArticleResultDTO> save(@RequestBody ApiRequest<SaveArticleDTO> saveArticleRequest)
+    @PostMapping("/security/article/create")
+    public ApiResponse<CreateArticleResultDTO> create(@RequestBody ApiRequest<CreateArticleDTO> createArticleRequest)
             throws ServiceException {
         if (SecurityContextHolder.INSTANCE.getContext().getCurrentAuthor() == null) {
             throw new ServiceException(ServiceException.Code.SYSTEM_ERROR);
         }
-        saveArticleRequest.getPayload()
-                .setAuthorId(SecurityContextHolder.INSTANCE.getContext().getCurrentAuthor().getAuthorId());
-        String articleId = this.articleService.saveArticle(saveArticleRequest.getPayload());
-        SaveArticleResultDTO resultPayload = new SaveArticleResultDTO();
-        resultPayload.setArticleId(articleId);
-        ApiResponse<SaveArticleResultDTO> result = new ApiResponse<>();
+        CreateArticleDTO createArticleDTO = createArticleRequest.getPayload();
+        if (createArticleDTO.getAnthologyId() == null) {
+            createArticleDTO.setAnthologyId(
+                    SecurityContextHolder.INSTANCE.getContext().getCurrentAuthor().getDefaultAnthologyId());
+        }
+        CreateArticleResultDTO resultPayload = this.articleService.createArticle(createArticleDTO,
+                SecurityContextHolder.INSTANCE.getContext().getCurrentAuthor().getAuthorId());
+        ApiResponse<CreateArticleResultDTO> result = new ApiResponse<>();
         result.setPayload(resultPayload);
         return result;
     }

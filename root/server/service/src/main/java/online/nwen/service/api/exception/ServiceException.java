@@ -1,6 +1,6 @@
 package online.nwen.service.api.exception;
 
-public class ServiceException extends Exception {
+public class ServiceException extends RuntimeException {
     public enum Code {
         //Common errors
         REQUEST_PAYLOAD_EMPTY_ERROR,
@@ -21,7 +21,10 @@ public class ServiceException extends Exception {
         AUTHENTICATION_TOKEN_NOT_EXIST,
         AUTHENTICATION_PASSWORD_NOT_MATCH,
         //Author
-        AUTHOR_NOT_EXIST_ERROR
+        AUTHOR_NOT_EXIST_ERROR,
+        //Anthology
+        ANTHOLOGY_NOT_EXIST_ERROR,
+        AUTHOR_NOT_OWNER_OR_PARTICIPANT_OF_ANTHOLOGY_ERROR
     }
 
     private final Code code;

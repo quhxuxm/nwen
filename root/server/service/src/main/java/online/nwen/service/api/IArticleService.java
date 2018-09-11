@@ -1,12 +1,11 @@
 package online.nwen.service.api;
 
-import online.nwen.service.api.exception.ServiceException;
-import online.nwen.service.dto.article.SaveArticleDTO;
+import online.nwen.service.dto.article.CreateArticleDTO;
+import online.nwen.service.dto.article.CreateArticleResultDTO;
 import online.nwen.service.dto.article.UpdateArticleDTO;
 
 public interface IArticleService {
-    String saveArticle(SaveArticleDTO saveArticleDTO) throws ServiceException;
+    CreateArticleResultDTO createArticle(CreateArticleDTO createArticleDTO, String authorId);
 
-    String updateArticle(UpdateArticleDTO updateArticleDTO)
-            throws ServiceException;
+    String updateArticle(UpdateArticleDTO updateArticleDTO, String authorId);
 }

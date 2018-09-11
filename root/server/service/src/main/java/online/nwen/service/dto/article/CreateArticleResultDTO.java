@@ -1,6 +1,6 @@
 package online.nwen.service.dto.article;
 
-public class SaveArticleResultDTO {
+public class CreateArticleResultDTO {
     private String articleId;
 
     public String getArticleId() {
