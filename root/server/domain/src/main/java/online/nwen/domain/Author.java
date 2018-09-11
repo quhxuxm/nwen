@@ -13,23 +13,34 @@ public class Author implements Serializable {
     @Id
     private String id;
     @Indexed(unique = true)
-    private String token;
+    private String username;
     private String password;
     private String iconImageId;
     private String description;
     @Indexed(unique = true)
-    private String nickName;
+    private String nickname;
     private Set<Role> roles;
     private Date registerDate;
     private Date lastLoginDate;
     private Set<String> tags;
     private Map<String, Date> followers;
+    private Map<String, Date> following;
     private String defaultAnthologyId;
+    private Long anthologyNumber;
+    private Long articleNumber;
+    private Long commentNumber;
+    private Long followerNumber;
 
     public Author() {
         this.registerDate = new Date();
         this.tags = new HashSet<>();
+        this.roles = new HashSet<>();
         this.followers = new HashMap<>();
+        this.following = new HashMap<>();
+        this.anthologyNumber = 0L;
+        this.articleNumber = 0L;
+        this.commentNumber = 0L;
+        this.followerNumber = 0L;
     }
 
     public String getDescription() {
@@ -48,12 +59,12 @@ public class Author implements Serializable {
         this.id = id;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getIconImageId() {
@@ -80,12 +91,12 @@ public class Author implements Serializable {
         this.followers = followers;
     }
 
-    public String getToken() {
-        return token;
+    public String getUsername() {
+        return username;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -126,5 +137,45 @@ public class Author implements Serializable {
 
     public void setDefaultAnthologyId(String defaultAnthologyId) {
         this.defaultAnthologyId = defaultAnthologyId;
+    }
+
+    public Long getAnthologyNumber() {
+        return anthologyNumber;
+    }
+
+    public void setAnthologyNumber(Long anthologyNumber) {
+        this.anthologyNumber = anthologyNumber;
+    }
+
+    public Long getArticleNumber() {
+        return articleNumber;
+    }
+
+    public void setArticleNumber(Long articleNumber) {
+        this.articleNumber = articleNumber;
+    }
+
+    public Long getCommentNumber() {
+        return commentNumber;
+    }
+
+    public void setCommentNumber(Long commentNumber) {
+        this.commentNumber = commentNumber;
+    }
+
+    public Long getFollowerNumber() {
+        return followerNumber;
+    }
+
+    public void setFollowerNumber(Long followerNumber) {
+        this.followerNumber = followerNumber;
+    }
+
+    public Map<String, Date> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Map<String, Date> following) {
+        this.following = following;
     }
 }

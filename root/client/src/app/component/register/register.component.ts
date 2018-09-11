@@ -12,7 +12,7 @@ import {RegisterResponsePayload} from '../../vo/register-response-payload';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  token: string;
+  username: string;
   password: string;
   nickname: string;
   @ViewChild('registerForm')
@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
   public register() {
     const registerRequest: ApiRequest<RegisterRequestPayload> = new ApiRequest();
     const payload = new RegisterRequestPayload();
-    payload.token = this.token;
+    payload.username = this.username;
     payload.password = this.password;
     payload.nickname = this.nickname;
     registerRequest.payload = payload;
@@ -38,19 +38,19 @@ export class RegisterComponent implements OnInit {
     const apiExceptionHandler: ApiExceptionHandler = response => {
       //Token server errors
       if ('REGISTER_TOKEN_IS_EMPTY_ERROR' === response.code) {
-        this.registerForm.controls['token'].setErrors({
+        this.registerForm.controls['username'].setErrors({
           'server': response.code
         });
         return;
       }
       if ('REGISTER_TOKEN_FORMAT_INCORRECT' === response.code) {
-        this.registerForm.controls['token'].setErrors({
+        this.registerForm.controls['username'].setErrors({
           'server': response.code
         });
         return;
       }
       if ('REGISTER_TOKEN_EXIST_ERROR' === response.code) {
-        this.registerForm.controls['token'].setErrors({
+        this.registerForm.controls['username'].setErrors({
           'server': response.code
         });
         return;

@@ -1,5 +1,5 @@
 export class RegisterRequestPayload {
-  token: string;
+  username: string;
   password: string;
   nickname: string;
 }

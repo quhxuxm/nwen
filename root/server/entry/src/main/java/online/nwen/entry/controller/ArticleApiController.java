@@ -46,7 +46,7 @@ public class ArticleApiController {
         }
         saveArticleRequest.getPayload()
                 .setAuthorId(SecurityContextHolder.INSTANCE.getContext().getCurrentAuthor().getAuthorId());
-        Long articleId = this.articleService.saveArticle(saveArticleRequest.getPayload());
+        String articleId = this.articleService.saveArticle(saveArticleRequest.getPayload());
         SaveArticleResultDTO resultPayload = new SaveArticleResultDTO();
         resultPayload.setArticleId(articleId);
         ApiResponse<SaveArticleResultDTO> result = new ApiResponse<>();

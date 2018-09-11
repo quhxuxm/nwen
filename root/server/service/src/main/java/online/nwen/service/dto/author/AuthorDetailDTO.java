@@ -14,17 +14,21 @@ public class AuthorDetailDTO implements Serializable {
     private Date lastLoginDate;
     private Date registerDate;
     private Set<Role> roles;
-    private Long authorIconImageId;
+    private String authorIconImageId;
     private Long articleNumber;
     private Long commentNumber;
     private Long anthologyNumber;
-    private Long followedByNumber;
+    private Long followerNumber;
     private Set<String> tags;
-    private Long defaultAnthologyId;
+    private String defaultAnthologyId;
 
     public AuthorDetailDTO() {
         this.roles = new HashSet<>();
         this.tags = new HashSet<>();
+        this.followerNumber = 0L;
+        this.anthologyNumber = 0L;
+        this.articleNumber = 0L;
+        this.commentNumber = 0L;
     }
 
     public String getAuthorId() {
@@ -75,11 +79,11 @@ public class AuthorDetailDTO implements Serializable {
         this.roles = roles;
     }
 
-    public Long getAuthorIconImageId() {
+    public String getAuthorIconImageId() {
         return authorIconImageId;
     }
 
-    public void setAuthorIconImageId(Long authorIconImageId) {
+    public void setAuthorIconImageId(String authorIconImageId) {
         this.authorIconImageId = authorIconImageId;
     }
 
@@ -107,12 +111,12 @@ public class AuthorDetailDTO implements Serializable {
         this.anthologyNumber = anthologyNumber;
     }
 
-    public Long getFollowedByNumber() {
-        return followedByNumber;
+    public Long getFollowerNumber() {
+        return followerNumber;
     }
 
-    public void setFollowedByNumber(Long followedByNumber) {
-        this.followedByNumber = followedByNumber;
+    public void setFollowerNumber(Long followerNumber) {
+        this.followerNumber = followerNumber;
     }
 
     public Set<String> getTags() {
@@ -123,11 +127,11 @@ public class AuthorDetailDTO implements Serializable {
         this.tags = tags;
     }
 
-    public Long getDefaultAnthologyId() {
+    public String getDefaultAnthologyId() {
         return defaultAnthologyId;
     }
 
-    public void setDefaultAnthologyId(Long defaultAnthologyId) {
+    public void setDefaultAnthologyId(String defaultAnthologyId) {
         this.defaultAnthologyId = defaultAnthologyId;
     }
 }

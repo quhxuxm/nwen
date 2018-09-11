@@ -2,25 +2,25 @@
   <form class="login-form" (ngSubmit)="login()" #loginForm="ngForm">
     <mat-form-field>
       <input matInput
-             name="token" required maxlength="40" type="text"
-             placeholder="{{'login.email.placeholder' | translate}}"
-             [(ngModel)]="token"
+             name="username" required maxlength="40" type="text"
+             placeholder="{{'login.username.placeholder' | translate}}"
+             [(ngModel)]="username"
              pattern="^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$"
-             #tokenInput="ngModel"/>
+             #usernameInput="ngModel"/>
       <fa-icon [icon]="['fas', 'user']" matSuffix></fa-icon>
-      <mat-hint align="start">{{'login.email.hint' | translate}}</mat-hint>
-      <mat-error *ngIf="tokenInput.hasError('required')">
-        {{'login.email.error.client.required' | translate}}
+      <mat-hint align="start">{{'login.username.hint' | translate}}</mat-hint>
+      <mat-error *ngIf="usernameInput.hasError('required')">
+        {{'login.username.error.client.required' | translate}}
       </mat-error>
-      <mat-error *ngIf="tokenInput.hasError('maxlength')">
-        {{'login.email.error.client.maxlenght' | translate}}
+      <mat-error *ngIf="usernameInput.hasError('maxlength')">
+        {{'login.username.error.client.maxlenght' | translate}}
       </mat-error>
-      <mat-error *ngIf="tokenInput.hasError('pattern')">
-        {{'login.email.error.client.pattern' | translate}}
+      <mat-error *ngIf="usernameInput.hasError('pattern')">
+        {{'login.username.error.client.pattern' | translate}}
       </mat-error>
       <!--The server side validation error-->
-      <mat-error *ngIf="tokenInput.hasError('server')">
-        {{'login.email.error.server.'+ tokenInput.errors['server'] | translate}}
+      <mat-error *ngIf="usernameInput.hasError('server')">
+        {{'login.username.error.server.'+ usernameInput.errors['server'] | translate}}
       </mat-error>
     </mat-form-field>
     <mat-form-field>

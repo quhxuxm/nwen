@@ -8,16 +8,16 @@ import java.util.regex.Pattern;
 @ConfigurationProperties(prefix = "api")
 @Component
 public class ApiConfiguration {
-    private Pattern nickNamePattern;
+    private Pattern nicknamePattern;
     private Pattern passwordPattern;
-    private Pattern tokenPattern;
+    private Pattern usernamePattern;
 
-    public Pattern getNickNamePattern() {
-        return nickNamePattern;
+    public Pattern getNicknamePattern() {
+        return nicknamePattern;
     }
 
-    public void setNickNamePattern(Pattern nickNamePattern) {
-        this.nickNamePattern = nickNamePattern;
+    public void setNicknamePattern(Pattern nicknamePattern) {
+        this.nicknamePattern = nicknamePattern;
     }
 
     public Pattern getPasswordPattern() {
@@ -28,11 +28,11 @@ public class ApiConfiguration {
         this.passwordPattern = passwordPattern;
     }
 
-    public Pattern getTokenPattern() {
-        return tokenPattern;
+    public Pattern getUsernamePattern() {
+        return usernamePattern;
     }
 
-    public void setTokenPattern(Pattern tokenPattern) {
-        this.tokenPattern = tokenPattern;
+    public void setUsernamePattern(Pattern usernamePattern) {
+        this.usernamePattern = usernamePattern;
     }
 }

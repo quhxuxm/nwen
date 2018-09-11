@@ -31,13 +31,13 @@ public class SecurityContextInitializeInterceptor implements HandlerInterceptor 
         String jwtToken = request.getHeader(HttpHeaders.AUTHORIZATION);
         DecodedJWT verifiedJwt = (DecodedJWT) request.getAttribute(IEntryConstant.RequestAttrName.VERIFIED_JWT_TOKEN);
         if (verifiedJwt != null) {
-            AuthorDetailDTO currentAuthor = this.authorService.findDetailById(Long.parseLong(verifiedJwt.getSubject()));
+            AuthorDetailDTO currentAuthor = this.authorService.findDetailById(verifiedJwt.getSubject());
             SecurityContextHolder.INSTANCE.initContext(currentAuthor, jwtToken);
             return true;
         }
         if (jwtToken != null) {
             AuthorDetailDTO currentAuthor =
-                    this.authorService.findDetailById(Long.parseLong(JWT.decode(jwtToken).getSubject()));
+                    this.authorService.findDetailById(JWT.decode(jwtToken).getSubject());
             SecurityContextHolder.INSTANCE.initContext(currentAuthor, jwtToken);
             return true;
         }

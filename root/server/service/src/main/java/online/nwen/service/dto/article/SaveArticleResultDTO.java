@@ -1,13 +1,13 @@
 package online.nwen.service.dto.article;
 
 public class SaveArticleResultDTO {
-    private Long articleId;
+    private String articleId;
 
-    public Long getArticleId() {
+    public String getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(Long articleId) {
+    public void setArticleId(String articleId) {
         this.articleId = articleId;
     }
 }

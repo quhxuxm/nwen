@@ -1,4 +1,4 @@
 export class LoginRequestPayload {
-  token: string;
+  username: string;
   password: string;
 }

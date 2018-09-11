@@ -1,25 +1,25 @@
 <section>
   <form #registerForm="ngForm" (ngSubmit)="register()" class="register-form">
     <mat-form-field>
-      <input matInput name="token" required maxlength="40" type="text"
-             placeholder="{{'register.email.placeholder' | translate}}"
-             [(ngModel)]="token"
+      <input matInput name="username" required maxlength="40" type="text"
+             placeholder="{{'register.username.placeholder' | translate}}"
+             [(ngModel)]="username"
              pattern="^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$"
-             #tokenInput="ngModel"/>
+             #usernameInput="ngModel"/>
       <fa-icon [icon]="['fas', 'user']" matSuffix></fa-icon>
-      <mat-hint align="start">{{'register.email.hint' | translate}}</mat-hint>
-      <mat-error *ngIf="tokenInput.hasError('required')">
-        {{'register.email.error.client.required' | translate}}
+      <mat-hint align="start">{{'register.username.hint' | translate}}</mat-hint>
+      <mat-error *ngIf="usernameInput.hasError('required')">
+        {{'register.username.error.client.required' | translate}}
       </mat-error>
-      <mat-error *ngIf="tokenInput.hasError('maxlength')">
-        {{'register.email.error.client.maxlenght' | translate}}
+      <mat-error *ngIf="usernameInput.hasError('maxlength')">
+        {{'register.username.error.client.maxlenght' | translate}}
       </mat-error>
-      <mat-error *ngIf="tokenInput.hasError('pattern')">
-        {{'register.email.error.client.pattern' | translate}}
+      <mat-error *ngIf="usernameInput.hasError('pattern')">
+        {{'register.username.error.client.pattern' | translate}}
       </mat-error>
       <!--The server side validation error-->
-      <mat-error *ngIf="tokenInput.hasError('server')">
-        {{'register.email.error.server.'+ tokenInput.errors['server'] | translate}}
+      <mat-error *ngIf="usernameInput.hasError('server')">
+        {{'register.username.error.server.'+ usernameInput.errors['server'] | translate}}
       </mat-error>
     </mat-form-field>
     <mat-form-field>

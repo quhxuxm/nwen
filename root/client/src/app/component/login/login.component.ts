@@ -13,7 +13,7 @@ import {LoginResponsePayload} from '../../vo/login-response-payload';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  token: string;
+  username: string;
   password: string;
   @ViewChild('loginForm')
   loginForm: FormGroup;
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   public login() {
     const loginApiRequest: ApiRequest<LoginRequestPayload> = new ApiRequest();
     const payload = new LoginRequestPayload();
-    payload.token = this.token;
+    payload.username = this.username;
     payload.password = this.password;
     loginApiRequest.payload = payload;
     const apiResponseHandler: ApiResponseHandler<LoginResponsePayload> = response => {
@@ -41,25 +41,25 @@ export class LoginComponent implements OnInit {
     const apiExceptionHandler: ApiExceptionHandler = response => {
       //Token server errors
       if ('LOGIN_TOKEN_IS_EMPTY_ERROR' === response.code) {
-        this.loginForm.controls['token'].setErrors({
+        this.loginForm.controls['username'].setErrors({
           'server': response.code
         });
         return;
       }
       if ('LOGIN_TOKEN_FORMAT_INCORRECT' === response.code) {
-        this.loginForm.controls['token'].setErrors({
+        this.loginForm.controls['username'].setErrors({
           'server': response.code
         });
         return;
       }
       if ('LOGIN_TOKEN_EXIST_ERROR' === response.code) {
-        this.loginForm.controls['token'].setErrors({
+        this.loginForm.controls['username'].setErrors({
           'server': response.code
         });
         return;
       }
       if ('AUTHENTICATION_TOKEN_NOT_EXIST' === response.code) {
-        this.loginForm.controls['token'].setErrors({
+        this.loginForm.controls['username'].setErrors({
           'server': response.code
         });
         return;

@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class SaveArticleDTO implements Serializable {
-    private Long authorId;
-    private Long anthologyId;
+    private String authorId;
+    private String anthologyId;
     private String title;
     private String content;
     private String summary;
@@ -16,19 +16,19 @@ public class SaveArticleDTO implements Serializable {
         this.tags = new HashSet<>();
     }
 
-    public Long getAuthorId() {
+    public String getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(Long authorId) {
+    public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
 
-    public Long getAnthologyId() {
+    public String getAnthologyId() {
         return anthologyId;
     }
 
-    public void setAnthologyId(Long anthologyId) {
+    public void setAnthologyId(String anthologyId) {
         this.anthologyId = anthologyId;
     }
 
