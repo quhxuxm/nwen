@@ -16,13 +16,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 @Service
-public class AuthenticationService implements IAuthenticationService {
+class AuthenticationService implements IAuthenticationService {
     private IAuthorRepository authorRepository;
     private JwtConfiguration jwtConfiguration;
     private PasswordEncoder passwordEncoder;
 
-    public AuthenticationService(IAuthorRepository authorRepository, JwtConfiguration jwtConfiguration,
-                                 PasswordEncoder passwordEncoder) {
+    AuthenticationService(IAuthorRepository authorRepository, JwtConfiguration jwtConfiguration,
+                          PasswordEncoder passwordEncoder) {
         this.authorRepository = authorRepository;
         this.jwtConfiguration = jwtConfiguration;
         this.passwordEncoder = passwordEncoder;

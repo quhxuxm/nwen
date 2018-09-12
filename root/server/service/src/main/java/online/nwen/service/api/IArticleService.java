@@ -1,11 +1,8 @@
 package online.nwen.service.api;
 
-import online.nwen.service.dto.article.CreateArticleDTO;
-import online.nwen.service.dto.article.CreateArticleResultDTO;
-import online.nwen.service.dto.article.UpdateArticleDTO;
+import online.nwen.service.dto.article.SaveArticleDTO;
+import online.nwen.service.dto.article.SaveArticleResultDTO;
 
 public interface IArticleService {
-    CreateArticleResultDTO createArticle(CreateArticleDTO createArticleDTO, String authorId);
-
-    String updateArticle(UpdateArticleDTO updateArticleDTO, String authorId);
+    SaveArticleResultDTO saveArticle(SaveArticleDTO saveArticleDTO);
 }

@@ -6,11 +6,14 @@ import online.nwen.entry.response.ApiResponse;
 import online.nwen.service.api.IArticleService;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.article.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
 public class ArticleApiController {
+    private static final Logger logger = LoggerFactory.getLogger(ArticleApiController.class);
     private IArticleService articleService;
 
     public ArticleApiController(IArticleService articleService) {
@@ -27,31 +30,29 @@ public class ArticleApiController {
         return null;
     }
 
-    @PostMapping("/security/article/{id}/update")
-    public ApiResponse<UpdateArticleResultDTO> update(@PathVariable("id") Long id,
-                                                      ApiRequest<UpdateArticleDTO> updateArticle) {
-        return null;
-    }
-
     @PostMapping("/security/article/{id}/delete")
     public ApiResponse<DeleteArticleResultDTO> delete(@PathVariable("id") Long id) {
         return null;
     }
 
-    @PostMapping("/security/article/create")
-    public ApiResponse<CreateArticleResultDTO> create(@RequestBody ApiRequest<CreateArticleDTO> createArticleRequest)
+    @PostMapping("/security/article/save")
+    public ApiResponse<SaveArticleResultDTO> save(@RequestBody ApiRequest<SaveArticleDTO> saveArticleApiRequest)
             throws ServiceException {
         if (SecurityContextHolder.INSTANCE.getContext().getCurrentAuthor() == null) {
-            throw new ServiceException(ServiceException.Code.SYSTEM_ERROR);
+            logger.error("The author not authenticate, can not create article");
+            throw new ServiceException(ServiceException.Code.SECURITY_ERROR_UNAUTHENTICATED_AUTHOR);
         }
-        CreateArticleDTO createArticleDTO = createArticleRequest.getPayload();
-        if (createArticleDTO.getAnthologyId() == null) {
-            createArticleDTO.setAnthologyId(
+        SaveArticleDTO saveArticleDTO = saveArticleApiRequest.getPayload();
+        if (saveArticleDTO.getAnthologyId() == null) {
+            saveArticleDTO.setAnthologyId(
                     SecurityContextHolder.INSTANCE.getContext().getCurrentAuthor().getDefaultAnthologyId());
         }
-        CreateArticleResultDTO resultPayload = this.articleService.createArticle(createArticleDTO,
-                SecurityContextHolder.INSTANCE.getContext().getCurrentAuthor().getAuthorId());
-        ApiResponse<CreateArticleResultDTO> result = new ApiResponse<>();
+        if (saveArticleDTO.getAuthorId() == null) {
+            saveArticleDTO.setAuthorId(
+                    SecurityContextHolder.INSTANCE.getContext().getCurrentAuthor().getAuthorId());
+        }
+        SaveArticleResultDTO resultPayload = this.articleService.saveArticle(saveArticleDTO);
+        ApiResponse<SaveArticleResultDTO> result = new ApiResponse<>();
         result.setPayload(resultPayload);
         return result;
     }

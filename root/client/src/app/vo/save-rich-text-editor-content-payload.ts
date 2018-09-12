@@ -3,4 +3,5 @@ export class SaveRichTextEditorContentPayload {
   content: string;
   title: string;
   summary: string;
+  articleId: string;
 }

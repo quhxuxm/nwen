@@ -1,11 +1,18 @@
 package online.nwen.service.dto.author;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 public class RegisterAuthorDTO implements Serializable {
     private String username;
     private String password;
     private String nickname;
+    private Set<String> tags;
+
+    public RegisterAuthorDTO() {
+        this.tags = new HashSet<>();
+    }
 
     public String getUsername() {
         return username;
@@ -29,5 +36,13 @@ public class RegisterAuthorDTO implements Serializable {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
     }
 }

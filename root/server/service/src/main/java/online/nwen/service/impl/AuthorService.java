@@ -63,6 +63,7 @@ class AuthorService implements IAuthorService {
         author.setNickname(authorRegisterDTO.getNickname());
         author.setRegisterDate(new Date());
         author.getRoles().add(Role.AUTHOR);
+        author.setTags(authorRegisterDTO.getTags());
         this.authorRepository.save(author);
         Anthology anthology = new Anthology();
         anthology.setAuthorId(author.getId());
@@ -81,7 +82,7 @@ class AuthorService implements IAuthorService {
         if (authorOptional.isPresent()) {
             return this.convert(authorOptional.get());
         }
-        throw new ServiceException(ServiceException.Code.AUTHOR_NOT_EXIST_ERROR);
+        throw new ServiceException(ServiceException.Code.AUTHOR_ERROR_NOT_EXIST);
     }
 
     private AuthorDetailDTO convert(Author author) {

@@ -21,10 +21,18 @@ public class ServiceException extends RuntimeException {
         AUTHENTICATION_TOKEN_NOT_EXIST,
         AUTHENTICATION_PASSWORD_NOT_MATCH,
         //Author
-        AUTHOR_NOT_EXIST_ERROR,
+        AUTHOR_ERROR_NOT_EXIST,
         //Anthology
-        ANTHOLOGY_NOT_EXIST_ERROR,
-        AUTHOR_NOT_OWNER_OR_PARTICIPANT_OF_ANTHOLOGY_ERROR
+        ANTHOLOGY_ERROR_NOT_EXIST,
+        ANTHOLOGY_ERROR_AUTHOR_NEITHER_OWNER_NOR_PARTICIPANT,
+        //Article
+        ARTICLE_ERROR_NOT_EXIST,
+        ARTICLE_ERROR_AUTHOR_NOT_OWNER,
+        //Input
+        INPUT_ERROR_EMPTY_ANTHOLOGY_ID,
+        INPUT_ERROR_EMPTY_AUTHOR_ID,
+        //Security
+        SECURITY_ERROR_UNAUTHENTICATED_AUTHOR
     }
 
     private final Code code;

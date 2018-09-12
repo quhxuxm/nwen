@@ -4,14 +4,16 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CreateArticleDTO implements Serializable {
+public class SaveArticleDTO implements Serializable {
+    private String authorId;
+    private String articleId;
     private String anthologyId;
     private String title;
     private String content;
     private String summary;
     private Set<String> tags;
 
-    public CreateArticleDTO() {
+    public SaveArticleDTO() {
         this.tags = new HashSet<>();
     }
 
@@ -53,6 +55,22 @@ public class CreateArticleDTO implements Serializable {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public String getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 }
 

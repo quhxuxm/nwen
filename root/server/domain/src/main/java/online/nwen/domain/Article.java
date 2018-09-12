@@ -18,6 +18,7 @@ public class Article implements Serializable {
     private String content;
     private String summary;
     private String anthologyId;
+    private String authorId;
     private String coverImageId;
     private Boolean isPublished;
     private Set<String> tags;
@@ -145,5 +146,13 @@ public class Article implements Serializable {
 
     public void setTags(Set<String> tags) {
         this.tags = tags;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 }
