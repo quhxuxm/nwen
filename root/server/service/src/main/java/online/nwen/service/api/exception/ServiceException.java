@@ -29,8 +29,7 @@ public class ServiceException extends RuntimeException {
         INPUT_ERROR_REGISTER_USERNAME_FORMAT_INCORRECT,
         INPUT_ERROR_REGISTER_PASSWORD_FORMAT_INCORRECT,
         INPUT_ERROR_REGISTER_NICKNAME_FORMAT_INCORRECT,
-        //Security
-        SECURITY_ERROR_UNAUTHENTICATED_AUTHOR
+
     }
 
     private final Code code;

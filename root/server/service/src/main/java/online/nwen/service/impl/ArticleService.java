@@ -11,6 +11,7 @@ import online.nwen.service.api.IContentService;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.article.SaveArticleDTO;
 import online.nwen.service.dto.article.SaveArticleResultDTO;
+import online.nwen.service.security.Security;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,7 @@ class ArticleService implements IArticleService {
         this.contentService = contentService;
     }
 
+    @Security
     @Override
     public SaveArticleResultDTO saveArticle(SaveArticleDTO saveArticleDTO) {
         if (saveArticleDTO.getAuthorId() == null) {

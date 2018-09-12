@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class SaveArticleDTO implements Serializable {
-    private String authorId;
     private String articleId;
     private String anthologyId;
     private String title;
@@ -63,14 +62,6 @@ public class SaveArticleDTO implements Serializable {
 
     public void setArticleId(String articleId) {
         this.articleId = articleId;
-    }
-
-    public String getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
     }
 }
 
