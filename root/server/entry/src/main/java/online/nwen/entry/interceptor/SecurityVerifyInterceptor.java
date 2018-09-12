@@ -6,6 +6,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import online.nwen.entry.common.IEntryConstant;
 import online.nwen.service.configuration.JwtConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class SecurityVerifyInterceptor implements HandlerInterceptor {
+    private static final Logger logger = LoggerFactory.getLogger(SecurityVerifyInterceptor.class);
     private JWTVerifier verifier;
 
     public SecurityVerifyInterceptor(JwtConfiguration jwtConfiguration) {
@@ -33,6 +36,7 @@ public class SecurityVerifyInterceptor implements HandlerInterceptor {
                              Object handler) throws Exception {
         String jwtToken = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (jwtToken == null) {
+            logger.error("The jwt token is not exist in the request header.");
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             request.removeAttribute(IEntryConstant.RequestAttrName.VERIFIED_JWT_TOKEN);
             return false;
@@ -41,6 +45,7 @@ public class SecurityVerifyInterceptor implements HandlerInterceptor {
         try {
             currentJwt = this.verifier.verify(jwtToken);
         } catch (Exception e) {
+            logger.error("Fail to verify the jwt token.", e);
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             request.removeAttribute(IEntryConstant.RequestAttrName.VERIFIED_JWT_TOKEN);
             return false;

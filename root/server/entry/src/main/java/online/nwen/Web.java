@@ -53,8 +53,11 @@ public class Web implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        //For the security path must verify the jwt token.
         registry.addInterceptor(this.securityVerifyInterceptor)
                 .addPathPatterns("/api/security/**");
+        //For any other path just try to load the security context with the jwt token.
+        //No need to load security context for authenticate and register api.
         registry.addInterceptor(this.securityContextInitializeInterceptor)
                 .excludePathPatterns("/api/authenticate", "/api/register").addPathPatterns("/api/**");
     }
