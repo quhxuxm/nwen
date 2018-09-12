@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.Optional;
@@ -36,15 +37,26 @@ class AuthorService implements IAuthorService {
     }
 
     @Override
-    public RegisterAuthorResultDTO register(RegisterAuthorDTO authorRegisterDTO)
-            throws ServiceException {
+    public RegisterAuthorResultDTO register(RegisterAuthorDTO authorRegisterDTO) {
+        if (StringUtils.isEmpty(authorRegisterDTO.getUsername())) {
+            logger.error("Can not register because of username is empty.");
+            throw new ServiceException(ServiceException.Code.INPUT_ERROR_REGISTER_USERNAME_IS_EMPTY);
+        }
+        if (StringUtils.isEmpty(authorRegisterDTO.getNickname())) {
+            logger.error("Can not register because of nickname is empty.");
+            throw new ServiceException(ServiceException.Code.INPUT_ERROR_REGISTER_NICKNAME_IS_EMPTY);
+        }
+        if (StringUtils.isEmpty(authorRegisterDTO.getPassword())) {
+            logger.error("Can not register because of password is empty.");
+            throw new ServiceException(ServiceException.Code.INPUT_ERROR_REGISTER_PASSWORD_IS_EMPTY);
+        }
         if (this.authorRepository
                 .existsByUsername(authorRegisterDTO.getUsername())) {
             logger.error("Can not register because of token exist already, "
                     + "token = {}.", authorRegisterDTO.getUsername());
             throw
                     new ServiceException(
-                            ServiceException.Code.REGISTER_TOKEN_EXIST_ERROR);
+                            ServiceException.Code.REGISTER_ERROR_USERNAME_EXIST);
         }
         if (this.authorRepository
                 .existsByNickname(authorRegisterDTO.getNickname())) {
@@ -54,7 +66,7 @@ class AuthorService implements IAuthorService {
                     authorRegisterDTO.getNickname());
             throw
                     new ServiceException(
-                            ServiceException.Code.REGISTER_NICKNAME_EXIST_ERROR);
+                            ServiceException.Code.REGISTER_ERROR_NICKNAME_EXIST);
         }
         Author author = new Author();
         author.setUsername(authorRegisterDTO.getUsername());
