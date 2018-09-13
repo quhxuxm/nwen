@@ -49,10 +49,12 @@ class ArticleService implements IArticleService {
     public ViewArticleResultDTO viewArticle(ViewArticleDTO viewArticleDTO) {
         Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
         if (viewArticleDTO.getArticleId() == null) {
+            logger.error("The article id in request is empty.");
             throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_ARTICLE_ID);
         }
         Optional<Article> articleOptional = this.articleRepository.findById(viewArticleDTO.getArticleId());
         if (!articleOptional.isPresent()) {
+            logger.error("The article not exist.");
             throw new ServiceException(ExceptionCode.ARTICLE_ERROR_NOT_EXIST);
         }
         Article article = articleOptional.get();
@@ -71,11 +73,13 @@ class ArticleService implements IArticleService {
         this.articleRepository.save(article);
         Optional<Author> articleAuthorOptional = this.authorRepository.findById(article.getAuthorId());
         if (!articleAuthorOptional.isPresent()) {
+            logger.error("The article author not exist.");
             throw new ServiceException(ExceptionCode.SYSTEM_ERROR);
         }
         Author articleAuthor = articleAuthorOptional.get();
         Optional<Anthology> anthologyOptional = this.anthologyRepository.findById(article.getAnthologyId());
         if (!anthologyOptional.isPresent()) {
+            logger.error("The article anthology not exist.");
             throw new ServiceException(ExceptionCode.SYSTEM_ERROR);
         }
         Anthology anthology = anthologyOptional.get();
