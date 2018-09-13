@@ -12,7 +12,7 @@ import online.nwen.service.api.exception.SecurityException;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.configuration.ServiceConfiguration;
 import online.nwen.service.dto.security.JwtContextDTO;
-import online.nwen.service.security.NoSecurityContext;
+import online.nwen.service.security.annotation.NoSecurityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

@@ -10,7 +10,7 @@ import online.nwen.service.api.IContentService;
 import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.article.*;
-import online.nwen.service.security.Security;
+import online.nwen.service.security.annotation.Security;
 import online.nwen.service.security.SecurityContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

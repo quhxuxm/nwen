@@ -25,15 +25,15 @@ public class SecurityContextAspect {
         this.jwtService = jwtService;
     }
 
-    @Pointcut("@annotation(Security)")
+    @Pointcut("@annotation(online.nwen.service.security.annotation.Security)")
     private void securityMethod() {
     }
 
-    @Pointcut("@annotation(NoSecurityContext)")
+    @Pointcut("@annotation(online.nwen.service.security.annotation.NoSecurityContext)")
     private void noSecurityContext() {
     }
 
-    @Pointcut("@target(org.springframework.stereotype.Service) && execution(public * *(..)) && !noSecurityContext()")
+    @Pointcut("@target(org.springframework.stereotype.Service)  && !noSecurityContext()")
     private void refreshSecurityContext() {
     }
 
