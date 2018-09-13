@@ -10,8 +10,9 @@ import online.nwen.service.api.IContentService;
 import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.article.*;
-import online.nwen.service.security.annotation.Security;
 import online.nwen.service.security.SecurityContextHolder;
+import online.nwen.service.security.annotation.PrepareSecurityContext;
+import online.nwen.service.security.annotation.Security;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,7 @@ class ArticleService implements IArticleService {
     }
 
     @Security
+    @PrepareSecurityContext
     @Override
     public SaveArticleResultDTO saveArticle(SaveArticleDTO saveArticleDTO) {
         Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
@@ -143,6 +145,7 @@ class ArticleService implements IArticleService {
     }
 
     @Security
+    @PrepareSecurityContext
     @Override
     public PraiseArticleResultDTO praiseArticle(PraiseArticleDTO praiseArticleDTO) {
         Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
@@ -166,6 +169,7 @@ class ArticleService implements IArticleService {
     }
 
     @Security
+    @PrepareSecurityContext
     @Override
     public BookmarkArticleResultDTO bookmarkArticle(BookmarkArticleDTO bookmarkArticleDTO) {
         Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();

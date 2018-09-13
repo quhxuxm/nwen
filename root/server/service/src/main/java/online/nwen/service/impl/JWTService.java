@@ -12,7 +12,6 @@ import online.nwen.service.api.exception.SecurityException;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.configuration.ServiceConfiguration;
 import online.nwen.service.dto.security.JwtContextDTO;
-import online.nwen.service.security.annotation.NoSecurityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -42,7 +41,6 @@ class JWTService implements IJWTService {
                 .build();
     }
 
-    @NoSecurityContext
     @Override
     public JwtContextDTO createJwtTokenWithAuthor(Author author) {
         long expireTime = System.currentTimeMillis() + this.serviceConfiguration.getJwtExpiration();
@@ -54,7 +52,6 @@ class JWTService implements IJWTService {
         return new JwtContextDTO(jwtToken, expireTime);
     }
 
-    @NoSecurityContext
     @Override
     public void verify(String jwtToken) {
         try {
@@ -65,7 +62,6 @@ class JWTService implements IJWTService {
         }
     }
 
-    @NoSecurityContext
     @Override
     public Author getAuthorFromJwtToken(String jwtToken) {
         try {

@@ -29,12 +29,8 @@ public class SecurityContextAspect {
     private void securityMethod() {
     }
 
-    @Pointcut("@annotation(online.nwen.service.security.annotation.NoSecurityContext)")
-    private void noSecurityContext() {
-    }
-
-    @Pointcut("@target(org.springframework.stereotype.Service)  && !noSecurityContext()")
-    private void refreshSecurityContext() {
+    @Pointcut("@annotation(online.nwen.service.security.annotation.PrepareSecurityContext)")
+    private void prepareSecurityContext() {
     }
 
     /**
@@ -63,9 +59,9 @@ public class SecurityContextAspect {
         logger.debug("Success to check security context for method: {}", methodSignature);
     }
 
-    @Before(value = "refreshSecurityContext()")
+    @Before(value = "prepareSecurityContext()")
     @Order(2)
-    public void refreshSecurityContext(JoinPoint joinPoint) {
+    public void initSecurityContext(JoinPoint joinPoint) {
         String methodSignature = joinPoint.getSignature().toLongString();
         logger.debug("Start to refresh security context for method: {}", methodSignature);
         if (SecurityContextHolder.INSTANCE.getContext() == null) {

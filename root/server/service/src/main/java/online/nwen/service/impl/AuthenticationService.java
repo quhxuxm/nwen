@@ -9,7 +9,6 @@ import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.authenticate.AuthenticateDTO;
 import online.nwen.service.dto.authenticate.AuthenticateResultDTO;
 import online.nwen.service.dto.security.JwtContextDTO;
-import online.nwen.service.security.annotation.NoSecurityContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +28,6 @@ class AuthenticationService implements IAuthenticationService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @NoSecurityContext
     @Override
     public AuthenticateResultDTO authenticate(AuthenticateDTO authenticateDTO) throws ServiceException {
         if (!this.authorRepository.existsByUsername(authenticateDTO.getUsername())) {
