@@ -6,6 +6,7 @@ import online.nwen.domain.Role;
 import online.nwen.repository.IAnthologyRepository;
 import online.nwen.repository.IAuthorRepository;
 import online.nwen.service.api.IAuthorService;
+import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.author.AuthorDetailDTO;
 import online.nwen.service.dto.author.RegisterAuthorDTO;
@@ -40,15 +41,15 @@ class AuthorService implements IAuthorService {
     public RegisterAuthorResultDTO register(RegisterAuthorDTO authorRegisterDTO) {
         if (StringUtils.isEmpty(authorRegisterDTO.getUsername())) {
             logger.error("Can not register because of username is empty.");
-            throw new ServiceException(ServiceException.Code.INPUT_ERROR_REGISTER_USERNAME_IS_EMPTY);
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_REGISTER_USERNAME_IS_EMPTY);
         }
         if (StringUtils.isEmpty(authorRegisterDTO.getNickname())) {
             logger.error("Can not register because of nickname is empty.");
-            throw new ServiceException(ServiceException.Code.INPUT_ERROR_REGISTER_NICKNAME_IS_EMPTY);
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_REGISTER_NICKNAME_IS_EMPTY);
         }
         if (StringUtils.isEmpty(authorRegisterDTO.getPassword())) {
             logger.error("Can not register because of password is empty.");
-            throw new ServiceException(ServiceException.Code.INPUT_ERROR_REGISTER_PASSWORD_IS_EMPTY);
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_REGISTER_PASSWORD_IS_EMPTY);
         }
         if (this.authorRepository
                 .existsByUsername(authorRegisterDTO.getUsername())) {
@@ -56,7 +57,7 @@ class AuthorService implements IAuthorService {
                     + "token = {}.", authorRegisterDTO.getUsername());
             throw
                     new ServiceException(
-                            ServiceException.Code.REGISTER_ERROR_USERNAME_EXIST);
+                            ExceptionCode.REGISTER_ERROR_USERNAME_EXIST);
         }
         if (this.authorRepository
                 .existsByNickname(authorRegisterDTO.getNickname())) {
@@ -66,7 +67,7 @@ class AuthorService implements IAuthorService {
                     authorRegisterDTO.getNickname());
             throw
                     new ServiceException(
-                            ServiceException.Code.REGISTER_ERROR_NICKNAME_EXIST);
+                            ExceptionCode.REGISTER_ERROR_NICKNAME_EXIST);
         }
         Author author = new Author();
         author.setUsername(authorRegisterDTO.getUsername());
@@ -94,7 +95,7 @@ class AuthorService implements IAuthorService {
         if (authorOptional.isPresent()) {
             return this.convert(authorOptional.get());
         }
-        throw new ServiceException(ServiceException.Code.AUTHOR_ERROR_NOT_EXIST);
+        throw new ServiceException(ExceptionCode.AUTHOR_ERROR_NOT_EXIST);
     }
 
     private AuthorDetailDTO convert(Author author) {

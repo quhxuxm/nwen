@@ -1,15 +1,15 @@
 package online.nwen.entry.exception;
 
-import online.nwen.service.api.exception.ServiceException;
+import online.nwen.service.api.exception.ExceptionCode;
 
 public class ExceptionPayload {
-    private ServiceException.Code code;
+    private ExceptionCode code;
 
-    public ServiceException.Code getCode() {
+    public ExceptionCode getCode() {
         return code;
     }
 
-    public void setCode(ServiceException.Code code) {
+    public void setCode(ExceptionCode code) {
         this.code = code;
     }
 }

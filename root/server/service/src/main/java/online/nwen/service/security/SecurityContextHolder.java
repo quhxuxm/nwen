@@ -1,5 +1,7 @@
 package online.nwen.service.security;
 
+import online.nwen.service.api.ISecurityContext;
+
 /**
  * Security context holder
  */
@@ -8,7 +10,7 @@ public class SecurityContextHolder {
      * The singleton instance.
      */
     public static final SecurityContextHolder INSTANCE = new SecurityContextHolder();
-    private static final ThreadLocal<SecurityContext> CONTEXT_CONTAINER = new ThreadLocal<>();
+    private static final ThreadLocal<ISecurityContext> CONTEXT_CONTAINER = new ThreadLocal<>();
 
     private SecurityContextHolder() {
     }
@@ -28,7 +30,7 @@ public class SecurityContextHolder {
      *
      * @return Security context
      */
-    public SecurityContext getContext() {
+    public ISecurityContext getContext() {
         return CONTEXT_CONTAINER.get();
     }
 

@@ -4,6 +4,7 @@ import online.nwen.entry.configuration.ApiConfiguration;
 import online.nwen.entry.request.ApiRequest;
 import online.nwen.entry.response.ApiResponse;
 import online.nwen.service.api.IAuthorService;
+import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.author.RegisterAuthorDTO;
 import online.nwen.service.dto.author.RegisterAuthorResultDTO;
@@ -35,25 +36,25 @@ public class RegisterApiController {
     private void verify(ApiRequest<RegisterAuthorDTO> request) throws ServiceException {
         RegisterAuthorDTO payload = request.getPayload();
         if (payload == null) {
-            throw new ServiceException(ServiceException.Code.REQUEST_PAYLOAD_EMPTY_ERROR);
+            throw new ServiceException(ExceptionCode.REQUEST_PAYLOAD_EMPTY_ERROR);
         }
         if (null == payload.getUsername()) {
-            throw new ServiceException(ServiceException.Code.INPUT_ERROR_REGISTER_USERNAME_IS_EMPTY);
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_REGISTER_USERNAME_IS_EMPTY);
         }
         if (null == payload.getPassword()) {
-            throw new ServiceException(ServiceException.Code.INPUT_ERROR_REGISTER_PASSWORD_IS_EMPTY);
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_REGISTER_PASSWORD_IS_EMPTY);
         }
         if (null == payload.getNickname()) {
-            throw new ServiceException(ServiceException.Code.INPUT_ERROR_REGISTER_NICKNAME_IS_EMPTY);
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_REGISTER_NICKNAME_IS_EMPTY);
         }
         if (!this.apiConfiguration.getUsernamePattern().matcher(request.getPayload().getUsername()).find()) {
-            throw new ServiceException(ServiceException.Code.INPUT_ERROR_REGISTER_USERNAME_FORMAT_INCORRECT);
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_REGISTER_USERNAME_FORMAT_INCORRECT);
         }
         if (!this.apiConfiguration.getPasswordPattern().matcher(request.getPayload().getPassword()).find()) {
-            throw new ServiceException(ServiceException.Code.INPUT_ERROR_REGISTER_PASSWORD_FORMAT_INCORRECT);
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_REGISTER_PASSWORD_FORMAT_INCORRECT);
         }
         if (!this.apiConfiguration.getNicknamePattern().matcher(request.getPayload().getNickname()).find()) {
-            throw new ServiceException(ServiceException.Code.INPUT_ERROR_REGISTER_NICKNAME_FORMAT_INCORRECT);
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_REGISTER_NICKNAME_FORMAT_INCORRECT);
         }
     }
 }

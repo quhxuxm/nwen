@@ -4,6 +4,7 @@ import online.nwen.domain.Author;
 import online.nwen.repository.IAuthorRepository;
 import online.nwen.service.api.IAuthenticationService;
 import online.nwen.service.api.IJWTService;
+import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.authenticate.AuthenticateDTO;
 import online.nwen.service.dto.authenticate.AuthenticateResultDTO;
@@ -17,13 +18,13 @@ import java.util.Date;
 class AuthenticationService implements IAuthenticationService {
     private IAuthorRepository authorRepository;
     private PasswordEncoder passwordEncoder;
-    private IJWTService securityContextService;
+    private IJWTService jwtService;
 
     AuthenticationService(IAuthorRepository authorRepository,
-                          IJWTService securityContextService,
+                          IJWTService jwtService,
                           PasswordEncoder passwordEncoder) {
         this.authorRepository = authorRepository;
-        this.securityContextService = securityContextService;
+        this.jwtService = jwtService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -31,17 +32,17 @@ class AuthenticationService implements IAuthenticationService {
     public AuthenticateResultDTO authenticate(AuthenticateDTO authenticateDTO) throws ServiceException {
         if (!this.authorRepository.existsByUsername(authenticateDTO.getUsername())) {
             throw new ServiceException(
-                    ServiceException.Code.AUTHENTICATION_TOKEN_NOT_EXIST);
+                    ExceptionCode.AUTHENTICATION_TOKEN_NOT_EXIST);
         }
         Author author = this.authorRepository.findByUsername(authenticateDTO.getUsername());
         if (!passwordEncoder.matches(authenticateDTO.getPassword(), author.getPassword())) {
             throw new ServiceException(
-                    ServiceException.Code.AUTHENTICATION_PASSWORD_NOT_MATCH);
+                    ExceptionCode.AUTHENTICATION_PASSWORD_NOT_MATCH);
         }
         author.setLastLoginDate(new Date());
         //Update the last login time.
         this.authorRepository.save(author);
-        JwtContextDTO jwtContext = this.securityContextService.createJwtTokenWithAuthor(author);
+        JwtContextDTO jwtContext = this.jwtService.createJwtTokenWithAuthor(author);
         AuthenticateResultDTO authenticateResultDTO = new AuthenticateResultDTO();
         authenticateResultDTO.setJwtToken(jwtContext.getJwtToken());
         authenticateResultDTO.setExpireTime(jwtContext.getExpiration());

@@ -1,6 +1,7 @@
 package online.nwen.service.security;
 
 import online.nwen.service.api.IJWTService;
+import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.SecurityException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,12 +16,12 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-public class SecurityContextVerificationAspect {
-    private static final Logger logger = LoggerFactory.getLogger(SecurityContextVerificationAspect.class);
-    private IJWTService securityContextService;
+public class SecurityContextAspect {
+    private static final Logger logger = LoggerFactory.getLogger(SecurityContextAspect.class);
+    private IJWTService jwtService;
 
-    public SecurityContextVerificationAspect(IJWTService securityContextService) {
-        this.securityContextService = securityContextService;
+    public SecurityContextAspect(IJWTService jwtService) {
+        this.jwtService = jwtService;
     }
 
     @Pointcut("@annotation(Security)")
@@ -33,18 +34,25 @@ public class SecurityContextVerificationAspect {
      * @param joinPoint The join point.
      */
     @Before(value = "securityMethod()")
-    public void checkSecurityContext(JoinPoint joinPoint) {
+    public void checkAndRefreshSecurityContext(JoinPoint joinPoint) {
         String methodSignature = joinPoint.getSignature().toLongString();
         logger.debug("Start to check security context for method: {}", methodSignature);
         if (SecurityContextHolder.INSTANCE.getContext() == null) {
             logger.error("Fail to get security context when execute method: {}", methodSignature);
-            throw new SecurityException(SecurityException.Code.SECURITY_ERROR_CONTEXT_NOT_FOUND);
+            throw new SecurityException(ExceptionCode.SECURITY_ERROR_CONTEXT_NOT_FOUND);
         }
-        if (SecurityContextHolder.INSTANCE.getContext().getJwtToken() == null) {
-            logger.error("Fail to get jwt token from security context when execute method: {}", methodSignature);
-            throw new SecurityException(SecurityException.Code.SECURITY_ERROR_JWT_TOKEN_NOT_FOUND);
+        SecurityContext securityContextImpl = (SecurityContext) SecurityContextHolder.INSTANCE.getContext();
+        try {
+            this.jwtService.verify(securityContextImpl.getJwtToken());
+        } catch (SecurityException e) {
+            logger.error("Fail to verify the security context, clear the security context.");
+            securityContextImpl.setAuthor(null);
+            SecurityContextHolder.INSTANCE.clearContext();
+            throw e;
         }
-        this.securityContextService.verify(SecurityContextHolder.INSTANCE.getContext().getJwtToken());
+        if (SecurityContextHolder.INSTANCE.getContext().getAuthor() == null) {
+            securityContextImpl.setAuthor(this.jwtService.getAuthorFromJwtToken(securityContextImpl.getJwtToken()));
+        }
         logger.debug("Success to check security context for method: {}", methodSignature);
     }
 }

@@ -7,6 +7,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import online.nwen.domain.Author;
 import online.nwen.repository.IAuthorRepository;
 import online.nwen.service.api.IJWTService;
+import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.SecurityException;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.configuration.ServiceConfiguration;
@@ -33,7 +34,7 @@ class JWTService implements IJWTService {
         try {
             this.algorithm = Algorithm.HMAC256(this.serviceConfiguration.getJwtSecret());
         } catch (UnsupportedEncodingException e) {
-            throw new ServiceException(ServiceException.Code.SYSTEM_ERROR);
+            throw new ServiceException(ExceptionCode.SYSTEM_ERROR);
         }
         this.jwtVerifier = JWT.require(algorithm)
                 .withIssuer(serviceConfiguration.getJwtIssuer())
@@ -57,7 +58,7 @@ class JWTService implements IJWTService {
             this.jwtVerifier.verify(jwtToken);
         } catch (Exception e) {
             logger.error("Fail to verify jwt token.");
-            throw new SecurityException(SecurityException.Code.SECURITY_ERROR_JWT_TOKEN_INVALID);
+            throw new SecurityException(ExceptionCode.SECURITY_ERROR_JWT_TOKEN_INVALID);
         }
     }
 
@@ -69,12 +70,12 @@ class JWTService implements IJWTService {
             Optional<Author> authorOptional = this.authorRepository.findById(authorId);
             if (!authorOptional.isPresent()) {
                 logger.error("Can not load the author with jwt token subject, subject = {}", decodedJWT.getSubject());
-                throw new SecurityException(SecurityException.Code.SECURITY_ERROR_JWT_TOKEN_INVALID);
+                throw new SecurityException(ExceptionCode.SECURITY_ERROR_JWT_TOKEN_INVALID);
             }
             return authorOptional.get();
         } catch (Exception e) {
             logger.error("Can not decode the jwt token: {}", jwtToken);
-            throw new SecurityException(e, SecurityException.Code.SECURITY_ERROR_JWT_TOKEN_INVALID);
+            throw new SecurityException(e, ExceptionCode.SECURITY_ERROR_JWT_TOKEN_INVALID);
         }
     }
 }
