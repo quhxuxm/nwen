@@ -3,13 +3,13 @@ package online.nwen.service.dto.article;
 import java.io.Serializable;
 
 public class ViewArticleDTO implements Serializable {
-    private Long articleId;
+    private String articleId;
 
-    public Long getArticleId() {
+    public String getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(Long articleId) {
+    public void setArticleId(String articleId) {
         this.articleId = articleId;
     }
 }

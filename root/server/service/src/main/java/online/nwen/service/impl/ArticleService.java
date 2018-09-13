@@ -37,9 +37,26 @@ class ArticleService implements IArticleService {
         this.contentService = contentService;
     }
 
+    @PrepareSecurityContext
     @Override
     public ViewArticleResultDTO viewArticle(ViewArticleDTO viewArticleDTO) {
-        return null;
+        Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
+        if (viewArticleDTO.getArticleId() == null) {
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_ARTICLE_ID);
+        }
+        Optional<Article> articleOptional = this.articleRepository.findById(viewArticleDTO.getArticleId());
+        if (!articleOptional.isPresent()) {
+            throw new ServiceException(ExceptionCode.ARTICLE_ERROR_NOT_EXIST);
+        }
+        Article article = articleOptional.get();
+        article.getViewers().put(currentAuthor.getId(), new Date());
+        article.setViewersNumber(article.getViewersNumber() + 1);
+        this.articleRepository.save(article);
+        ViewArticleResultDTO resultDTO = new ViewArticleResultDTO();
+        resultDTO.setArticleId(article.getId());
+        resultDTO.setAnthologyId(article.getAnthologyId());
+        resultDTO.setTitle(article.getTitle());
+        return resultDTO;
     }
 
     @Security
