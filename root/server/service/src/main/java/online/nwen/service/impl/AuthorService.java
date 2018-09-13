@@ -11,6 +11,7 @@ import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.author.AuthorDetailDTO;
 import online.nwen.service.dto.author.RegisterAuthorDTO;
 import online.nwen.service.dto.author.RegisterAuthorResultDTO;
+import online.nwen.service.security.NoSecurityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,6 +38,7 @@ class AuthorService implements IAuthorService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @NoSecurityContext
     @Override
     public RegisterAuthorResultDTO register(RegisterAuthorDTO authorRegisterDTO) {
         if (StringUtils.isEmpty(authorRegisterDTO.getUsername())) {

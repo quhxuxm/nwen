@@ -9,8 +9,7 @@ import online.nwen.service.api.IArticleService;
 import online.nwen.service.api.IContentService;
 import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.ServiceException;
-import online.nwen.service.dto.article.SaveArticleDTO;
-import online.nwen.service.dto.article.SaveArticleResultDTO;
+import online.nwen.service.dto.article.*;
 import online.nwen.service.security.Security;
 import online.nwen.service.security.SecurityContextHolder;
 import org.slf4j.Logger;
@@ -35,6 +34,11 @@ class ArticleService implements IArticleService {
         this.articleRepository = articleRepository;
         this.anthologyRepository = anthologyRepository;
         this.contentService = contentService;
+    }
+
+    @Override
+    public ViewArticleResultDTO viewArticle(ViewArticleDTO viewArticleDTO) {
+        return null;
     }
 
     @Security
@@ -136,5 +140,51 @@ class ArticleService implements IArticleService {
 
     private String parseArticleContent(String content) {
         return this.contentService.parse(content);
+    }
+
+    @Security
+    @Override
+    public PraiseArticleResultDTO praiseArticle(PraiseArticleDTO praiseArticleDTO) {
+        Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
+        Optional<Article> articleOptional = this.articleRepository.findById(praiseArticleDTO.getArticleId());
+        if (!articleOptional.isPresent()) {
+            throw new ServiceException(ExceptionCode.ARTICLE_ERROR_NOT_EXIST);
+        }
+        Article article = articleOptional.get();
+        if (!article.getPraises().containsKey(currentAuthor.getId())) {
+            article.getPraises().put(currentAuthor.getId(), new Date());
+            article.setPraisesNumber(article.getPraisesNumber() + 1);
+        } else {
+            article.getPraises().remove(currentAuthor.getId());
+            article.setPraisesNumber(article.getPraisesNumber() - 1);
+        }
+        this.articleRepository.save(article);
+        PraiseArticleResultDTO resultDTO = new PraiseArticleResultDTO();
+        resultDTO.setArticleId(article.getId());
+        resultDTO.setPraiseNumber((long) (article.getPraises().size()));
+        return resultDTO;
+    }
+
+    @Security
+    @Override
+    public BookmarkArticleResultDTO bookmarkArticle(BookmarkArticleDTO bookmarkArticleDTO) {
+        Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
+        Optional<Article> articleOptional = this.articleRepository.findById(bookmarkArticleDTO.getArticleId());
+        if (!articleOptional.isPresent()) {
+            throw new ServiceException(ExceptionCode.ARTICLE_ERROR_NOT_EXIST);
+        }
+        Article article = articleOptional.get();
+        if (!article.getBookmarks().containsKey(currentAuthor.getId())) {
+            article.getBookmarks().put(currentAuthor.getId(), new Date());
+            article.setBookmarksNumber(article.getBookmarksNumber() + 1);
+        } else {
+            article.getBookmarks().remove(currentAuthor.getId());
+            article.setBookmarksNumber(article.getBookmarksNumber() - 1);
+        }
+        this.articleRepository.save(article);
+        BookmarkArticleResultDTO resultDTO = new BookmarkArticleResultDTO();
+        resultDTO.setArticleId(article.getId());
+        resultDTO.setBookmarkNumber((long) (article.getBookmarks().size()));
+        return resultDTO;
     }
 }

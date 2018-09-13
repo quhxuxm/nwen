@@ -25,6 +25,9 @@ public class Article implements Serializable {
     private Map<String, Date> bookmarks;
     private Map<String, Date> praises;
     private Map<String, Date> viewers;
+    private Long bookmarksNumber;
+    private Long praisesNumber;
+    private Long viewersNumber;
 
     public Article() {
         this.createDate = new Date();
@@ -34,6 +37,9 @@ public class Article implements Serializable {
         this.viewers = new HashMap<>();
         this.updateDate = this.createDate;
         this.isPublished = false;
+        this.bookmarksNumber = 0L;
+        this.praisesNumber = 0L;
+        this.viewersNumber = 0L;
     }
 
     public String getId() {
@@ -154,5 +160,29 @@ public class Article implements Serializable {
 
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
+    }
+
+    public Long getBookmarksNumber() {
+        return bookmarksNumber;
+    }
+
+    public void setBookmarksNumber(Long bookmarksNumber) {
+        this.bookmarksNumber = bookmarksNumber;
+    }
+
+    public Long getPraisesNumber() {
+        return praisesNumber;
+    }
+
+    public void setPraisesNumber(Long praisesNumber) {
+        this.praisesNumber = praisesNumber;
+    }
+
+    public Long getViewersNumber() {
+        return viewersNumber;
+    }
+
+    public void setViewersNumber(Long viewersNumber) {
+        this.viewersNumber = viewersNumber;
     }
 }

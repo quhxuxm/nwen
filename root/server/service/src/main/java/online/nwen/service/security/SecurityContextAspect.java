@@ -9,6 +9,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,7 +26,15 @@ public class SecurityContextAspect {
     }
 
     @Pointcut("@annotation(Security)")
-    public void securityMethod() {
+    private void securityMethod() {
+    }
+
+    @Pointcut("@annotation(NoSecurityContext)")
+    private void noSecurityContext() {
+    }
+
+    @Pointcut("@target(org.springframework.stereotype.Service) && execution(public * *(..)) && !noSecurityContext()")
+    private void refreshSecurityContext() {
     }
 
     /**
@@ -34,7 +43,8 @@ public class SecurityContextAspect {
      * @param joinPoint The join point.
      */
     @Before(value = "securityMethod()")
-    public void checkAndRefreshSecurityContext(JoinPoint joinPoint) {
+    @Order(0)
+    public void checkSecurityContext(JoinPoint joinPoint) {
         String methodSignature = joinPoint.getSignature().toLongString();
         logger.debug("Start to check security context for method: {}", methodSignature);
         if (SecurityContextHolder.INSTANCE.getContext() == null) {
@@ -50,9 +60,30 @@ public class SecurityContextAspect {
             SecurityContextHolder.INSTANCE.clearContext();
             throw e;
         }
-        if (SecurityContextHolder.INSTANCE.getContext().getAuthor() == null) {
+        logger.debug("Success to check security context for method: {}", methodSignature);
+    }
+
+    @Before(value = "refreshSecurityContext()")
+    @Order(1)
+    public void refreshSecurityContext(JoinPoint joinPoint) {
+        String methodSignature = joinPoint.getSignature().toLongString();
+        logger.debug("Start to refresh security context for method: {}", methodSignature);
+        if (SecurityContextHolder.INSTANCE.getContext() == null) {
+            logger.debug(
+                    "Fail to refresh security context because of the security context not exist when execute method: {}",
+                    methodSignature);
+            return;
+        }
+        SecurityContext securityContextImpl = (SecurityContext) SecurityContextHolder.INSTANCE.getContext();
+        if (securityContextImpl.getAuthor() == null) {
+            if (securityContextImpl.getJwtToken() == null) {
+                logger.debug(
+                        "Fail to refresh security context because of the jwt token not exist when execute method: {}",
+                        methodSignature);
+                return;
+            }
             securityContextImpl.setAuthor(this.jwtService.getAuthorFromJwtToken(securityContextImpl.getJwtToken()));
         }
-        logger.debug("Success to check security context for method: {}", methodSignature);
+        logger.debug("Success to refresh security context for method: {}", methodSignature);
     }
 }
