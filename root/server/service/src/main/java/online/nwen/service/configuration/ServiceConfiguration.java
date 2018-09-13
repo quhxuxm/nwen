@@ -9,6 +9,7 @@ public class ServiceConfiguration {
     private String jwtSecret;
     private String jwtIssuer;
     private long jwtExpiration;
+    private long viewDateInterval;
 
     public String getJwtSecret() {
         return jwtSecret;
@@ -32,5 +33,13 @@ public class ServiceConfiguration {
 
     public void setJwtExpiration(long jwtExpiration) {
         this.jwtExpiration = jwtExpiration;
+    }
+
+    public long getViewDateInterval() {
+        return viewDateInterval;
+    }
+
+    public void setViewDateInterval(long viewDateInterval) {
+        this.viewDateInterval = viewDateInterval;
     }
 }

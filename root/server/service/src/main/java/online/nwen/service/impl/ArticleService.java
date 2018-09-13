@@ -5,10 +5,12 @@ import online.nwen.domain.Article;
 import online.nwen.domain.Author;
 import online.nwen.repository.IAnthologyRepository;
 import online.nwen.repository.IArticleRepository;
+import online.nwen.repository.IAuthorRepository;
 import online.nwen.service.api.IArticleService;
 import online.nwen.service.api.IContentService;
 import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.ServiceException;
+import online.nwen.service.configuration.ServiceConfiguration;
 import online.nwen.service.dto.article.*;
 import online.nwen.service.security.SecurityContextHolder;
 import online.nwen.service.security.annotation.PrepareSecurityContext;
@@ -27,14 +29,19 @@ class ArticleService implements IArticleService {
     private IArticleRepository articleRepository;
     private IAnthologyRepository anthologyRepository;
     private IContentService contentService;
+    private ServiceConfiguration serviceConfiguration;
+    private IAuthorRepository authorRepository;
 
     ArticleService(
             IArticleRepository articleRepository,
             IAnthologyRepository anthologyRepository,
-            IContentService contentService) {
+            IContentService contentService, ServiceConfiguration serviceConfiguration,
+            IAuthorRepository authorRepository) {
         this.articleRepository = articleRepository;
         this.anthologyRepository = anthologyRepository;
         this.contentService = contentService;
+        this.serviceConfiguration = serviceConfiguration;
+        this.authorRepository = authorRepository;
     }
 
     @PrepareSecurityContext
@@ -49,13 +56,47 @@ class ArticleService implements IArticleService {
             throw new ServiceException(ExceptionCode.ARTICLE_ERROR_NOT_EXIST);
         }
         Article article = articleOptional.get();
-        article.getViewers().put(currentAuthor.getId(), new Date());
-        article.setViewersNumber(article.getViewersNumber() + 1);
+        if (article.getViewers().containsKey(currentAuthor.getId())) {
+            Date lastViewDate = article.getViewers().get(currentAuthor.getId());
+            Date currentDate = new Date();
+            long difference = currentDate.getTime() - lastViewDate.getTime();
+            if (difference > this.serviceConfiguration.getViewDateInterval()) {
+                article.setViewersNumber(article.getViewersNumber() + 1);
+                article.getViewers().put(currentAuthor.getId(), new Date());
+            }
+        } else {
+            article.setViewersNumber(article.getViewersNumber() + 1);
+            article.getViewers().put(currentAuthor.getId(), new Date());
+        }
         this.articleRepository.save(article);
+        Optional<Author> articleAuthorOptional = this.authorRepository.findById(article.getAuthorId());
+        if (!articleAuthorOptional.isPresent()) {
+            throw new ServiceException(ExceptionCode.SYSTEM_ERROR);
+        }
+        Author articleAuthor = articleAuthorOptional.get();
+        Optional<Anthology> anthologyOptional = this.anthologyRepository.findById(article.getAnthologyId());
+        if (!anthologyOptional.isPresent()) {
+            throw new ServiceException(ExceptionCode.SYSTEM_ERROR);
+        }
+        Anthology anthology = anthologyOptional.get();
         ViewArticleResultDTO resultDTO = new ViewArticleResultDTO();
         resultDTO.setArticleId(article.getId());
         resultDTO.setAnthologyId(article.getAnthologyId());
         resultDTO.setTitle(article.getTitle());
+        resultDTO.setAuthorId(article.getAuthorId());
+        resultDTO.setAuthorNickName(articleAuthor.getNickname());
+        resultDTO.setAnthologyTitle(anthology.getTitle());
+        resultDTO.setContent(article.getContent());
+        resultDTO.setCreateDate(article.getCreateDate());
+        resultDTO.getTags().addAll(article.getTags());
+        resultDTO.setAnthologyCoverImageId(anthology.getCoverImageId());
+        resultDTO.setAuthorIconImageId(articleAuthor.getIconImageId());
+        resultDTO.setSummary(article.getSummary());
+        resultDTO.setPraiseNumber(article.getPraisesNumber());
+        resultDTO.setCommentNumber(article.getCommentNumber());
+        resultDTO.setBookmarkNumber(article.getBookmarksNumber());
+        resultDTO.setUpdateDate(article.getUpdateDate());
+        resultDTO.setViewNumber(article.getViewersNumber());
         return resultDTO;
     }
 
@@ -181,7 +222,7 @@ class ArticleService implements IArticleService {
         this.articleRepository.save(article);
         PraiseArticleResultDTO resultDTO = new PraiseArticleResultDTO();
         resultDTO.setArticleId(article.getId());
-        resultDTO.setPraiseNumber((long) (article.getPraises().size()));
+        resultDTO.setPraiseNumber(article.getPraisesNumber());
         return resultDTO;
     }
 
@@ -205,7 +246,7 @@ class ArticleService implements IArticleService {
         this.articleRepository.save(article);
         BookmarkArticleResultDTO resultDTO = new BookmarkArticleResultDTO();
         resultDTO.setArticleId(article.getId());
-        resultDTO.setBookmarkNumber((long) (article.getBookmarks().size()));
+        resultDTO.setBookmarkNumber(article.getBookmarksNumber());
         return resultDTO;
     }
 }

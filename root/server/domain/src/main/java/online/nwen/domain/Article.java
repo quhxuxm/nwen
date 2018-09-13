@@ -28,6 +28,7 @@ public class Article implements Serializable {
     private Long bookmarksNumber;
     private Long praisesNumber;
     private Long viewersNumber;
+    private Long commentNumber;
 
     public Article() {
         this.createDate = new Date();
@@ -184,5 +185,13 @@ public class Article implements Serializable {
 
     public void setViewersNumber(Long viewersNumber) {
         this.viewersNumber = viewersNumber;
+    }
+
+    public Long getCommentNumber() {
+        return commentNumber;
+    }
+
+    public void setCommentNumber(Long commentNumber) {
+        this.commentNumber = commentNumber;
     }
 }
