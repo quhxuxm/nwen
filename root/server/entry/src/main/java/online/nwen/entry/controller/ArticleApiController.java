@@ -18,18 +18,18 @@ public class ArticleApiController {
         this.articleService = articleService;
     }
 
-    @GetMapping("/article/{id}/detail")
-    public ApiResponse<ArticleDetailDTO> detail(@PathVariable("id") Long id) {
+    @GetMapping("/article/{id}/view")
+    public ApiResponse<ViewArticleResultDTO> view(@PathVariable("id") String id) {
         return null;
     }
 
     @GetMapping("/article/{id}/summary")
-    public ApiResponse<ArticleSummaryDTO> summary(@PathVariable("id") Long id) {
+    public ApiResponse<ArticleSummaryDTO> summary(@PathVariable("id") String id) {
         return null;
     }
 
     @PostMapping("/security/article/{id}/delete")
-    public ApiResponse<DeleteArticleResultDTO> delete(@PathVariable("id") Long id) {
+    public ApiResponse<DeleteArticleResultDTO> delete(@PathVariable("id") String id) {
         return null;
     }
 

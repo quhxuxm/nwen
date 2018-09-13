@@ -43,7 +43,7 @@ public class SecurityContextAspect {
      * @param joinPoint The join point.
      */
     @Before(value = "securityMethod()")
-    @Order(0)
+    @Order(1)
     public void checkSecurityContext(JoinPoint joinPoint) {
         String methodSignature = joinPoint.getSignature().toLongString();
         logger.debug("Start to check security context for method: {}", methodSignature);
@@ -64,7 +64,7 @@ public class SecurityContextAspect {
     }
 
     @Before(value = "refreshSecurityContext()")
-    @Order(1)
+    @Order(2)
     public void refreshSecurityContext(JoinPoint joinPoint) {
         String methodSignature = joinPoint.getSignature().toLongString();
         logger.debug("Start to refresh security context for method: {}", methodSignature);
