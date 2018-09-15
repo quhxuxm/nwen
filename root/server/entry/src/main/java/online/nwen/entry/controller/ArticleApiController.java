@@ -19,7 +19,7 @@ public class ArticleApiController {
     }
 
     @GetMapping("/article/{id}/view")
-    public ApiResponse<ViewArticleResultDTO> view(@PathVariable("id") String id) {
+    public ApiResponse<ArticleDetailDTO> view(@PathVariable("id") String id) {
         return null;
     }
 

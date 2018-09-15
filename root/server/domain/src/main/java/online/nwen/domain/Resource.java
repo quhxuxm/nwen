@@ -10,17 +10,17 @@ import java.io.Serializable;
 public class Resource implements Serializable {
     private static final long serialVersionUID = -7001454343688484844L;
     @Id
-    private Long id;
+    private String id;
     private byte[] content;
     private String contentType;
     @Indexed(unique = true)
     private String md5;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

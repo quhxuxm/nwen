@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ViewArticleResultDTO implements Serializable {
+public class ArticleDetailDTO implements Serializable {
     private String articleId;
     private String title;
     private String content;
@@ -24,7 +24,7 @@ public class ViewArticleResultDTO implements Serializable {
     private Long commentNumber;
     private Long viewNumber;
 
-    public ViewArticleResultDTO() {
+    public ArticleDetailDTO() {
         this.tags = new HashSet<>();
     }
 

@@ -19,7 +19,7 @@ public class Article implements Serializable {
     private String summary;
     private String anthologyId;
     private String authorId;
-    private String coverImageId;
+    private String coverResourceId;
     private Boolean isPublished;
     private Set<String> tags;
     private Map<String, Date> bookmarks;
@@ -115,12 +115,12 @@ public class Article implements Serializable {
         this.anthologyId = anthologyId;
     }
 
-    public String getCoverImageId() {
-        return coverImageId;
+    public String getCoverResourceId() {
+        return coverResourceId;
     }
 
-    public void setCoverImageId(String coverImageId) {
-        this.coverImageId = coverImageId;
+    public void setCoverResourceId(String coverResourceId) {
+        this.coverResourceId = coverResourceId;
     }
 
     public Map<String, Date> getBookmarks() {

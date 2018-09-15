@@ -1,5 +1,7 @@
 package online.nwen.service.api;
 
+import online.nwen.service.dto.content.ContentParseResultDTO;
+
 public interface IContentService {
-    String parse(String content);
+    ContentParseResultDTO parse(String content);
 }

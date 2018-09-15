@@ -12,12 +12,14 @@ import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.configuration.ServiceConfiguration;
 import online.nwen.service.dto.article.*;
+import online.nwen.service.dto.content.ContentParseResultDTO;
 import online.nwen.service.security.SecurityContextHolder;
 import online.nwen.service.security.annotation.PrepareSecurityContext;
 import online.nwen.service.security.annotation.Security;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.Optional;
@@ -46,13 +48,59 @@ class ArticleService implements IArticleService {
 
     @PrepareSecurityContext
     @Override
-    public ViewArticleResultDTO viewArticle(ViewArticleDTO viewArticleDTO) {
+    public ArticleSummaryDTO getArticleSummary(GetArticleSummaryDTO getArticleSummaryDTO) {
         Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
-        if (viewArticleDTO.getArticleId() == null) {
+        if (getArticleSummaryDTO.getArticleId() == null) {
             logger.error("The article id in request is empty.");
             throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_ARTICLE_ID);
         }
-        Optional<Article> articleOptional = this.articleRepository.findById(viewArticleDTO.getArticleId());
+        Optional<Article> articleOptional = this.articleRepository.findById(getArticleSummaryDTO.getArticleId());
+        if (!articleOptional.isPresent()) {
+            logger.error("The article not exist.");
+            throw new ServiceException(ExceptionCode.ARTICLE_ERROR_NOT_EXIST);
+        }
+        Article article = articleOptional.get();
+        Optional<Author> articleAuthorOptional = this.authorRepository.findById(article.getAuthorId());
+        if (!articleAuthorOptional.isPresent()) {
+            logger.error("The article author not exist.");
+            throw new ServiceException(ExceptionCode.SYSTEM_ERROR);
+        }
+        Author articleAuthor = articleAuthorOptional.get();
+        Optional<Anthology> anthologyOptional = this.anthologyRepository.findById(article.getAnthologyId());
+        if (!anthologyOptional.isPresent()) {
+            logger.error("The article anthology not exist.");
+            throw new ServiceException(ExceptionCode.SYSTEM_ERROR);
+        }
+        Anthology anthology = anthologyOptional.get();
+        ArticleSummaryDTO resultDTO = new ArticleSummaryDTO();
+        resultDTO.setArticleId(article.getId());
+        resultDTO.setAnthologyId(article.getAnthologyId());
+        resultDTO.setTitle(article.getTitle());
+        resultDTO.setAuthorId(article.getAuthorId());
+        resultDTO.setAuthorNickName(articleAuthor.getNickname());
+        resultDTO.setAnthologyTitle(anthology.getTitle());
+        resultDTO.setSummary(article.getSummary());
+        resultDTO.setCreateDate(article.getCreateDate());
+        resultDTO.setAnthologyCoverImageId(anthology.getCoverImageId());
+        resultDTO.setAuthorIconImageId(articleAuthor.getIconImageId());
+        resultDTO.setSummary(article.getSummary());
+        resultDTO.setPraiseNumber(article.getPraisesNumber());
+        resultDTO.setCommentNumber(article.getCommentNumber());
+        resultDTO.setBookmarkNumber(article.getBookmarksNumber());
+        resultDTO.setUpdateDate(article.getUpdateDate());
+        resultDTO.setViewNumber(article.getViewersNumber());
+        return resultDTO;
+    }
+
+    @PrepareSecurityContext
+    @Override
+    public ArticleDetailDTO getArticleDetail(GetArticleDetailDTO getArticleDetailDTO) {
+        Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
+        if (getArticleDetailDTO.getArticleId() == null) {
+            logger.error("The article id in request is empty.");
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_ARTICLE_ID);
+        }
+        Optional<Article> articleOptional = this.articleRepository.findById(getArticleDetailDTO.getArticleId());
         if (!articleOptional.isPresent()) {
             logger.error("The article not exist.");
             throw new ServiceException(ExceptionCode.ARTICLE_ERROR_NOT_EXIST);
@@ -83,7 +131,7 @@ class ArticleService implements IArticleService {
             throw new ServiceException(ExceptionCode.SYSTEM_ERROR);
         }
         Anthology anthology = anthologyOptional.get();
-        ViewArticleResultDTO resultDTO = new ViewArticleResultDTO();
+        ArticleDetailDTO resultDTO = new ArticleDetailDTO();
         resultDTO.setArticleId(article.getId());
         resultDTO.setAnthologyId(article.getAnthologyId());
         resultDTO.setTitle(article.getTitle());
@@ -108,6 +156,9 @@ class ArticleService implements IArticleService {
     @PrepareSecurityContext
     @Override
     public SaveArticleResultDTO saveArticle(SaveArticleDTO saveArticleDTO) {
+        if (StringUtils.isEmpty(saveArticleDTO.getTitle())) {
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_ARTICLE_TITLE);
+        }
         Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
         if (saveArticleDTO.getArticleId() != null) {
             logger.debug("Article id assigned, update the article, article id = {}", saveArticleDTO.getArticleId());
@@ -154,7 +205,11 @@ class ArticleService implements IArticleService {
         }
         article.setTitle(saveArticleDTO.getTitle());
         article.setSummary(saveArticleDTO.getSummary());
-        article.setContent(this.parseArticleContent(saveArticleDTO.getContent()));
+        ContentParseResultDTO contentParseResult = this.parseArticleContent(saveArticleDTO.getContent());
+        article.setContent(contentParseResult.getContent());
+        if (!contentParseResult.getResources().isEmpty()) {
+            article.setCoverResourceId(contentParseResult.getResources().get(0).getId());
+        }
         article.setUpdateDate(new Date());
         article.setTags(saveArticleDTO.getTags());
         this.articleRepository.save(article);
@@ -191,7 +246,11 @@ class ArticleService implements IArticleService {
         article.setTitle(saveArticleDTO.getTitle());
         article.setCreateDate(new Date());
         article.setSummary(saveArticleDTO.getSummary());
-        article.setContent(this.parseArticleContent(saveArticleDTO.getContent()));
+        ContentParseResultDTO contentParseResult = this.parseArticleContent(saveArticleDTO.getContent());
+        article.setContent(contentParseResult.getContent());
+        if (!contentParseResult.getResources().isEmpty()) {
+            article.setCoverResourceId(contentParseResult.getResources().get(0).getId());
+        }
         article.setUpdateDate(new Date());
         article.setAnthologyId(saveArticleDTO.getAnthologyId());
         article.setAuthorId(currentAuthor.getId());
@@ -202,7 +261,7 @@ class ArticleService implements IArticleService {
         return result;
     }
 
-    private String parseArticleContent(String content) {
+    private ContentParseResultDTO parseArticleContent(String content) {
         return this.contentService.parse(content);
     }
 
