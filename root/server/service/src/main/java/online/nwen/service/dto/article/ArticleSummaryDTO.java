@@ -4,22 +4,22 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class ArticleSummaryDTO implements Serializable {
-    private Long articleId;
+    private String articleId;
     private String title;
     private String summary;
     private Date createDate;
     private Date updateDate;
-    private Long authorId;
+    private String authorId;
     private String authorNickName;
-    private Long authorIconImageId;
-    private Long anthologyId;
+    private String authorIconImageId;
+    private String anthologyId;
     private String anthologyTitle;
-    private Long anthologyCoverImageId;
+    private String anthologyCoverImageId;
     private Long praiseNumber;
     private Long bookmarkNumber;
     private Long commentNumber;
     private Long viewNumber;
-    private Long coverImageId;
+    private String coverImageId;
 
     public ArticleSummaryDTO() {
         this.praiseNumber = 0L;
@@ -28,11 +28,11 @@ public class ArticleSummaryDTO implements Serializable {
         this.bookmarkNumber = 0L;
     }
 
-    public Long getArticleId() {
+    public String getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(Long articleId) {
+    public void setArticleId(String articleId) {
         this.articleId = articleId;
     }
 
@@ -60,11 +60,11 @@ public class ArticleSummaryDTO implements Serializable {
         this.updateDate = updateDate;
     }
 
-    public Long getAuthorId() {
+    public String getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(Long authorId) {
+    public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
 
@@ -76,11 +76,11 @@ public class ArticleSummaryDTO implements Serializable {
         this.authorNickName = authorNickName;
     }
 
-    public Long getAuthorIconImageId() {
+    public String getAuthorIconImageId() {
         return authorIconImageId;
     }
 
-    public void setAuthorIconImageId(Long authorIconImageId) {
+    public void setAuthorIconImageId(String authorIconImageId) {
         this.authorIconImageId = authorIconImageId;
     }
 
@@ -92,11 +92,11 @@ public class ArticleSummaryDTO implements Serializable {
         this.summary = summary;
     }
 
-    public Long getAnthologyId() {
+    public String getAnthologyId() {
         return anthologyId;
     }
 
-    public void setAnthologyId(Long anthologyId) {
+    public void setAnthologyId(String anthologyId) {
         this.anthologyId = anthologyId;
     }
 
@@ -108,11 +108,11 @@ public class ArticleSummaryDTO implements Serializable {
         this.anthologyTitle = anthologyTitle;
     }
 
-    public Long getAnthologyCoverImageId() {
+    public String getAnthologyCoverImageId() {
         return anthologyCoverImageId;
     }
 
-    public void setAnthologyCoverImageId(Long anthologyCoverImageId) {
+    public void setAnthologyCoverImageId(String anthologyCoverImageId) {
         this.anthologyCoverImageId = anthologyCoverImageId;
     }
 
@@ -140,11 +140,11 @@ public class ArticleSummaryDTO implements Serializable {
         this.commentNumber = commentNumber;
     }
 
-    public Long getCoverImageId() {
+    public String getCoverImageId() {
         return coverImageId;
     }
 
-    public void setCoverImageId(Long coverImageId) {
+    public void setCoverImageId(String coverImageId) {
         this.coverImageId = coverImageId;
     }
 
