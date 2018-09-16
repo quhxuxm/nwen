@@ -9,9 +9,9 @@ public class SaveAnthologyDTO implements Serializable {
     private String summary;
     private String coverImageId;
     private Set<String> tags;
-    private Long authorId;
     private Boolean isPublished;
     private Boolean isShared;
+    private String anthologyId;
 
     public SaveAnthologyDTO() {
         this.tags = new HashSet<>();
@@ -51,14 +51,6 @@ public class SaveAnthologyDTO implements Serializable {
         this.tags = tags;
     }
 
-    public Long getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
-    }
-
     public Boolean getPublished() {
         return isPublished;
     }
@@ -73,5 +65,13 @@ public class SaveAnthologyDTO implements Serializable {
 
     public void setShared(Boolean shared) {
         isShared = shared;
+    }
+
+    public String getAnthologyId() {
+        return anthologyId;
+    }
+
+    public void setAnthologyId(String anthologyId) {
+        this.anthologyId = anthologyId;
     }
 }

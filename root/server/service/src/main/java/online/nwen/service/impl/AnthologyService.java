@@ -9,13 +9,17 @@ import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.ServiceException;
 import online.nwen.service.dto.anthology.GetAnthologyDetailDTO;
 import online.nwen.service.dto.anthology.GetAnthologyDetailResultDTO;
+import online.nwen.service.dto.anthology.SaveAnthologyDTO;
+import online.nwen.service.dto.anthology.SaveAnthologyResultDTO;
 import online.nwen.service.security.SecurityContextHolder;
 import online.nwen.service.security.annotation.PrepareSecurityContext;
+import online.nwen.service.security.annotation.Security;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -69,6 +73,63 @@ class AnthologyService implements IAnthologyService {
         resultDTO.setCommentNumber(anthology.getCommentNumber());
         resultDTO.setBookmarkNumber(anthology.getBookmarkNumber());
         resultDTO.setUpdateDate(anthology.getUpdateDate());
+        return resultDTO;
+    }
+
+    @Security
+    @PrepareSecurityContext
+    @Override
+    public SaveAnthologyResultDTO save(SaveAnthologyDTO saveAnthologyDTO) {
+        if (saveAnthologyDTO.getTitle() == null) {
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_ANTHOLOGY_TITLE);
+        }
+        SaveAnthologyResultDTO resultDTO = null;
+        if (saveAnthologyDTO.getAnthologyId() == null) {
+            resultDTO = this.create(saveAnthologyDTO);
+        } else {
+            resultDTO = this.update(saveAnthologyDTO);
+        }
+        return resultDTO;
+    }
+
+    private SaveAnthologyResultDTO create(SaveAnthologyDTO saveAnthologyDTO) {
+        Author author = SecurityContextHolder.INSTANCE.getContext().getAuthor();
+        Anthology anthology = new Anthology();
+        anthology.setCreateDate(new Date());
+        anthology.setTitle(saveAnthologyDTO.getTitle());
+        anthology.setTags(saveAnthologyDTO.getTags());
+        anthology.setSummary(saveAnthologyDTO.getSummary());
+        anthology.setAuthorId(author.getId());
+        anthology.setShared(saveAnthologyDTO.getShared());
+        anthology.setPublished(saveAnthologyDTO.getPublished());
+        anthology.setCoverImageId(saveAnthologyDTO.getCoverImageId());
+        this.anthologyRepository.save(anthology);
+        SaveAnthologyResultDTO resultDTO = new SaveAnthologyResultDTO();
+        resultDTO.setAnthologyId(anthology.getId());
+        return resultDTO;
+    }
+
+    private SaveAnthologyResultDTO update(SaveAnthologyDTO saveAnthologyDTO) {
+        Author author = SecurityContextHolder.INSTANCE.getContext().getAuthor();
+        Optional<Anthology> anthologyOptional = this.anthologyRepository.findById(saveAnthologyDTO.getAnthologyId());
+        if (!anthologyOptional.isPresent()) {
+            throw new ServiceException(ExceptionCode.ANTHOLOGY_ERROR_NOT_EXIST);
+        }
+        Anthology anthology = anthologyOptional.get();
+        if (!anthology.getAuthorId().equals(author.getId())) {
+            throw new ServiceException(ExceptionCode.ANTHOLOGY_ERROR_AUTHOR_NOT_OWNER);
+        }
+        anthology.setUpdateDate(new Date());
+        anthology.setTitle(saveAnthologyDTO.getTitle());
+        anthology.setTags(saveAnthologyDTO.getTags());
+        anthology.setSummary(saveAnthologyDTO.getSummary());
+        anthology.setAuthorId(author.getId());
+        anthology.setShared(saveAnthologyDTO.getShared());
+        anthology.setPublished(saveAnthologyDTO.getPublished());
+        anthology.setCoverImageId(saveAnthologyDTO.getCoverImageId());
+        this.anthologyRepository.save(anthology);
+        SaveAnthologyResultDTO resultDTO = new SaveAnthologyResultDTO();
+        resultDTO.setAnthologyId(anthology.getId());
         return resultDTO;
     }
 }
