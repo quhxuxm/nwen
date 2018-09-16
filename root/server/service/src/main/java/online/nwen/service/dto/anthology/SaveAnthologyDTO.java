@@ -4,16 +4,16 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CreateAnthologyDTO implements Serializable {
+public class SaveAnthologyDTO implements Serializable {
     private String title;
     private String summary;
-    private Long coverImageId;
+    private String coverImageId;
     private Set<String> tags;
     private Long authorId;
     private Boolean isPublished;
     private Boolean isShared;
 
-    public CreateAnthologyDTO() {
+    public SaveAnthologyDTO() {
         this.tags = new HashSet<>();
         this.isPublished = false;
         this.isShared = false;
@@ -35,11 +35,11 @@ public class CreateAnthologyDTO implements Serializable {
         this.summary = summary;
     }
 
-    public Long getCoverImageId() {
+    public String getCoverImageId() {
         return coverImageId;
     }
 
-    public void setCoverImageId(Long coverImageId) {
+    public void setCoverImageId(String coverImageId) {
         this.coverImageId = coverImageId;
     }
 

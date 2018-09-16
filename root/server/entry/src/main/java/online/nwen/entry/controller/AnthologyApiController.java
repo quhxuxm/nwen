@@ -1,35 +1,35 @@
 package online.nwen.entry.controller;
 
+import online.nwen.entry.common.ApiResponseGenerator;
 import online.nwen.entry.response.ApiResponse;
-import online.nwen.service.dto.anthology.*;
+import online.nwen.service.api.IAnthologyService;
+import online.nwen.service.dto.anthology.GetAnthologyDetailDTO;
+import online.nwen.service.dto.anthology.GetAnthologyDetailResultDTO;
+import online.nwen.service.dto.anthology.SaveAnthologyDTO;
+import online.nwen.service.dto.anthology.SaveAnthologyResultDTO;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/anthology")
+@RequestMapping("/api")
 public class AnthologyApiController {
-    @GetMapping("/{id}/detail")
-    public ApiResponse<AnthologyDetailDTO> detail(@PathVariable("id") Long id) {
-        return null;
+    private IAnthologyService anthologyService;
+
+    public AnthologyApiController(IAnthologyService anthologyService) {
+        this.anthologyService = anthologyService;
     }
 
-    @GetMapping("/{id}/summary")
-    public ApiResponse<AnthologySummaryDTO> summary(@PathVariable("id") Long id) {
-        return null;
+    @GetMapping("/anthology/{id}/detail")
+    public ApiResponse<GetAnthologyDetailResultDTO> detail(@PathVariable("id") String id) {
+        GetAnthologyDetailDTO getAuthorDetailDTO = new GetAnthologyDetailDTO();
+        getAuthorDetailDTO.setAnthologyId(id);
+        GetAnthologyDetailResultDTO getAnthologyDetailResultDTO =
+                this.anthologyService.getAnthologyDetail(getAuthorDetailDTO);
+        return ApiResponseGenerator.INSTANCE.generate(getAnthologyDetailResultDTO);
     }
 
-    @PostMapping("/{id}/update")
-    public ApiResponse<UpdateAnthologyResultDTO> update(@PathVariable("id") Long id,
-                                                        UpdateAnthologyDTO updateAnthologyDTO) {
-        return null;
-    }
-
-    @PostMapping("/{id}/delete")
-    public ApiResponse<DeleteAnthologyResultDTO> delete(@PathVariable("id") Long id) {
-        return null;
-    }
-
-    @PostMapping("/create")
-    public ApiResponse<CreateAnthologyResultDTO> create(CreateAnthologyDTO createAnthologyDTO) {
+    @PostMapping("/security/anthology/save")
+    public ApiResponse<SaveAnthologyResultDTO> update(
+            SaveAnthologyDTO saveAnthologyDTO) {
         return null;
     }
 }

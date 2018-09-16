@@ -18,6 +18,8 @@ import online.nwen.service.security.annotation.PrepareSecurityContext;
 import online.nwen.service.security.annotation.Security;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -47,9 +49,9 @@ class ArticleService implements IArticleService {
     }
 
     @PrepareSecurityContext
+    @Cacheable(cacheNames = "article-summaries", key = "#getArticleSummaryDTO.articleId")
     @Override
     public GetArticleSummaryResultDTO getArticleSummary(GetArticleSummaryDTO getArticleSummaryDTO) {
-        Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
         if (getArticleSummaryDTO.getArticleId() == null) {
             logger.error("The article id in request is empty.");
             throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_ARTICLE_ID);
@@ -93,6 +95,7 @@ class ArticleService implements IArticleService {
     }
 
     @PrepareSecurityContext
+    @Cacheable(cacheNames = "article-details", key = "#getArticleDetailDTO.articleId")
     @Override
     public GetArticleDetailResultDTO getArticleDetail(GetArticleDetailDTO getArticleDetailDTO) {
         Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
@@ -156,6 +159,7 @@ class ArticleService implements IArticleService {
 
     @Security
     @PrepareSecurityContext
+    @CacheEvict(cacheNames = {"article-details", "article-summaries"}, key = "#saveArticleDTO.articleId")
     @Override
     public SaveArticleResultDTO saveArticle(SaveArticleDTO saveArticleDTO) {
         if (StringUtils.isEmpty(saveArticleDTO.getTitle())) {

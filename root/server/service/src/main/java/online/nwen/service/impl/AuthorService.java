@@ -14,6 +14,7 @@ import online.nwen.service.dto.author.RegisterAuthorDTO;
 import online.nwen.service.dto.author.RegisterAuthorResultDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -90,6 +91,7 @@ class AuthorService implements IAuthorService {
         return result;
     }
 
+    @Cacheable(cacheNames = "author-details", key = "#getAuthorDetailDTO.authorId")
     @Override
     public GetAuthorDetailResultDTO getAuthorDetail(GetAuthorDetailDTO getAuthorDetailDTO) throws ServiceException {
         if (getAuthorDetailDTO.getAuthorId() == null) {

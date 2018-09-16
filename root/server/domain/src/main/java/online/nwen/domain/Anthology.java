@@ -26,6 +26,7 @@ public class Anthology implements Serializable {
     private Long praiseNumber;
     private Long commentNumber;
     private Long bookmarkNumber;
+    private Long articleNumber;
     private Set<String> tags;
     private Set<String> participantAuthorIds;
 
@@ -167,5 +168,13 @@ public class Anthology implements Serializable {
 
     public void setParticipantAuthorIds(Set<String> participantAuthorIds) {
         this.participantAuthorIds = participantAuthorIds;
+    }
+
+    public Long getArticleNumber() {
+        return articleNumber;
+    }
+
+    public void setArticleNumber(Long articleNumber) {
+        this.articleNumber = articleNumber;
     }
 }

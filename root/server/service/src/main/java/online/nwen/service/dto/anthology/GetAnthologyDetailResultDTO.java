@@ -2,9 +2,11 @@ package online.nwen.service.dto.anthology;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-public class AnthologyDetailDTO implements Serializable {
-    private Long anthologyId;
+public class GetAnthologyDetailResultDTO implements Serializable {
+    private String anthologyId;
     private String title;
     private String summary;
     private Date createDate;
@@ -12,17 +14,22 @@ public class AnthologyDetailDTO implements Serializable {
     private Long praiseNumber;
     private Long bookmarkNumber;
     private Long commentNumber;
-    private Long coverImageId;
-    private Long authorId;
+    private String coverImageId;
+    private String authorId;
     private String authorNickName;
-    private Long authorIconImageId;
+    private String authorIconImageId;
     private Long articleNumber;
+    private Set<String> tags;
 
-    public Long getAnthologyId() {
+    public GetAnthologyDetailResultDTO() {
+        this.tags = new HashSet<>();
+    }
+
+    public String getAnthologyId() {
         return anthologyId;
     }
 
-    public void setAnthologyId(Long anthologyId) {
+    public void setAnthologyId(String anthologyId) {
         this.anthologyId = anthologyId;
     }
 
@@ -82,19 +89,19 @@ public class AnthologyDetailDTO implements Serializable {
         this.commentNumber = commentNumber;
     }
 
-    public Long getCoverImageId() {
+    public String getCoverImageId() {
         return coverImageId;
     }
 
-    public void setCoverImageId(Long coverImageId) {
+    public void setCoverImageId(String coverImageId) {
         this.coverImageId = coverImageId;
     }
 
-    public Long getAuthorId() {
+    public String getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(Long authorId) {
+    public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
 
@@ -106,11 +113,11 @@ public class AnthologyDetailDTO implements Serializable {
         this.authorNickName = authorNickName;
     }
 
-    public Long getAuthorIconImageId() {
+    public String getAuthorIconImageId() {
         return authorIconImageId;
     }
 
-    public void setAuthorIconImageId(Long authorIconImageId) {
+    public void setAuthorIconImageId(String authorIconImageId) {
         this.authorIconImageId = authorIconImageId;
     }
 
@@ -120,5 +127,9 @@ public class AnthologyDetailDTO implements Serializable {
 
     public void setArticleNumber(Long articleNumber) {
         this.articleNumber = articleNumber;
+    }
+
+    public Set<String> getTags() {
+        return tags;
     }
 }
