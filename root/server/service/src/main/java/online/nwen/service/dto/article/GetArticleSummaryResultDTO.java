@@ -3,7 +3,7 @@ package online.nwen.service.dto.article;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ArticleSummaryDTO implements Serializable {
+public class GetArticleSummaryResultDTO implements Serializable {
     private String articleId;
     private String title;
     private String summary;
@@ -21,7 +21,7 @@ public class ArticleSummaryDTO implements Serializable {
     private Long viewNumber;
     private String coverImageId;
 
-    public ArticleSummaryDTO() {
+    public GetArticleSummaryResultDTO() {
         this.praiseNumber = 0L;
         this.commentNumber = 0L;
         this.viewNumber = 0L;

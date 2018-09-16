@@ -48,7 +48,7 @@ class ArticleService implements IArticleService {
 
     @PrepareSecurityContext
     @Override
-    public ArticleSummaryDTO getArticleSummary(GetArticleSummaryDTO getArticleSummaryDTO) {
+    public GetArticleSummaryResultDTO getArticleSummary(GetArticleSummaryDTO getArticleSummaryDTO) {
         Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
         if (getArticleSummaryDTO.getArticleId() == null) {
             logger.error("The article id in request is empty.");
@@ -72,7 +72,7 @@ class ArticleService implements IArticleService {
             throw new ServiceException(ExceptionCode.SYSTEM_ERROR);
         }
         Anthology anthology = anthologyOptional.get();
-        ArticleSummaryDTO resultDTO = new ArticleSummaryDTO();
+        GetArticleSummaryResultDTO resultDTO = new GetArticleSummaryResultDTO();
         resultDTO.setArticleId(article.getId());
         resultDTO.setAnthologyId(article.getAnthologyId());
         resultDTO.setTitle(article.getTitle());
@@ -94,7 +94,7 @@ class ArticleService implements IArticleService {
 
     @PrepareSecurityContext
     @Override
-    public ArticleDetailDTO getArticleDetail(GetArticleDetailDTO getArticleDetailDTO) {
+    public GetArticleDetailResultDTO getArticleDetail(GetArticleDetailDTO getArticleDetailDTO) {
         Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
         if (getArticleDetailDTO.getArticleId() == null) {
             logger.error("The article id in request is empty.");
@@ -106,19 +106,21 @@ class ArticleService implements IArticleService {
             throw new ServiceException(ExceptionCode.ARTICLE_ERROR_NOT_EXIST);
         }
         Article article = articleOptional.get();
-        if (article.getViewers().containsKey(currentAuthor.getId())) {
-            Date lastViewDate = article.getViewers().get(currentAuthor.getId());
-            Date currentDate = new Date();
-            long difference = currentDate.getTime() - lastViewDate.getTime();
-            if (difference > this.serviceConfiguration.getViewDateInterval()) {
+        if (currentAuthor != null) {
+            if (article.getViewers().containsKey(currentAuthor.getId())) {
+                Date lastViewDate = article.getViewers().get(currentAuthor.getId());
+                Date currentDate = new Date();
+                long difference = currentDate.getTime() - lastViewDate.getTime();
+                if (difference > this.serviceConfiguration.getViewDateInterval()) {
+                    article.setViewersNumber(article.getViewersNumber() + 1);
+                    article.getViewers().put(currentAuthor.getId(), new Date());
+                }
+            } else {
                 article.setViewersNumber(article.getViewersNumber() + 1);
                 article.getViewers().put(currentAuthor.getId(), new Date());
             }
-        } else {
-            article.setViewersNumber(article.getViewersNumber() + 1);
-            article.getViewers().put(currentAuthor.getId(), new Date());
+            this.articleRepository.save(article);
         }
-        this.articleRepository.save(article);
         Optional<Author> articleAuthorOptional = this.authorRepository.findById(article.getAuthorId());
         if (!articleAuthorOptional.isPresent()) {
             logger.error("The article author not exist.");
@@ -131,7 +133,7 @@ class ArticleService implements IArticleService {
             throw new ServiceException(ExceptionCode.SYSTEM_ERROR);
         }
         Anthology anthology = anthologyOptional.get();
-        ArticleDetailDTO resultDTO = new ArticleDetailDTO();
+        GetArticleDetailResultDTO resultDTO = new GetArticleDetailResultDTO();
         resultDTO.setArticleId(article.getId());
         resultDTO.setAnthologyId(article.getAnthologyId());
         resultDTO.setTitle(article.getTitle());
@@ -221,7 +223,8 @@ class ArticleService implements IArticleService {
 
     private SaveArticleResultDTO createArticle(SaveArticleDTO saveArticleDTO, Author currentAuthor) {
         if (saveArticleDTO.getAnthologyId() == null) {
-            logger.debug("The anthology id is empty on create article will save the article to the default anthology.");
+            logger.debug(
+                    "The anthology id is empty on create article will save the article to the default anthology.");
             saveArticleDTO
                     .setAnthologyId(currentAuthor.getDefaultAnthologyId());
         } else {
@@ -269,6 +272,9 @@ class ArticleService implements IArticleService {
     @PrepareSecurityContext
     @Override
     public PraiseArticleResultDTO praiseArticle(PraiseArticleDTO praiseArticleDTO) {
+        if (praiseArticleDTO.getArticleId() == null) {
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_ARTICLE_ID);
+        }
         Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
         Optional<Article> articleOptional = this.articleRepository.findById(praiseArticleDTO.getArticleId());
         if (!articleOptional.isPresent()) {
@@ -293,6 +299,9 @@ class ArticleService implements IArticleService {
     @PrepareSecurityContext
     @Override
     public BookmarkArticleResultDTO bookmarkArticle(BookmarkArticleDTO bookmarkArticleDTO) {
+        if (bookmarkArticleDTO.getArticleId() == null) {
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_ARTICLE_ID);
+        }
         Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
         Optional<Article> articleOptional = this.articleRepository.findById(bookmarkArticleDTO.getArticleId());
         if (!articleOptional.isPresent()) {

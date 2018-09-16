@@ -8,7 +8,8 @@ import online.nwen.repository.IAuthorRepository;
 import online.nwen.service.api.IAuthorService;
 import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.ServiceException;
-import online.nwen.service.dto.author.AuthorDetailDTO;
+import online.nwen.service.dto.author.GetAuthorDetailDTO;
+import online.nwen.service.dto.author.GetAuthorDetailResultDTO;
 import online.nwen.service.dto.author.RegisterAuthorDTO;
 import online.nwen.service.dto.author.RegisterAuthorResultDTO;
 import org.slf4j.Logger;
@@ -90,16 +91,19 @@ class AuthorService implements IAuthorService {
     }
 
     @Override
-    public AuthorDetailDTO findDetailById(String id) throws ServiceException {
-        Optional<Author> authorOptional = this.authorRepository.findById(id);
+    public GetAuthorDetailResultDTO getAuthorDetail(GetAuthorDetailDTO getAuthorDetailDTO) throws ServiceException {
+        if (getAuthorDetailDTO.getAuthorId() == null) {
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_AUTHOR_ID);
+        }
+        Optional<Author> authorOptional = this.authorRepository.findById(getAuthorDetailDTO.getAuthorId());
         if (authorOptional.isPresent()) {
             return this.convert(authorOptional.get());
         }
         throw new ServiceException(ExceptionCode.AUTHOR_ERROR_NOT_EXIST);
     }
 
-    private AuthorDetailDTO convert(Author author) {
-        AuthorDetailDTO result = new AuthorDetailDTO();
+    private GetAuthorDetailResultDTO convert(Author author) {
+        GetAuthorDetailResultDTO result = new GetAuthorDetailResultDTO();
         result.setAuthorId(author.getId());
         result.setNickName(author.getUsername());
         result.setLastLoginDate(author.getLastLoginDate());

@@ -3,9 +3,9 @@ package online.nwen.service.api;
 import online.nwen.service.dto.article.*;
 
 public interface IArticleService {
-    ArticleSummaryDTO getArticleSummary(GetArticleSummaryDTO getArticleSummaryDTO);
+    GetArticleSummaryResultDTO getArticleSummary(GetArticleSummaryDTO getArticleSummaryDTO);
 
-    ArticleDetailDTO getArticleDetail(GetArticleDetailDTO getArticleDetailDTO);
+    GetArticleDetailResultDTO getArticleDetail(GetArticleDetailDTO getArticleDetailDTO);
 
     SaveArticleResultDTO saveArticle(SaveArticleDTO saveArticleDTO);
 

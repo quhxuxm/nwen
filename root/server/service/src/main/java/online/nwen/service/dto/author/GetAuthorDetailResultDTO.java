@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AuthorDetailDTO implements Serializable {
+public class GetAuthorDetailResultDTO implements Serializable {
     private String authorId;
     private String nickName;
     private String token;
@@ -22,7 +22,7 @@ public class AuthorDetailDTO implements Serializable {
     private Set<String> tags;
     private String defaultAnthologyId;
 
-    public AuthorDetailDTO() {
+    public GetAuthorDetailResultDTO() {
         this.roles = new HashSet<>();
         this.tags = new HashSet<>();
         this.followerNumber = 0L;

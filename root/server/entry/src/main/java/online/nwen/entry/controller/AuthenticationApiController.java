@@ -1,5 +1,6 @@
 package online.nwen.entry.controller;
 
+import online.nwen.entry.common.ApiResponseGenerator;
 import online.nwen.entry.request.ApiRequest;
 import online.nwen.entry.response.ApiResponse;
 import online.nwen.service.api.IAuthenticationService;
@@ -24,9 +25,6 @@ public class AuthenticationApiController {
     public ApiResponse<AuthenticateResultDTO> authenticate(@RequestBody ApiRequest<AuthenticateDTO> request)
             throws ServiceException {
         AuthenticateResultDTO authenticateResultDTO = this.authenticationService.authenticate(request.getPayload());
-        ApiResponse<AuthenticateResultDTO> apiResponse = new ApiResponse<>();
-        apiResponse.setPayload(authenticateResultDTO);
-        apiResponse.setSuccess(true);
-        return apiResponse;
+        return ApiResponseGenerator.INSTANCE.generate(authenticateResultDTO);
     }
 }

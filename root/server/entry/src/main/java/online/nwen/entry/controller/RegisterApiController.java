@@ -1,5 +1,6 @@
 package online.nwen.entry.controller;
 
+import online.nwen.entry.common.ApiResponseGenerator;
 import online.nwen.entry.configuration.ApiConfiguration;
 import online.nwen.entry.request.ApiRequest;
 import online.nwen.entry.response.ApiResponse;
@@ -28,9 +29,7 @@ public class RegisterApiController {
             throws ServiceException {
         this.verify(request);
         RegisterAuthorResultDTO responsePayload = this.authorService.register(request.getPayload());
-        ApiResponse<RegisterAuthorResultDTO> response = new ApiResponse<>();
-        response.setPayload(responsePayload);
-        return response;
+        return ApiResponseGenerator.INSTANCE.generate(responsePayload);
     }
 
     private void verify(ApiRequest<RegisterAuthorDTO> request) throws ServiceException {
