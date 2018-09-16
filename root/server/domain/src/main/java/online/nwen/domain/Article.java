@@ -1,6 +1,7 @@
 package online.nwen.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
@@ -21,6 +22,7 @@ public class Article implements Serializable {
     private String authorId;
     private String coverResourceId;
     private Boolean isPublished;
+    @Indexed
     private Set<String> tags;
     private Map<String, Date> bookmarks;
     private Map<String, Date> praises;

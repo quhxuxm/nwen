@@ -20,11 +20,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 class ArticleService implements IArticleService {
@@ -74,6 +74,10 @@ class ArticleService implements IArticleService {
             throw new ServiceException(ExceptionCode.SYSTEM_ERROR);
         }
         Anthology anthology = anthologyOptional.get();
+        return this.convert(article, anthology, articleAuthor);
+    }
+
+    private GetArticleSummaryResultDTO convert(Article article, Anthology anthology, Author articleAuthor) {
         GetArticleSummaryResultDTO resultDTO = new GetArticleSummaryResultDTO();
         resultDTO.setArticleId(article.getId());
         resultDTO.setAnthologyId(article.getAnthologyId());
@@ -324,5 +328,62 @@ class ArticleService implements IArticleService {
         resultDTO.setArticleId(article.getId());
         resultDTO.setBookmarkNumber(article.getBookmarksNumber());
         return resultDTO;
+    }
+
+    @Override
+    public Page<GetArticleSummaryResultDTO> getArticleSummariesByAnthology(String anthologyId, int currentPage,
+                                                                           Sort sort) {
+        Optional<Anthology> anthologyOptional = this.anthologyRepository.findById(anthologyId);
+        if (!anthologyOptional.isPresent()) {
+            throw new ServiceException(ExceptionCode.ANTHOLOGY_ERROR_NOT_EXIST);
+        }
+        Anthology anthology = anthologyOptional.get();
+        Article articlePrototypeToSearch = new Article();
+        articlePrototypeToSearch.setAnthologyId(anthologyId);
+        Example<Article> articleExample = Example.of(articlePrototypeToSearch);
+        Pageable pageable = PageRequest.of(currentPage, 10, sort);
+        Page<Article> articles = this.articleRepository.findAll(articleExample, pageable);
+        Optional<Author> anthologyAuthorOptional = this.authorRepository.findById(anthology.getAuthorId());
+        if (!anthologyAuthorOptional.isPresent()) {
+            throw new ServiceException(ExceptionCode.AUTHOR_ERROR_NOT_EXIST);
+        }
+        Map<String, Author> articleAuthorMap = new HashMap<>();
+        return articles.map(article -> {
+            Author articleAuthor = anthologyAuthorOptional.get();
+            if (!article.getAuthorId().equals(anthology.getAuthorId())) {
+                if (articleAuthorMap.containsKey(article.getAuthorId())) {
+                    articleAuthor = articleAuthorMap.get(article.getAuthorId());
+                } else {
+                    Optional<Author> articleAuthorOptional = this.authorRepository.findById(article.getAuthorId());
+                    if (!articleAuthorOptional.isPresent()) {
+                        throw new ServiceException(ExceptionCode.AUTHOR_ERROR_NOT_EXIST);
+                    }
+                    articleAuthor = articleAuthorOptional.get();
+                    articleAuthorMap.put(articleAuthor.getId(), articleAuthor);
+                }
+            }
+            return this.convert(article, anthology, articleAuthor);
+        });
+    }
+
+    @Override
+    public Page<GetArticleSummaryResultDTO> getArticleSummariesByTag(Set<String> tags, int currentPage, Sort sort) {
+        if (StringUtils.isEmpty(tags)) {
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_SEARCH_TAG);
+        }
+        Pageable pageable = PageRequest.of(currentPage, 10, sort);
+        Page<Article> articles = this.articleRepository.findAllByTagsContaining(tags, pageable);
+        return articles.map(article -> {
+            Optional<Author> articleAuthorOptional = this.authorRepository.findById(article.getAuthorId());
+            if (!articleAuthorOptional.isPresent()) {
+                throw new ServiceException(ExceptionCode.AUTHOR_ERROR_NOT_EXIST);
+            }
+            Author articleAuthor = articleAuthorOptional.get();
+            Optional<Anthology> anthologyOptional = this.anthologyRepository.findById(article.getAnthologyId());
+            if (!anthologyOptional.isPresent()) {
+                throw new ServiceException(ExceptionCode.ANTHOLOGY_ERROR_NOT_EXIST);
+            }
+            return this.convert(article, anthologyOptional.get(), articleAuthor);
+        });
     }
 }

@@ -74,10 +74,4 @@ public class ArticleApiController {
         SaveArticleResultDTO resultPayload = this.articleService.saveArticle(saveArticleDTO);
         return ApiResponseGenerator.INSTANCE.generate(resultPayload);
     }
-
-    @PostMapping("/security/article/{id}/switchAnthology")
-    public ApiResponse<ArticleSwitchAnthologyResultDTO> switchAnthology(@PathVariable("id") Long articleId,
-                                                                        @RequestParam("anthologyId") Long anthologyId) {
-        return null;
-    }
 }
