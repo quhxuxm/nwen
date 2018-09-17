@@ -30,6 +30,7 @@ public class AnthologyApiController {
     @PostMapping("/security/anthology/save")
     public ApiResponse<SaveAnthologyResultDTO> update(
             SaveAnthologyDTO saveAnthologyDTO) {
-        return null;
+        SaveAnthologyResultDTO saveAnthologyResultDTO = this.anthologyService.save(saveAnthologyDTO);
+        return ApiResponseGenerator.INSTANCE.generate(saveAnthologyResultDTO);
     }
 }

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-public class SecurityContextAspect {
+class SecurityContextAspect {
     private static final Logger logger = LoggerFactory.getLogger(SecurityContextAspect.class);
     private IJWTService jwtService;
 

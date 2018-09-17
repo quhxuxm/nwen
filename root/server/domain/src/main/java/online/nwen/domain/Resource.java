@@ -15,6 +15,8 @@ public class Resource implements Serializable {
     private String contentType;
     @Indexed(unique = true)
     private String md5;
+    @Indexed
+    private String saveAuthorId;
 
     public String getId() {
         return id;
@@ -46,5 +48,13 @@ public class Resource implements Serializable {
 
     public void setMd5(String md5) {
         this.md5 = md5;
+    }
+
+    public String getSaveAuthorId() {
+        return saveAuthorId;
+    }
+
+    public void setSaveAuthorId(String saveAuthorId) {
+        this.saveAuthorId = saveAuthorId;
     }
 }
