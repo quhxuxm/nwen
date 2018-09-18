@@ -1,12 +1,12 @@
 package online.nwen.entry.controller;
 
 import online.nwen.entry.common.ApiResponseGenerator;
+import online.nwen.entry.request.ApiRequest;
 import online.nwen.entry.response.ApiResponse;
 import online.nwen.service.api.IAnthologyService;
-import online.nwen.service.dto.anthology.GetAnthologyDetailDTO;
-import online.nwen.service.dto.anthology.GetAnthologyDetailResultDTO;
-import online.nwen.service.dto.anthology.SaveAnthologyDTO;
-import online.nwen.service.dto.anthology.SaveAnthologyResultDTO;
+import online.nwen.service.api.exception.ExceptionCode;
+import online.nwen.service.api.exception.ServiceException;
+import online.nwen.service.dto.anthology.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,10 +27,35 @@ public class AnthologyApiController {
         return ApiResponseGenerator.INSTANCE.generate(getAnthologyDetailResultDTO);
     }
 
+    @PostMapping("/security/anthology/bookmark")
+    public ApiResponse<BookmarkAnthologyResultDTO> bookmark(
+            @RequestBody ApiRequest<BookmarkAnthologyDTO> bookmarkAnthologyDTOApiRequest) {
+        if (bookmarkAnthologyDTOApiRequest.getPayload() == null) {
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_API_REQUEST_PAYLOAD);
+        }
+        BookmarkAnthologyResultDTO bookmarkAnthologyResultDTO =
+                this.anthologyService.bookmarkAnthology(bookmarkAnthologyDTOApiRequest.getPayload());
+        return ApiResponseGenerator.INSTANCE.generate(bookmarkAnthologyResultDTO);
+    }
+
+    @PostMapping("/security/anthology/praise")
+    public ApiResponse<PraiseAnthologyResultDTO> praise(
+            @RequestBody ApiRequest<PraiseAnthologyDTO> praiseAnthologyDTOApiRequest) {
+        if (praiseAnthologyDTOApiRequest.getPayload() == null) {
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_API_REQUEST_PAYLOAD);
+        }
+        PraiseAnthologyResultDTO praiseAnthologyResultDTO =
+                this.anthologyService.praiseAnthology(praiseAnthologyDTOApiRequest.getPayload());
+        return ApiResponseGenerator.INSTANCE.generate(praiseAnthologyResultDTO);
+    }
+
     @PostMapping("/security/anthology/save")
     public ApiResponse<SaveAnthologyResultDTO> update(
-            SaveAnthologyDTO saveAnthologyDTO) {
-        SaveAnthologyResultDTO saveAnthologyResultDTO = this.anthologyService.save(saveAnthologyDTO);
+            @RequestBody ApiRequest<SaveAnthologyDTO> saveAnthologyDTO) {
+        if (saveAnthologyDTO.getPayload() == null) {
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_API_REQUEST_PAYLOAD);
+        }
+        SaveAnthologyResultDTO saveAnthologyResultDTO = this.anthologyService.save(saveAnthologyDTO.getPayload());
         return ApiResponseGenerator.INSTANCE.generate(saveAnthologyResultDTO);
     }
 }

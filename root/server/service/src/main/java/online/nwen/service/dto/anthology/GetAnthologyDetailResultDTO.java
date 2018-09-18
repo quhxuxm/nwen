@@ -11,9 +11,9 @@ public class GetAnthologyDetailResultDTO implements Serializable {
     private String summary;
     private Date createDate;
     private Date updateDate;
-    private Long praiseNumber;
-    private Long bookmarkNumber;
-    private Long commentNumber;
+    private Long praisesNumber;
+    private Long bookmarksNumber;
+    private Long commentsNumber;
     private String coverImageId;
     private String authorId;
     private String authorNickName;
@@ -65,28 +65,28 @@ public class GetAnthologyDetailResultDTO implements Serializable {
         this.updateDate = updateDate;
     }
 
-    public Long getPraiseNumber() {
-        return praiseNumber;
+    public Long getPraisesNumber() {
+        return praisesNumber;
     }
 
-    public void setPraiseNumber(Long praiseNumber) {
-        this.praiseNumber = praiseNumber;
+    public void setPraisesNumber(Long praisesNumber) {
+        this.praisesNumber = praisesNumber;
     }
 
-    public Long getBookmarkNumber() {
-        return bookmarkNumber;
+    public Long getBookmarksNumber() {
+        return bookmarksNumber;
     }
 
-    public void setBookmarkNumber(Long bookmarkNumber) {
-        this.bookmarkNumber = bookmarkNumber;
+    public void setBookmarksNumber(Long bookmarksNumber) {
+        this.bookmarksNumber = bookmarksNumber;
     }
 
-    public Long getCommentNumber() {
-        return commentNumber;
+    public Long getCommentsNumber() {
+        return commentsNumber;
     }
 
-    public void setCommentNumber(Long commentNumber) {
-        this.commentNumber = commentNumber;
+    public void setCommentsNumber(Long commentsNumber) {
+        this.commentsNumber = commentsNumber;
     }
 
     public String getCoverImageId() {

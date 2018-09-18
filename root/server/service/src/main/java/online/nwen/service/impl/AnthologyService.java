@@ -7,10 +7,8 @@ import online.nwen.repository.IAuthorRepository;
 import online.nwen.service.api.IAnthologyService;
 import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.ServiceException;
-import online.nwen.service.dto.anthology.GetAnthologyDetailDTO;
-import online.nwen.service.dto.anthology.GetAnthologyDetailResultDTO;
-import online.nwen.service.dto.anthology.SaveAnthologyDTO;
-import online.nwen.service.dto.anthology.SaveAnthologyResultDTO;
+import online.nwen.service.configuration.ServiceConfiguration;
+import online.nwen.service.dto.anthology.*;
 import online.nwen.service.security.SecurityContextHolder;
 import online.nwen.service.security.annotation.PrepareSecurityContext;
 import online.nwen.service.security.annotation.Security;
@@ -28,11 +26,14 @@ class AnthologyService implements IAnthologyService {
             .getLogger(AnthologyService.class);
     private IAnthologyRepository anthologyRepository;
     private IAuthorRepository authorRepository;
+    private ServiceConfiguration serviceConfiguration;
 
     AnthologyService(IAnthologyRepository anthologyRepository,
-                     IAuthorRepository authorRepository) {
+                     IAuthorRepository authorRepository,
+                     ServiceConfiguration serviceConfiguration) {
         this.anthologyRepository = anthologyRepository;
         this.authorRepository = authorRepository;
+        this.serviceConfiguration = serviceConfiguration;
     }
 
     @PrepareSecurityContext
@@ -56,6 +57,21 @@ class AnthologyService implements IAnthologyService {
             logger.error("The anthology author not exist.");
             throw new ServiceException(ExceptionCode.SYSTEM_ERROR);
         }
+        if (currentAuthor != null) {
+            if (anthology.getViewers().containsKey(currentAuthor.getId())) {
+                Date lastViewDate = anthology.getViewers().get(currentAuthor.getId());
+                Date currentDate = new Date();
+                long difference = currentDate.getTime() - lastViewDate.getTime();
+                if (difference > this.serviceConfiguration.getViewDateInterval()) {
+                    anthology.setViewersNumber(anthology.getViewersNumber() + 1);
+                    anthology.getViewers().put(currentAuthor.getId(), new Date());
+                }
+            } else {
+                anthology.setViewersNumber(anthology.getViewersNumber() + 1);
+                anthology.getViewers().put(currentAuthor.getId(), new Date());
+            }
+            this.anthologyRepository.save(anthology);
+        }
         Author anthologyAuthor = anthologyAuthorOptional.get();
         GetAnthologyDetailResultDTO resultDTO = new GetAnthologyDetailResultDTO();
         resultDTO.setAnthologyId(anthology.getId());
@@ -68,10 +84,10 @@ class AnthologyService implements IAnthologyService {
         resultDTO.getTags().addAll(anthology.getTags());
         resultDTO.setCoverImageId(anthology.getCoverImageId());
         resultDTO.setAuthorIconImageId(anthologyAuthor.getIconImageId());
-        resultDTO.setPraiseNumber(anthology.getPraiseNumber());
+        resultDTO.setPraisesNumber(anthology.getPraiseNumber());
         resultDTO.setArticleNumber(anthology.getArticleNumber());
-        resultDTO.setCommentNumber(anthology.getCommentNumber());
-        resultDTO.setBookmarkNumber(anthology.getBookmarkNumber());
+        resultDTO.setCommentsNumber(anthology.getCommentsNumber());
+        resultDTO.setBookmarksNumber(anthology.getBookmarksNumber());
         resultDTO.setUpdateDate(anthology.getUpdateDate());
         return resultDTO;
     }
@@ -89,6 +105,61 @@ class AnthologyService implements IAnthologyService {
         } else {
             resultDTO = this.update(saveAnthologyDTO);
         }
+        return resultDTO;
+    }
+
+    @Security
+    @PrepareSecurityContext
+    @Override
+    public PraiseAnthologyResultDTO praiseAnthology(PraiseAnthologyDTO praiseAnthologyDTO) {
+        if (praiseAnthologyDTO.getAnthologyId() == null) {
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_ANTHOLOGY_ID);
+        }
+        Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
+        Optional<Anthology> anthologyOptional = this.anthologyRepository.findById(praiseAnthologyDTO.getAnthologyId());
+        if (!anthologyOptional.isPresent()) {
+            throw new ServiceException(ExceptionCode.ANTHOLOGY_ERROR_NOT_EXIST);
+        }
+        Anthology anthology = anthologyOptional.get();
+        if (!anthology.getPraises().containsKey(currentAuthor.getId())) {
+            anthology.getPraises().put(currentAuthor.getId(), new Date());
+            anthology.setPraisesNumber(anthology.getPraisesNumber() + 1);
+        } else {
+            anthology.getPraises().remove(currentAuthor.getId());
+            anthology.setPraisesNumber(anthology.getPraisesNumber() - 1);
+        }
+        this.anthologyRepository.save(anthology);
+        PraiseAnthologyResultDTO resultDTO = new PraiseAnthologyResultDTO();
+        resultDTO.setAnthologyId(anthology.getId());
+        resultDTO.setPraiseNumber(anthology.getPraisesNumber());
+        return resultDTO;
+    }
+
+    @Security
+    @PrepareSecurityContext
+    @Override
+    public BookmarkAnthologyResultDTO bookmarkAnthology(BookmarkAnthologyDTO bookmarkAnthologyDTO) {
+        if (bookmarkAnthologyDTO.getAnthologyId() == null) {
+            throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_ANTHOLOGY_ID);
+        }
+        Author currentAuthor = SecurityContextHolder.INSTANCE.getContext().getAuthor();
+        Optional<Anthology> anthologyOptional =
+                this.anthologyRepository.findById(bookmarkAnthologyDTO.getAnthologyId());
+        if (!anthologyOptional.isPresent()) {
+            throw new ServiceException(ExceptionCode.ANTHOLOGY_ERROR_NOT_EXIST);
+        }
+        Anthology anthology = anthologyOptional.get();
+        if (!anthology.getBookmarks().containsKey(currentAuthor.getId())) {
+            anthology.getBookmarks().put(currentAuthor.getId(), new Date());
+            anthology.setBookmarksNumber(anthology.getBookmarksNumber() + 1);
+        } else {
+            anthology.getBookmarks().remove(currentAuthor.getId());
+            anthology.setBookmarksNumber(anthology.getBookmarksNumber() - 1);
+        }
+        this.anthologyRepository.save(anthology);
+        BookmarkAnthologyResultDTO resultDTO = new BookmarkAnthologyResultDTO();
+        resultDTO.setAnthologyId(anthology.getId());
+        resultDTO.setBookmarkNumber(anthology.getBookmarksNumber());
         return resultDTO;
     }
 
