@@ -14,10 +14,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class SecurityContextInitializeInterceptor implements HandlerInterceptor {
+    private static final String BEARER = "Bearer";
+
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws Exception {
         String jwtToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (jwtToken.indexOf(BEARER) > 0) {
+            jwtToken = jwtToken.substring(BEARER.length() + 1);
+        }
         SecurityContextHolder.INSTANCE.initContext(jwtToken);
         return true;
     }
