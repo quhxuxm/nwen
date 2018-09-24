@@ -1,8 +1,8 @@
 package online.nwen.entry.controller;
 
-import online.nwen.entry.common.ApiResponseGenerator;
-import online.nwen.entry.request.ApiRequest;
-import online.nwen.entry.response.ApiResponse;
+import online.nwen.entry.model.ApiResponseGenerator;
+import online.nwen.entry.model.ApiRequest;
+import online.nwen.entry.model.ApiResponse;
 import online.nwen.service.api.IAnthologyService;
 import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.ServiceException;
@@ -24,7 +24,7 @@ public class AnthologyApiController {
         getAuthorDetailDTO.setAnthologyId(id);
         GetAnthologyDetailResultDTO getAnthologyDetailResultDTO =
                 this.anthologyService.getAnthologyDetail(getAuthorDetailDTO);
-        return ApiResponseGenerator.INSTANCE.generate(getAnthologyDetailResultDTO);
+        return ApiResponseGenerator.INSTANCE.success(getAnthologyDetailResultDTO);
     }
 
     @PostMapping("/security/anthology/bookmark")
@@ -35,7 +35,7 @@ public class AnthologyApiController {
         }
         BookmarkAnthologyResultDTO bookmarkAnthologyResultDTO =
                 this.anthologyService.bookmarkAnthology(bookmarkAnthologyDTOApiRequest.getPayload());
-        return ApiResponseGenerator.INSTANCE.generate(bookmarkAnthologyResultDTO);
+        return ApiResponseGenerator.INSTANCE.success(bookmarkAnthologyResultDTO);
     }
 
     @PostMapping("/security/anthology/praise")
@@ -46,7 +46,7 @@ public class AnthologyApiController {
         }
         PraiseAnthologyResultDTO praiseAnthologyResultDTO =
                 this.anthologyService.praiseAnthology(praiseAnthologyDTOApiRequest.getPayload());
-        return ApiResponseGenerator.INSTANCE.generate(praiseAnthologyResultDTO);
+        return ApiResponseGenerator.INSTANCE.success(praiseAnthologyResultDTO);
     }
 
     @PostMapping("/security/anthology/save")
@@ -56,6 +56,6 @@ public class AnthologyApiController {
             throw new ServiceException(ExceptionCode.INPUT_ERROR_EMPTY_API_REQUEST_PAYLOAD);
         }
         SaveAnthologyResultDTO saveAnthologyResultDTO = this.anthologyService.save(saveAnthologyDTO.getPayload());
-        return ApiResponseGenerator.INSTANCE.generate(saveAnthologyResultDTO);
+        return ApiResponseGenerator.INSTANCE.success(saveAnthologyResultDTO);
     }
 }

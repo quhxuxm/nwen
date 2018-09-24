@@ -1,7 +1,7 @@
 package online.nwen.entry.controller;
 
-import online.nwen.entry.request.ApiRequest;
-import online.nwen.entry.response.ApiResponse;
+import online.nwen.entry.model.ApiRequest;
+import online.nwen.entry.model.ApiResponse;
 import online.nwen.service.api.IAuthorService;
 import online.nwen.service.dto.author.GetAuthorDetailResultDTO;
 import online.nwen.service.dto.author.UpdateAuthorDTO;

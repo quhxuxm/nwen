@@ -1,4 +1,4 @@
-package online.nwen.entry.exception;
+package online.nwen.entry.model.payload;
 
 import online.nwen.service.api.exception.ExceptionCode;
 

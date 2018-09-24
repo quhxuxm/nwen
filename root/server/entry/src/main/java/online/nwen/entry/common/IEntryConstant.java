@@ -1,7 +1,6 @@
 package online.nwen.entry.common;
 
 public interface IEntryConstant {
-    interface RequestAttrName {
-        String VERIFIED_JWT_TOKEN = "VERIFIED_JWT_TOKEN";
-    }
+   String AUTHORIZATION_HEADER_BEARER_PREFIX = "Bearer";
+   String JWT_TOKEN_REQUEST_ATTR_NAME="JWT_TOKEN";
 }

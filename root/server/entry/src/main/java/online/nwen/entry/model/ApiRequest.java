@@ -1,16 +1,14 @@
-package online.nwen.entry.response;
+package online.nwen.entry.model;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ApiResponse<PayloadType> {
-    private boolean success;
+public class ApiRequest<PayloadType> {
     private Map<String, String> header;
     private PayloadType payload;
 
-    public ApiResponse() {
+    public ApiRequest() {
         this.header = new HashMap<>();
-        this.success = true;
     }
 
     public PayloadType getPayload() {
@@ -23,13 +21,5 @@ public class ApiResponse<PayloadType> {
 
     public Map<String, String> getHeader() {
         return header;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
     }
 }

@@ -1,5 +1,6 @@
 package online.nwen;
 
+import online.nwen.entry.interceptor.ParseJwtInterceptor;
 import online.nwen.entry.interceptor.SecurityContextInitializeInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
@@ -14,10 +15,13 @@ public class Web implements WebMvcConfigurer {
     private static final String[] STATIC_RESOURCE_LOCATIONS = {"classpath:static/"};
     private static final String UI_INDEX_PAGE = "/ui/index.html";
     private SecurityContextInitializeInterceptor securityContextInitializeInterceptor;
+    private ParseJwtInterceptor parseJwtInterceptor;
 
     public Web(
-            SecurityContextInitializeInterceptor securityContextInitializeInterceptor) {
+            SecurityContextInitializeInterceptor securityContextInitializeInterceptor,
+            ParseJwtInterceptor parseJwtInterceptor) {
         this.securityContextInitializeInterceptor = securityContextInitializeInterceptor;
+        this.parseJwtInterceptor = parseJwtInterceptor;
     }
 
     /**
@@ -52,6 +56,8 @@ public class Web implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //For any other path just try to load the security context with the jwt token.
         //No need to load security context for authenticate and register api.
+        registry.addInterceptor(this.parseJwtInterceptor)
+                .excludePathPatterns("/api/authenticate", "/api/register").addPathPatterns("/**");
         registry.addInterceptor(this.securityContextInitializeInterceptor)
                 .excludePathPatterns("/api/authenticate", "/api/register").addPathPatterns("/api/**");
     }

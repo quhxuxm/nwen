@@ -1,7 +1,7 @@
 package online.nwen.entry.controller;
 
-import online.nwen.entry.exception.ExceptionPayload;
-import online.nwen.entry.response.ApiResponse;
+import online.nwen.entry.model.payload.ExceptionPayload;
+import online.nwen.entry.model.ApiResponse;
 import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.SecurityException;
 import online.nwen.service.api.exception.ServiceException;

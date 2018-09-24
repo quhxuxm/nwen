@@ -1,8 +1,8 @@
 package online.nwen.entry.controller;
 
-import online.nwen.entry.common.ApiResponseGenerator;
-import online.nwen.entry.request.ApiRequest;
-import online.nwen.entry.response.ApiResponse;
+import online.nwen.entry.model.ApiResponseGenerator;
+import online.nwen.entry.model.ApiRequest;
+import online.nwen.entry.model.ApiResponse;
 import online.nwen.service.api.IArticleService;
 import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.ServiceException;
@@ -26,7 +26,7 @@ public class ArticleApiController {
         GetArticleDetailDTO getArticleDetailDTO = new GetArticleDetailDTO();
         getArticleDetailDTO.setArticleId(id);
         GetArticleDetailResultDTO getArticleDetailResultDTO = this.articleService.getArticleDetail(getArticleDetailDTO);
-        return ApiResponseGenerator.INSTANCE.generate(getArticleDetailResultDTO);
+        return ApiResponseGenerator.INSTANCE.success(getArticleDetailResultDTO);
     }
 
     @GetMapping("/article/{id}/summary")
@@ -35,7 +35,7 @@ public class ArticleApiController {
         getArticleSummaryDTO.setArticleId(id);
         GetArticleSummaryResultDTO getArticleSummaryResultDTO =
                 this.articleService.getArticleSummary(getArticleSummaryDTO);
-        return ApiResponseGenerator.INSTANCE.generate(getArticleSummaryResultDTO);
+        return ApiResponseGenerator.INSTANCE.success(getArticleSummaryResultDTO);
     }
 
     @PostMapping("/security/article/delete")
@@ -51,7 +51,7 @@ public class ArticleApiController {
         }
         BookmarkArticleResultDTO bookmarkArticleResultDTO =
                 this.articleService.bookmarkArticle(bookmarkArticleApiRequest.getPayload());
-        return ApiResponseGenerator.INSTANCE.generate(bookmarkArticleResultDTO);
+        return ApiResponseGenerator.INSTANCE.success(bookmarkArticleResultDTO);
     }
 
     @PostMapping("/security/article/praise")
@@ -62,7 +62,7 @@ public class ArticleApiController {
         }
         PraiseArticleResultDTO praiseArticleResultDTO =
                 this.articleService.praiseArticle(praiseArticleApiRequest.getPayload());
-        return ApiResponseGenerator.INSTANCE.generate(praiseArticleResultDTO);
+        return ApiResponseGenerator.INSTANCE.success(praiseArticleResultDTO);
     }
 
     @PostMapping("/security/article/save")
@@ -72,6 +72,6 @@ public class ArticleApiController {
         }
         SaveArticleDTO saveArticleDTO = saveArticleApiRequest.getPayload();
         SaveArticleResultDTO resultPayload = this.articleService.saveArticle(saveArticleDTO);
-        return ApiResponseGenerator.INSTANCE.generate(resultPayload);
+        return ApiResponseGenerator.INSTANCE.success(resultPayload);
     }
 }
