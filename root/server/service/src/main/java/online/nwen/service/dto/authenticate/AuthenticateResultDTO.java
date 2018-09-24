@@ -1,15 +1,15 @@
 package online.nwen.service.dto.authenticate;
 
 public class AuthenticateResultDTO {
-    private String jwtToken;
+    private String token;
     private Long expireTime;
 
-    public String getJwtToken() {
-        return jwtToken;
+    public String getToken() {
+        return token;
     }
 
-    public void setJwtToken(String jwtToken) {
-        this.jwtToken = jwtToken;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Long getExpireTime() {
