@@ -1,8 +1,12 @@
 package online.nwen.service.security;
 
+import online.nwen.service.api.IAuthorService;
 import online.nwen.service.api.IJWTService;
 import online.nwen.service.api.exception.ExceptionCode;
 import online.nwen.service.api.exception.SecurityException;
+import online.nwen.service.dto.author.GetAuthorDetailDTO;
+import online.nwen.service.dto.author.GetAuthorDetailResultDTO;
+import online.nwen.service.dto.security.JwtContentDTO;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -20,9 +24,11 @@ import org.springframework.stereotype.Component;
 class SecurityContextAspect {
     private static final Logger logger = LoggerFactory.getLogger(SecurityContextAspect.class);
     private IJWTService jwtService;
+    private IAuthorService authorService;
 
-    public SecurityContextAspect(IJWTService jwtService) {
+    public SecurityContextAspect(IJWTService jwtService, IAuthorService authorService) {
         this.jwtService = jwtService;
+        this.authorService = authorService;
     }
 
     @Pointcut("@annotation(online.nwen.service.security.annotation.Security)")
@@ -52,7 +58,7 @@ class SecurityContextAspect {
             this.jwtService.verify(securityContextImpl.getJwtToken());
         } catch (SecurityException e) {
             logger.error("Fail to verify the security context, clear the security context.");
-            securityContextImpl.setAuthor(null);
+            securityContextImpl.setAuthorDetail(null);
             SecurityContextHolder.INSTANCE.clearContext();
             throw e;
         }
@@ -71,14 +77,18 @@ class SecurityContextAspect {
             return;
         }
         SecurityContext securityContextImpl = (SecurityContext) SecurityContextHolder.INSTANCE.getContext();
-        if (securityContextImpl.getAuthor() == null) {
+        if (securityContextImpl.getAuthorDetail() == null) {
             if (securityContextImpl.getJwtToken() == null) {
                 logger.debug(
                         "Fail to refresh security context because of the jwt token not exist when execute method: {}",
                         methodSignature);
                 return;
             }
-            securityContextImpl.setAuthor(this.jwtService.getAuthorFromJwtToken(securityContextImpl.getJwtToken()));
+            JwtContentDTO jwtContentDTO = this.jwtService.parse(securityContextImpl.getJwtToken());
+            GetAuthorDetailDTO getAuthorDetailDTO = new GetAuthorDetailDTO();
+            getAuthorDetailDTO.setAuthorId(jwtContentDTO.getAuthorId());
+            GetAuthorDetailResultDTO getAuthorDetailResultDTO = this.authorService.getAuthorDetail(getAuthorDetailDTO);
+            securityContextImpl.setAuthorDetail(getAuthorDetailResultDTO);
         }
         logger.debug("Success to refresh security context for method: {}", methodSignature);
     }

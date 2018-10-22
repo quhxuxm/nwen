@@ -1,13 +1,13 @@
 package online.nwen.service.security;
 
-import online.nwen.domain.Author;
 import online.nwen.service.api.ISecurityContext;
+import online.nwen.service.dto.author.GetAuthorDetailResultDTO;
 
 /**
  * The security context which used to hold the current author.
  */
 class SecurityContext implements ISecurityContext {
-    private Author author;
+    private GetAuthorDetailResultDTO authorDetail;
     private String jwtToken;
 
     SecurityContext(String jwtToken) {
@@ -18,11 +18,12 @@ class SecurityContext implements ISecurityContext {
         return this.jwtToken;
     }
 
-    void setAuthor(Author author) {
-        this.author = author;
+    @Override
+    public GetAuthorDetailResultDTO getAuthorDetail() {
+        return authorDetail;
     }
 
-    public Author getAuthor() {
-        return author;
+    public void setAuthorDetail(GetAuthorDetailResultDTO authorDetail) {
+        this.authorDetail = authorDetail;
     }
 }

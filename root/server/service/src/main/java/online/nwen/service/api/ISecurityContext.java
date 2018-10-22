@@ -1,7 +1,7 @@
 package online.nwen.service.api;
 
-import online.nwen.domain.Author;
+import online.nwen.service.dto.author.GetAuthorDetailResultDTO;
 
 public interface ISecurityContext {
-    Author getAuthor();
+    GetAuthorDetailResultDTO getAuthorDetail();
 }
